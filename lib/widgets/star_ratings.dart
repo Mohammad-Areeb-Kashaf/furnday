@@ -20,7 +20,7 @@ class StarRating extends StatelessWidget {
     if (index >= rating) {
       icon = new Icon(
         Icons.star_border,
-        color: Theme.of(context).buttonColor,
+        color: Theme.of(context).buttonTheme.colorScheme?.background,
       );
     } else if (index > rating - 1 && index < rating) {
       icon = new Icon(
@@ -42,8 +42,11 @@ class StarRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
-        children:
-            new List.generate(starCount, (index) => buildStar(context, index)));
+    return Row(
+      children: List.generate(
+        starCount,
+        (index) => buildStar(context, index),
+      ),
+    );
   }
 }

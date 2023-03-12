@@ -6,13 +6,18 @@ import 'package:furnday/constants.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 
 class AutoSwipeAds extends StatelessWidget {
-  const AutoSwipeAds({super.key, required this.listImage});
-  final List<String> listImage;
+  AutoSwipeAds({super.key});
+  final List<String> _listImage = [
+    "",
+    "https://www.furnday.com/wp-content/uploads/2022/11/Carpenter.jpg",
+    "https://cdn.truelancer.com/upload-original/1677430198-Furnday-new-logo-(1).png",
+    "https://cdn.truelancer.com/upload-original/1677430198-Furnday-new-logo-(4).png",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      items: listImage
+      items: _listImage
           .map(
             (e) => ClipRRect(
               borderRadius: borderRadiusCard,
