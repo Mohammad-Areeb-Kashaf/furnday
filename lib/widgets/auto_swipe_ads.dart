@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/screens/hire_a_carpenter_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 
 class AutoSwipeAds extends StatelessWidget {
@@ -33,11 +35,22 @@ class AutoSwipeAds extends StatelessWidget {
                     ),
                     child: DecoratedCard(
                       child: e.toString() == ""
-                          ? ClipRRect(
-                              borderRadius: borderRadiusCard,
-                              child: Image.asset(
-                                "assets/images/hire_carpenter.png",
-                                fit: BoxFit.cover,
+                          ? InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) =>
+                                        const HireACarpenterScreen(),
+                                  ),
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: borderRadiusCard,
+                                child: Image.asset(
+                                  "assets/images/hire_carpenter.png",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             )
                           : ClipRRect(

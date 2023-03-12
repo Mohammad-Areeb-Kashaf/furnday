@@ -18,12 +18,14 @@ class ProductCard extends StatelessWidget {
           CupertinoPageRoute(
               builder: (context) => const ProductScreen(
                     productName: 'Example Product',
+                    productCategories: ['Furniture', 'Bed'],
                     productDescription: 'This is an example product.',
-                    productPrice: '9.99',
+                    productMRP: '1000',
+                    productDiscountedPrice: '900',
                     productImages: [
                       "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-                      "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-                      "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
+                      "https://shop.furnday.com/wp-content/uploads/2022/12/Untitled-design-1-1-300x300.jpg",
+                      "https://shop.furnday.com/wp-content/uploads/2022/12/Dining-Table-Classy-300x298.jpg",
                     ],
                     reviews: [
                       {
@@ -71,16 +73,13 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Product Name',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
+                    child: Text('Product Name',
+                        style: productNameTextStyle.copyWith(
+                          fontSize: 20,
+                        )),
                   ),
                 ),
                 Expanded(

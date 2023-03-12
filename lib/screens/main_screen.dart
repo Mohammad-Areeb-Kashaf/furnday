@@ -8,6 +8,7 @@ import 'package:furnday/screens/hardware_screen.dart';
 import 'package:furnday/screens/hire_a_carpenter_screen.dart';
 import 'package:furnday/screens/home_screen.dart';
 import 'package:furnday/screens/refurbished_screen.dart';
+import 'package:furnday/size_config.dart';
 import 'package:furnday/widgets/my_appbar.dart';
 
 enum ScreenDeterminer {
@@ -37,6 +38,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       drawer: Drawer(
         backgroundColor: whiteBackground,

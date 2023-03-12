@@ -177,7 +177,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                     'Submit',
                     style: TextStyle(
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.onSecondary),
+                        color: Theme.of(context).colorScheme.secondary),
                   ),
                 )
               ],

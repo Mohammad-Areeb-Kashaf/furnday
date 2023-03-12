@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "14342942591",
+    "firebase_url": "https://furnday-cb69e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "furnday-cb69e",
+    "storage_bucket": "furnday-cb69e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14342942591:android:fba0730494dc00a679744a",
+        "android_client_info": {
+          "package_name": "com.furnday.furnday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14342942591-5hem6vjkidkqffdg56kgt050g6181ikv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyBXFzc_lHi9KZLcO44e0KqqY9X560unI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14342942591-5hem6vjkidkqffdg56kgt050g6181ikv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

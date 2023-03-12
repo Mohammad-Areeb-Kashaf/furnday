@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/home_screen.dart';
+import 'package:furnday/screens/main_screen.dart';
+import 'package:furnday/screens/signin_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const Home(),
+      home: const SignInScreen(),
     );
   }
 }

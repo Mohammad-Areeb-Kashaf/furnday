@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/widgets/auto_swipe_ads.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/heading_section_text.dart';
-import 'package:furnday/widgets/product_card.dart';
-import 'package:furnday/widgets/product_section.dart';
+import 'package:furnday/widgets/product/product_section.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

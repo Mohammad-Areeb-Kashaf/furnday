@@ -13,7 +13,7 @@ class DecoratedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: borderRadiusCard,
-      elevation: 4,
+      elevation: 8,
       child: Container(
         decoration: BoxDecoration(
           color: whiteBackground,

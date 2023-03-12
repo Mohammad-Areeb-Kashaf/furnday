@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:furnday/screens/product_screen.dart';
-import 'package:furnday/widgets/product_card.dart';
+import 'package:furnday/widgets/product/product_card.dart';
 
 class ProductGrid extends StatefulWidget {
   const ProductGrid({super.key});
