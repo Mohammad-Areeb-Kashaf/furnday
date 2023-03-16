@@ -18,13 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: scrollPhysics,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+    return Center(
+      child: SingleChildScrollView(
+        physics: scrollPhysics,
         child: Column(
           children: [
             AutoSwipeAds(),
+            const ProductSection(headingText: "Featured Products"),
             const ProductSection(
               headingText: "Popular",
             ),

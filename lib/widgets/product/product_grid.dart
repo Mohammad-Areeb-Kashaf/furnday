@@ -45,8 +45,8 @@ class _ProductGridState extends State<ProductGrid> {
   }
 
   gridCrossAxisCountDeterminer(BuildContext context) {
-    if (MediaQuery.of(context).size.width >= 326.0 &&
-        MediaQuery.of(context).size.height >= 702.0) {
+    if (MediaQuery.of(context).size.width > 326.0 &&
+        MediaQuery.of(context).size.height > 702.0) {
       return 2;
     } else {
       return 1;

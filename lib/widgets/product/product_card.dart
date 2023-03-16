@@ -6,8 +6,15 @@ import 'package:furnday/screens/product_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/star_ratings.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+class ProductCard extends StatefulWidget {
+  ProductCard({super.key});
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,7 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          CupertinoPageRoute(
+          MaterialPageRoute(
               builder: (context) => const ProductScreen(
                     productName: 'Example Product',
                     productCategories: ['Furniture', 'Bed'],
@@ -47,77 +54,103 @@ class ProductCard extends StatelessWidget {
                   )),
         );
       },
-      child: GridTile(
-        child: DecoratedCard(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: borderRadiusCard,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl:
-                        "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-                  ),
-                ),
-                const Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Product Category',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: greyTextColor),
+      child: DecoratedCard(
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: borderRadiusCard,
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl:
+                          "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('Product Name',
-                        style: productNameTextStyle.copyWith(
-                          fontSize: 20,
-                        )),
-                  ),
-                ),
-                Expanded(
-                  child: StarRating(
-                    rating: 4.5,
-                    color: yellowColor,
-                  ),
-                ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: '₹1000',
-                            style: TextStyle(
-                              color: greyMRPColor,
-                              decoration: TextDecoration.lineThrough,
-                              fontSize: 18,
-                            ),
-                          ),
-                          const TextSpan(text: ' '),
-                          TextSpan(
-                            text: '₹900',
-                            style: TextStyle(
-                              color: greyDiscountedPriceColor,
-                              fontSize: 18,
-                            ),
-                          )
-                        ],
+                  const Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Product Category',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: greyTextColor,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Product Name',
+                          style: productNameTextStyle.copyWith(
+                            fontSize: 16,
+                          )),
+                    ),
+                  ),
+                  Expanded(
+                    child: StarRating(
+                      rating: 4.5,
+                      color: yellowColor,
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: '₹1000',
+                              style: TextStyle(
+                                color: greyMRPColor,
+                                decoration: TextDecoration.lineThrough,
+                                fontSize: 18,
+                              ),
+                            ),
+                            const TextSpan(text: ' '),
+                            TextSpan(
+                              text: '₹900',
+                              style: TextStyle(
+                                color: greyDiscountedPriceColor,
+                                fontSize: 18,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+            Positioned(
+              top: 15,
+              left: 135,
+              child: CircleAvatar(
+                backgroundColor: Colors.white24,
+                foregroundColor: Colors.black,
+                child: IconButton(
+                  onPressed: () {
+                    if (isFavorite) {
+                      setState(() {
+                        isFavorite = false;
+                      });
+                    } else {
+                      setState(() {
+                        isFavorite = true;
+                      });
+                    }
+                  },
+                  icon:
+                      Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

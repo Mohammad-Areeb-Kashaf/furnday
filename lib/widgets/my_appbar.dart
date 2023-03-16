@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:furnday/screens/user_profile_screen.dart';
 
-AppBar myAppBar() {
+AppBar myAppBar(BuildContext context) {
   return AppBar(
     centerTitle: false,
     actions: [
@@ -12,9 +14,21 @@ AppBar myAppBar() {
         onPressed: () {},
         icon: const Icon(Icons.shopping_cart),
       ),
-      IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.person),
+      CircleAvatar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UserProfileScreen(),
+              ),
+            );
+          },
+          highlightColor: Theme.of(context).highlightColor,
+          child: const Icon(Icons.person),
+        ),
       )
     ],
     title: Image.asset(

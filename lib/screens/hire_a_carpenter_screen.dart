@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/my_appbar.dart';
 
 class HireACarpenterScreen extends StatefulWidget {
@@ -144,43 +145,45 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
   @override
   Widget build(BuildContext context) {
     print(_name);
-    return Scaffold(
-      appBar: myAppBar(),
-      body: SingleChildScrollView(
-        physics: scrollPhysics,
-        child: Container(
-          margin: const EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildName(),
-                _buildPhoneNumber(),
-                _buildAddress(),
-                _buildPostalCode(),
-                _buildCountry(),
-                _buildHireFor(),
-                const SizedBox(
-                  height: 30,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!_formKey.currentState!.validate()) {
-                      return;
-                    } else {
-                      _formKey.currentState!.save();
-                    }
-                  },
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary),
+    return InternetChecker(
+      child: Scaffold(
+        appBar: myAppBar(context),
+        body: SingleChildScrollView(
+          physics: scrollPhysics,
+          child: Container(
+            margin: const EdgeInsets.all(24),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildName(),
+                  _buildPhoneNumber(),
+                  _buildAddress(),
+                  _buildPostalCode(),
+                  _buildCountry(),
+                  _buildHireFor(),
+                  const SizedBox(
+                    height: 30,
                   ),
-                )
-              ],
+                  ElevatedButton(
+                    onPressed: () {
+                      if (!_formKey.currentState!.validate()) {
+                        return;
+                      } else {
+                        _formKey.currentState!.save();
+                      }
+                    },
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.secondary),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -1,68 +1,129 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/firebase_options.dart';
+import 'package:furnday/screens/auth/signin_screen.dart';
 import 'package:furnday/screens/main_screen.dart';
-import 'package:furnday/screens/signin_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:furnday/services/network_services.dart';
+import 'package:furnday/size_config.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Furnday",
-      theme: ThemeData(
-        listTileTheme: const ListTileThemeData(
-          selectedTileColor: highlightColor,
-          selectedColor: Colors.black,
+    return MultiProvider(
+      providers: [
+        StreamProvider<NetworkStatus>(
+          create: (context) =>
+              NetworkStatusService().networkStatusController.stream,
+          initialData: NetworkStatus.online,
         ),
-        highlightColor: highlightColor,
-        colorScheme: const ColorScheme(
-            brightness: Brightness.light,
-            primary: yellowColor,
-            onPrimary: yellowColor,
-            secondary: whiteBackground,
-            onSecondary: whiteBackground,
-            error: Colors.red,
-            onError: Colors.red,
-            background: whiteBackground,
-            onBackground: whiteBackground,
-            surface: whiteBackground,
-            onSurface: whiteBackground),
-        buttonTheme: ButtonThemeData(
-          colorScheme: Theme.of(context).colorScheme,
-          highlightColor: Theme.of(context).highlightColor,
-        ),
-        primarySwatch: const MaterialColor(
-          0xfff6c33c,
-          <int, Color>{
-            50: Color(0xffFEF8E8),
-            100: Color(0xffFCEDC5),
-            200: Color(0xffFBE19E),
-            300: Color(0xffF9D577),
-            400: Color(0xffF7CC59),
-            500: Color(0xffF6C33C),
-            600: Color(0xffF5BD36),
-            700: Color(0xffF3B52E),
-            800: Color(0xffF2AE27),
-            900: Color(0xffEFA11A),
-          },
-        ),
-        scaffoldBackgroundColor: whiteBackground,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: yellowColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: radius,
+      ],
+      child: MaterialApp(
+        title: "FurnDay",
+        theme: ThemeData(
+          listTileTheme: const ListTileThemeData(
+            selectedTileColor: highlightColor,
+            selectedColor: Colors.black,
+          ),
+          highlightColor: highlightColor,
+          colorScheme: const ColorScheme(
+              brightness: Brightness.light,
+              primary: yellowColor,
+              onPrimary: yellowColor,
+              secondary: whiteBackground,
+              onSecondary: whiteBackground,
+              error: Colors.red,
+              onError: Colors.red,
+              background: whiteBackground,
+              onBackground: whiteBackground,
+              surface: whiteBackground,
+              onSurface: whiteBackground),
+          buttonTheme: ButtonThemeData(
+            colorScheme: Theme.of(context).colorScheme,
+            highlightColor: Theme.of(context).highlightColor,
+          ),
+          primarySwatch: const MaterialColor(
+            0xfff6c33c,
+            <int, Color>{
+              50: Color(0xffFEF8E8),
+              100: Color(0xffFCEDC5),
+              200: Color(0xffFBE19E),
+              300: Color(0xffF9D577),
+              400: Color(0xffF7CC59),
+              500: Color(0xffF6C33C),
+              600: Color(0xffF5BD36),
+              700: Color(0xffF3B52E),
+              800: Color(0xffF2AE27),
+              900: Color(0xffEFA11A),
+            },
+          ),
+          scaffoldBackgroundColor: whiteBackground,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: yellowColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: radius,
+              ),
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.black,
             ),
           ),
-          iconTheme: IconThemeData(
-            color: Colors.black,
-          ),
         ),
+        home: checkIfSignedIn(),
       ),
-      home: const SignInScreen(),
     );
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
+
+  checkIfSignedIn() {
+    if (_auth.currentUser != null) {
+      if (_auth.currentUser!.providerData[0].providerId
+          .toString()
+          .contains("google")) {
+        return MainScreen();
+      } else if (_auth.currentUser!.providerData[0].providerId
+          .toString()
+          .contains('password')) {
+        return MainScreen();
+      }
+    } else {
+      return SignInScreen();
+    }
   }
 }
