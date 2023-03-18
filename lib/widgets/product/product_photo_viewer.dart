@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper_3/flutter_swiper_3.dart';
 import 'package:furnday/constants.dart';
@@ -21,7 +22,7 @@ class ProductPhotoViewer extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    CupertinoPageRoute(
                       builder: (_) => ProductPhotoView(
                         photoUrl: photos[index],
                       ),

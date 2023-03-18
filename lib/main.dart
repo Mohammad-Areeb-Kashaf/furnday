@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/firebase_options.dart';
 import 'package:furnday/screens/auth/signin_screen.dart';
 import 'package:furnday/screens/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:furnday/services/network_services.dart';
-import 'package:furnday/size_config.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -95,7 +95,28 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        home: checkIfSignedIn(),
+        home: Scaffold(
+          body: StreamBuilder<User?>(
+            stream: _auth.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: SpinKitFoldingCube(
+                    color: yellowColor,
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Something went wrong, Try again later'),
+                );
+              } else if (snapshot.hasData) {
+                return MainScreen();
+              } else {
+                return SignInScreen();
+              }
+            },
+          ),
+        ),
       ),
     );
   }
@@ -109,21 +130,5 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitDown,
     ]);
     super.dispose();
-  }
-
-  checkIfSignedIn() {
-    if (_auth.currentUser != null) {
-      if (_auth.currentUser!.providerData[0].providerId
-          .toString()
-          .contains("google")) {
-        return MainScreen();
-      } else if (_auth.currentUser!.providerData[0].providerId
-          .toString()
-          .contains('password')) {
-        return MainScreen();
-      }
-    } else {
-      return SignInScreen();
-    }
   }
 }

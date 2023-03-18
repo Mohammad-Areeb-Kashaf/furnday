@@ -1,65 +1,33 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/main_screen.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:furnday/screens/auth/reset_password_screen.dart';
+import 'package:furnday/widgets/auth/auth_text_field.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm({
     super.key,
     required this.isSignIn,
     required this.onPressed,
+    required this.signInWithGoogle,
     required this.formkey,
   });
   final bool isSignIn;
   final Function onPressed;
+  final Function signInWithGoogle;
   static String? authError = 'null';
   final GlobalKey<FormState> formkey;
-
-  static TextEditingController emailController = TextEditingController();
-  static TextEditingController passwordController = TextEditingController();
 
   @override
   State<AuthForm> createState() => _AuthFormState();
 }
 
 class _AuthFormState extends State<AuthForm> {
-  final TextEditingController _confirmPasswordController =
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
       TextEditingController();
-
-  _buildTextFormField({
-    required TextEditingController controller,
-    required String labelText,
-    required Function validate,
-    required TextInputType keyboardType,
-    bool obscureText = false,
-  }) {
-    return TextFormField(
-      style: const TextStyle(fontSize: 24),
-      cursorHeight: 24,
-      controller: controller,
-      keyboardType: keyboardType,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderRadius: borderRadiusCard,
-          borderSide: const BorderSide(color: yellowColor),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: borderRadiusCard,
-          borderSide: const BorderSide(color: yellowColor),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: borderRadiusCard,
-          borderSide: const BorderSide(color: Colors.grey),
-        ),
-        labelText: labelText,
-        labelStyle: const TextStyle(fontSize: 24),
-      ),
-      validator: (value) => validate(value),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,16 +38,27 @@ class _AuthFormState extends State<AuthForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            widget.isSignIn
+                ? const SizedBox.shrink()
+                : const SizedBox(height: 20),
+            widget.isSignIn
+                ? const SizedBox.shrink()
+                : AuthTextField(
+                    controller: nameController,
+                    labelText: 'Name',
+                    validate: validateName,
+                    keyboardType: TextInputType.text,
+                  ),
             const SizedBox(height: 20),
-            _buildTextFormField(
-              controller: AuthForm.emailController,
+            AuthTextField(
+              controller: emailController,
               labelText: 'Email',
               keyboardType: TextInputType.emailAddress,
               validate: validateEmail,
             ),
             const SizedBox(height: 20),
-            _buildTextFormField(
-                controller: AuthForm.passwordController,
+            AuthTextField(
+                controller: passwordController,
                 labelText: widget.isSignIn ? 'Password' : 'Create Password',
                 validate: validatePassword,
                 keyboardType: TextInputType.text,
@@ -89,37 +68,48 @@ class _AuthFormState extends State<AuthForm> {
                 : const SizedBox(height: 20),
             widget.isSignIn
                 ? const SizedBox.shrink()
-                : _buildTextFormField(
-                    controller: _confirmPasswordController,
+                : AuthTextField(
+                    controller: confirmPasswordController,
                     labelText: 'Confirm password',
                     validate: validateConfirmPassword,
                     keyboardType: TextInputType.text,
                     obscureText: true,
                   ),
-            const SizedBox(height: 10),
-            InkWell(
-              onTap: () {},
-              child: const Text(
-                'Forgot password?',
-                style: TextStyle(
-                  color: Colors.black38,
-                  fontSize: 18,
-                ),
-              ),
-            ),
+            widget.isSignIn
+                ? const SizedBox(height: 10)
+                : const SizedBox.shrink(),
+            widget.isSignIn
+                ? GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => ResetPasswordScreen(),
+                      ),
+                    ),
+                    child: const Text(
+                      'Forgot password?',
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 18,
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
             const SizedBox(height: 14),
             MaterialButton(
               height: 48,
               shape: RoundedRectangleBorder(borderRadius: borderRadiusCard),
-              color: yellowColor,
+              color: Theme.of(context).primaryColor,
               onPressed: () {
                 setState(() {
                   AuthForm.authError = 'null';
                 });
                 if (widget.formkey.currentState!.validate()) {
-                  final email = AuthForm.emailController.text.trim();
-                  final password = AuthForm.passwordController.text.trim();
+                  final name = nameController.text.trim();
+                  final email = emailController.text.trim();
+                  final password = passwordController.text.trim();
                   widget.onPressed(
+                    name: name,
                     email: email,
                     password: password,
                   );
@@ -157,7 +147,7 @@ class _AuthFormState extends State<AuthForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: signInWithGoogle,
+                  onTap: () => widget.signInWithGoogle(),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: Center(
@@ -236,7 +226,7 @@ class _AuthFormState extends State<AuthForm> {
       if (AuthForm.authError ==
           '[firebase_auth/wrong-password] The password is invalid or the user does not have a password.') {
         setState(() {
-          AuthForm.passwordController.text = '';
+          passwordController.text = '';
         });
         return 'Password is incorrect';
       } else if (AuthForm.authError ==
@@ -259,8 +249,8 @@ class _AuthFormState extends State<AuthForm> {
       return "Confirm password should not be empty";
     } else if (value.length < 6) {
       return 'Password length should be at least 6';
-    } else if (value.toString() !=
-        AuthForm.passwordController.text.toString()) {
+    } else if (value.toString().trim() !=
+        passwordController.text.toString().trim()) {
       return "Password didn't match";
     }
   }
@@ -278,29 +268,13 @@ class _AuthFormState extends State<AuthForm> {
       );
   }
 
-  signInWithGoogle() async {
-    final auth = FirebaseAuth.instance;
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: ["email"]).signIn();
-
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    try {
-      await auth.signInWithCredential(credential);
-      final userUid = auth.currentUser!.uid;
-
-      Future.delayed(Duration.zero, () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainScreen()));
-      });
-    } catch (e) {
-      // NetworkStatusService().checkInternet();
-      print(e);
+  validateName(String value) {
+    if (value.isEmpty) {
+      return "Name should not be empty";
+    } else if (value.length < 6) {
+      return 'Name length should be at least 6';
+    } else {
+      return null;
     }
   }
 }

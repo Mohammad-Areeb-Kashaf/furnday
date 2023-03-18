@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:furnday/screens/user_profile_screen.dart';
 
 AppBar myAppBar(BuildContext context) {
@@ -21,7 +21,7 @@ AppBar myAppBar(BuildContext context) {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
+              CupertinoPageRoute(
                 builder: (context) => UserProfileScreen(),
               ),
             );
@@ -34,6 +34,7 @@ AppBar myAppBar(BuildContext context) {
     title: Image.asset(
       "assets/images/Furnday-logo.png",
       fit: BoxFit.cover,
+      filterQuality: FilterQuality.high,
     ),
   );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:furnday/constants.dart';
 import 'package:furnday/widgets/product/product_card.dart';
 
 class ProductGrid extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ProductGridState extends State<ProductGrid> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: GridView.count(
-        physics: const BouncingScrollPhysics(),
+        physics: scrollPhysics,
         crossAxisCount: gridCrossAxisCount,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,

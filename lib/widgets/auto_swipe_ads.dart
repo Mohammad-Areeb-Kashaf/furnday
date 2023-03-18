@@ -39,7 +39,7 @@ class AutoSwipeAds extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
+                                  CupertinoPageRoute(
                                     builder: (context) =>
                                         const HireACarpenterScreen(),
                                   ),

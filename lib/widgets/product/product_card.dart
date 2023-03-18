@@ -22,7 +22,7 @@ class _ProductCardState extends State<ProductCard> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          CupertinoPageRoute(
               builder: (context) => const ProductScreen(
                     productName: 'Example Product',
                     productCategories: ['Furniture', 'Bed'],

@@ -5,9 +5,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/screens/auth/signup_screen.dart';
 import 'package:furnday/screens/main_screen.dart';
+import 'package:furnday/services/network_services.dart';
 import 'package:furnday/widgets/auth/auth_form.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInScreen extends StatefulWidget {
   SignInScreen({super.key});
@@ -67,57 +69,28 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: AuthForm(
                             formkey: formKey,
                             isSignIn: true,
-                            onPressed: ({
-                              required String email,
-                              required String password,
-                            }) async {
-                              showDialog(
-                                context: context,
-                                builder: (context) => const Center(
-                                  child: SpinKitFoldingCube(
-                                    color: yellowColor,
-                                  ),
-                                ),
-                              );
-                              try {
-                                await _auth
-                                    .signInWithEmailAndPassword(
-                                        email: email, password: password)
-                                    .then((value) {
-                                  Future.delayed(const Duration(seconds: 2),
-                                      () {
-                                    formKey.currentState!.reset();
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MainScreen(),
-                                      ),
-                                    );
-                                  });
-                                });
-                              } on FirebaseAuthException catch (e) {
-                                print(e);
-
-                                Navigator.pop(context);
-                                setState(() {
-                                  AuthForm.authError = e.toString();
-                                  formKey.currentState!.validate();
-                                });
-                              }
-                            },
+                            onPressed: (
+                                    {required String name,
+                                    required String email,
+                                    required String password}) =>
+                                signIn(
+                                    name: name,
+                                    email: email,
+                                    password: password),
+                            signInWithGoogle: signInWithGoogle,
                           ),
                         ),
                       ),
                       const SizedBox(height: 30),
                       TextButton(
                         style: ButtonStyle(
-                            overlayColor: MaterialStateProperty.all<Color>(
-                                Colors.transparent)),
+                          overlayColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent),
+                        ),
                         onPressed: () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
                               builder: (context) => const SignUpScreen(),
                             ),
                           );
@@ -148,5 +121,69 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  signIn({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: SpinKitFoldingCube(
+          color: yellowColor,
+        ),
+      ),
+    );
+    try {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then(
+        (value) {
+          formKey.currentState!.validate();
+          formKey.currentState!.reset();
+          Navigator.pop(context);
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+
+      Navigator.pop(context);
+      setState(() {
+        AuthForm.authError = e.toString();
+        formKey.currentState!.validate();
+      });
+    }
+  }
+
+  signInWithGoogle() async {
+    final auth = FirebaseAuth.instance;
+    final GoogleSignInAccount? googleUser =
+        await GoogleSignIn(scopes: ["email"]).signIn();
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(
+          child: SpinKitFoldingCube(
+            color: yellowColor,
+          ),
+        ),
+      );
+      await auth.signInWithCredential(credential);
+      Navigator.pop(context);
+    } catch (e) {
+      Navigator.pop(context);
+      NetworkStatusService().checkInternet();
+      print(e);
+    }
   }
 }

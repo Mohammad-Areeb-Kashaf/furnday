@@ -5,9 +5,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/screens/auth/signin_screen.dart';
 import 'package:furnday/screens/main_screen.dart';
+import 'package:furnday/services/network_services.dart';
 import 'package:furnday/widgets/auth/auth_form.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -68,44 +70,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             formkey: formKey,
                             isSignIn: false,
                             onPressed: ({
+                              required String name,
                               required String email,
                               required String password,
-                            }) async {
-                              showDialog(
-                                context: context,
-                                builder: (context) => const Center(
-                                  child: SpinKitFoldingCube(
-                                    color: yellowColor,
-                                  ),
-                                ),
-                              );
-                              try {
-                                await _auth
-                                    .createUserWithEmailAndPassword(
-                                        email: email, password: password)
-                                    .then((value) {
-                                  formKey.currentState!.validate();
-                                  Future.delayed(const Duration(seconds: 2),
-                                      () {
-                                    formKey.currentState!.reset();
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MainScreen(),
-                                      ),
-                                    );
-                                  });
-                                });
-                              } on FirebaseAuthException catch (e) {
-                                print(e);
-                                Navigator.pop(context);
-                                setState(() {
-                                  AuthForm.authError = e.toString();
-                                  formKey.currentState!.validate();
-                                });
-                              }
-                            },
+                            }) =>
+                                signUp(
+                                    name: name,
+                                    email: email,
+                                    password: password),
+                            signInWithGoogle: signInWithGoogle,
                           ),
                         ),
                       ),
@@ -115,12 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             overlayColor: MaterialStateProperty.all<Color>(
                                 Colors.transparent)),
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignInScreen(),
-                            ),
-                          );
+                          Navigator.pop(context);
                         },
                         child: RichText(
                           textAlign: TextAlign.center,
@@ -144,9 +112,87 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
+            Positioned(
+              top: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: AppBar(
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.black),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: SpinKitFoldingCube(
+          color: yellowColor,
+        ),
+      ),
+    );
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) async {
+        await _auth.currentUser!.updateDisplayName(name);
+        formKey.currentState!.validate();
+        formKey.currentState!.reset();
+        await _auth.currentUser!.reload();
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Navigator.pop(context);
+      setState(() {
+        AuthForm.authError = e.toString();
+        formKey.currentState!.validate();
+      });
+    }
+  }
+
+  signInWithGoogle() async {
+    final auth = FirebaseAuth.instance;
+    final GoogleSignInAccount? googleUser =
+        await GoogleSignIn(scopes: ["email"]).signIn();
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    try {
+      showDialog(
+        context: context,
+        builder: (context) => const Center(
+          child: SpinKitFoldingCube(
+            color: yellowColor,
+          ),
+        ),
+      );
+      await auth.signInWithCredential(credential);
+      Navigator.pop(context);
+      Navigator.pop(context);
+    } catch (e) {
+      Navigator.pop(context);
+      NetworkStatusService().checkInternet();
+      print(e);
+    }
   }
 }

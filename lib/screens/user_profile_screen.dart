@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:furnday/screens/auth/signin_screen.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserProfileScreen extends StatelessWidget {
   UserProfileScreen({super.key});
@@ -14,17 +14,22 @@ class UserProfileScreen extends StatelessWidget {
         body: ListView(
           children: [
             ListTile(
+              title: Text(_auth.currentUser!.displayName.toString()),
+            ),
+            ListTile(
               title: const Text('Sign Out'),
-              onTap: () {
+              onTap: () async {
                 try {
-                  _auth.signOut();
-                  Navigator.pop(context);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignInScreen(),
-                    ),
-                  );
+                  if (_auth.currentUser!.providerData[0]
+                      .toString()
+                      .contains('google')) {
+                    await GoogleSignIn().signOut();
+                    await _auth.signOut();
+                    Navigator.pop(context);
+                  } else {
+                    await _auth.signOut();
+                    Navigator.pop(context);
+                  }
                 } catch (e) {
                   print(e);
                 }

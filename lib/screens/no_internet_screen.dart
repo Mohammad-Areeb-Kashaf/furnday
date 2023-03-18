@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/services/network_services.dart';
+import 'package:furnday/widgets/my_appbar.dart';
 
 class NoInternetScreen extends StatelessWidget {
   const NoInternetScreen({super.key});
@@ -7,6 +8,8 @@ class NoInternetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: myAppBar(context),
+      drawer: const Drawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

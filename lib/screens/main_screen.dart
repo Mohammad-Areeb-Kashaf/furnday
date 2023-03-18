@@ -63,14 +63,18 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future checkEmailVerified() async {
-    await _auth.currentUser!.reload();
+    try {
+      await _auth.currentUser!.reload();
 
-    setState(() {
-      isEmailVerified = _auth.currentUser!.emailVerified;
-    });
+      setState(() {
+        isEmailVerified = _auth.currentUser!.emailVerified;
+      });
 
-    if (isEmailVerified) {
-      timer.cancel();
+      if (isEmailVerified) {
+        timer.cancel();
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -220,7 +224,7 @@ class _MainScreenState extends State<MainScreen> {
                         Navigator.pop(context);
                         Navigator.push(
                             context,
-                            MaterialPageRoute(
+                            CupertinoPageRoute(
                                 builder: (context) =>
                                     const HireACarpenterScreen()));
                       },
@@ -285,7 +289,7 @@ class _MainScreenState extends State<MainScreen> {
                         _auth.signOut();
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
+                          CupertinoPageRoute(
                             builder: (context) => SignInScreen(),
                           ),
                         );
