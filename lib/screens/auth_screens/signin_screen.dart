@@ -3,22 +3,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/auth/signin_screen.dart';
-import 'package:furnday/screens/main_screen.dart';
+import 'package:furnday/screens/auth/signup_screen.dart';
+import 'package:furnday/screens/main_screens/main_screen.dart';
 import 'package:furnday/services/network_services.dart';
 import 'package:furnday/widgets/auth/auth_form.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  SignInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   final _auth = FirebaseAuth.instance;
   final formKey = GlobalKey<FormState>();
 
@@ -48,14 +48,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Sign up',
+                        'Sign in',
                         style: productNameTextStyle.copyWith(
                           color: Colors.black87,
                           fontSize: 32,
                         ),
                       ),
                       Text(
-                        'Create a new account',
+                        'Login to your account',
                         style: productNameTextStyle.copyWith(
                           color: Colors.black38,
                           fontSize: 22,
@@ -68,13 +68,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: DecoratedCard(
                           child: AuthForm(
                             formkey: formKey,
-                            isSignIn: false,
-                            onPressed: ({
-                              required String name,
-                              required String email,
-                              required String password,
-                            }) =>
-                                signUp(
+                            isSignIn: true,
+                            onPressed: (
+                                    {required String name,
+                                    required String email,
+                                    required String password}) =>
+                                signIn(
                                     name: name,
                                     email: email,
                                     password: password),
@@ -85,19 +84,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 30),
                       TextButton(
                         style: ButtonStyle(
-                            overlayColor: MaterialStateProperty.all<Color>(
-                                Colors.transparent)),
+                          overlayColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent),
+                        ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => const SignUpScreen(),
+                            ),
+                          );
                         },
                         child: RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                            text: "Already have an account? ",
+                            text: "Don't have an account? ",
                             style: const TextStyle(fontSize: 16),
                             children: [
                               TextSpan(
-                                text: "Sign in Now!",
+                                text: "Sign up Now!",
                                 style: productNameTextStyle.copyWith(
                                   color: Colors.black87,
                                   fontSize: 18,
@@ -112,26 +117,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
-            Positioned(
-              top: 0.0,
-              left: 0.0,
-              right: 0.0,
-              child: AppBar(
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.black),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  signUp({
+  signIn({
     required String name,
     required String email,
     required String password,
@@ -146,17 +138,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
     try {
       await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
-        await _auth.currentUser!.updateDisplayName(name);
-        formKey.currentState!.validate();
-        formKey.currentState!.reset();
-        await _auth.currentUser!.reload();
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then(
+        (value) {
+          formKey.currentState!.validate();
+          formKey.currentState!.reset();
+          Navigator.pop(context);
+        },
+      );
     } on FirebaseAuthException catch (e) {
       print(e);
+
       Navigator.pop(context);
       setState(() {
         AuthForm.authError = e.toString();
@@ -187,7 +179,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
       await auth.signInWithCredential(credential);
-      Navigator.pop(context);
       Navigator.pop(context);
     } catch (e) {
       Navigator.pop(context);
