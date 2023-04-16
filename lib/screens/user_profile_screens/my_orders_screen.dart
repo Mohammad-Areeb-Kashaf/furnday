@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:furnday/widgets/my_order_card.dart';
 
 class MyOrdersScreen extends StatelessWidget {
   const MyOrdersScreen({super.key});
@@ -18,7 +20,9 @@ class MyOrdersScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: ListView(
-            children: const [],
+            children: const [
+              MyOrderCard(),
+            ],
           ),
         ),
       ),
