@@ -7,7 +7,7 @@ import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/star_ratings.dart';
 
 class ProductCard extends StatefulWidget {
-  ProductCard({super.key});
+  const ProductCard({super.key});
 
   @override
   State<ProductCard> createState() => _ProductCardState();
@@ -129,7 +129,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             Positioned(
               top: 15,
-              left: 135,
+              right: 15,
               child: CircleAvatar(
                 backgroundColor: Colors.white24,
                 foregroundColor: Colors.black,

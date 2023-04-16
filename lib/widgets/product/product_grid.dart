@@ -38,7 +38,7 @@ class _ProductGridState extends State<ProductGrid> {
         children: List.generate(
           60,
           (index) {
-            return ProductCard();
+            return const ProductCard();
           },
         ),
       ),
@@ -46,7 +46,10 @@ class _ProductGridState extends State<ProductGrid> {
   }
 
   gridCrossAxisCountDeterminer(BuildContext context) {
-    if (MediaQuery.of(context).size.width > 326.0 &&
+    if (MediaQuery.of(context).size.height > 702.0 &&
+        MediaQuery.of(context).size.width > 326.0) {
+      return 3;
+    } else if (MediaQuery.of(context).size.width > 326.0 ||
         MediaQuery.of(context).size.height > 702.0) {
       return 2;
     } else {
@@ -55,9 +58,9 @@ class _ProductGridState extends State<ProductGrid> {
   }
 
   gridChildAspectRatioDeterminer() {
-    if (gridCrossAxisCount == 1) {
+    if (gridCrossAxisCount == 3) {
       return MediaQuery.of(context).size.width /
-          (MediaQuery.of(context).size.height / 1.2);
+          (MediaQuery.of(context).size.height / 0.8);
     } else {
       return MediaQuery.of(context).size.width /
           (MediaQuery.of(context).size.height / 1.25);

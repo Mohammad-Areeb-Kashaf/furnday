@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/auth/reset_password_screen.dart';
+import 'package:furnday/screens/auth_screens/reset_password_screen.dart';
 import 'package:furnday/widgets/auth/auth_text_field.dart';
 
 class AuthForm extends StatefulWidget {
