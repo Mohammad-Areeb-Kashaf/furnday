@@ -1,14 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/auth_screens/signin_screen.dart';
-import 'package:furnday/screens/main_screens/main_screen.dart';
 import 'package:furnday/services/network_services.dart';
 import 'package:furnday/widgets/auth/auth_form.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:furnday/widgets/loading_dialog.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -47,19 +45,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      AutoSizeText(
                         'Sign up',
                         style: productNameTextStyle.copyWith(
                           color: Colors.black87,
-                          fontSize: 32,
                         ),
+                        maxFontSize: 32,
                       ),
-                      Text(
+                      AutoSizeText(
                         'Create a new account',
                         style: productNameTextStyle.copyWith(
                           color: Colors.black38,
-                          fontSize: 22,
                         ),
+                        maxFontSize: 22,
                       ),
                       const SizedBox(height: 30),
                       Padding(
@@ -136,14 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     required String email,
     required String password,
   }) async {
-    showDialog(
-      context: context,
-      builder: (context) => const Center(
-        child: SpinKitFoldingCube(
-          color: yellowColor,
-        ),
-      ),
-    );
+    loadDialog(context);
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -178,14 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       idToken: googleAuth.idToken,
     );
     try {
-      showDialog(
-        context: context,
-        builder: (context) => const Center(
-          child: SpinKitFoldingCube(
-            color: yellowColor,
-          ),
-        ),
-      );
+      loadDialog(context);
       await auth.signInWithCredential(credential);
       Navigator.pop(context);
       Navigator.pop(context);

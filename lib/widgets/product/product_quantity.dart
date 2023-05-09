@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +13,7 @@ class ProductQuantity extends StatefulWidget {
 class _ProductQuantityState extends State<ProductQuantity> {
   NumberFormat formatter = NumberFormat('00');
   int _qty = 1;
-  int _tagIndex = 0;
+  final int _tagIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class _ProductQuantityState extends State<ProductQuantity> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            InkWell(
+            GestureDetector(
               onTap: () {
                 if (_qty > 1) {
                   setState(() {
@@ -43,14 +44,14 @@ class _ProductQuantityState extends State<ProductQuantity> {
                 color: Theme.of(context).primaryColorDark,
               ),
             ),
-            Text(
+            AutoSizeText(
               formatter.format(_qty),
               style: TextStyle(
-                fontSize: 18,
                 color: Theme.of(context).primaryColorDark,
               ),
+              maxFontSize: 18,
             ),
-            InkWell(
+            GestureDetector(
               onTap: () {
                 setState(() {
                   _qty++;

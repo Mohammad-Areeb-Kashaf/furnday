@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
@@ -45,40 +46,40 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            AutoSizeText(
                               'Check your mail',
                               style: productNameTextStyle.copyWith(
                                 color: Colors.black87,
-                                fontSize: 32,
                               ),
+                              maxFontSize: 32,
                             ),
-                            Text(
+                            AutoSizeText(
                               'We have sent a reset password link to your email.',
                               textAlign: TextAlign.center,
                               style: productNameTextStyle.copyWith(
                                 color: Colors.black38,
-                                fontSize: 22,
                               ),
+                              maxFontSize: 22,
                             ),
                           ],
                         )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            AutoSizeText(
                               'Reset Password',
                               style: productNameTextStyle.copyWith(
                                 color: Colors.black87,
-                                fontSize: 32,
                               ),
+                              maxFontSize: 32,
                             ),
-                            Text(
+                            AutoSizeText(
                               'Enter the email associated with your account and we\'ll send an email with a link to reset your password.',
                               textAlign: TextAlign.center,
                               style: productNameTextStyle.copyWith(
                                 color: Colors.black38,
-                                fontSize: 22,
                               ),
+                              maxFontSize: 22,
                             ),
                             const SizedBox(height: 30),
                             Padding(
@@ -124,10 +125,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                               });
                                             }
                                           },
-                                          child: Text(
+                                          child: AutoSizeText(
                                             'Reset Password',
                                             style: productNameTextStyle
                                                 .copyWith(color: Colors.white),
+                                            maxFontSize: 24,
                                           ),
                                         )
                                       ],

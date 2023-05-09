@@ -10,6 +10,7 @@ import 'package:furnday/widgets/product/product_review_section.dart';
 import 'package:furnday/widgets/product/product_section.dart';
 import 'package:furnday/widgets/star_ratings.dart';
 import 'package:intl/intl.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ProductScreen extends StatefulWidget {
   final String productName;
@@ -67,15 +68,15 @@ class _ProductScreenState extends State<ProductScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
+                        child: AutoSizeText(
                           widget.productCategories
                               .toString()
                               .replaceAll("[", '')
                               .replaceAll(']', ''),
                           style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
                               color: greyTextColor),
+                          maxFontSize: 16,
                         ),
                       ),
                       Padding(
@@ -83,10 +84,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            AutoSizeText(
                               widget.productName,
                               style: productNameTextStyle.copyWith(
                                   color: Colors.black),
+                              maxFontSize: 24,
                             ),
                             StarRating(
                               rating: 4.5,
@@ -117,11 +119,12 @@ class _ProductScreenState extends State<ProductScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const [
-                                Text(
+                                AutoSizeText(
                                   "Details",
                                   style: productNameTextStyle,
+                                  maxFontSize: 24,
                                 ),
-                                Text(
+                                AutoSizeText(
                                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget maximus mauris, ut dapibus eros. Duis ultricies posuere euismod. Etiam vel lacus sapien. Mauris fringilla vestibulum dignissim. Phasellus dui turpis, commodo vel elit non, cursus vestibulum urna. Vivamus sagittis nisl et sapien lobortis porta. In est velit, tristique nec lacus vel, rhoncus commodo arcu. Cras vulputate tellus ac nisi interdum, a feugiat nunc vestibulum. Ut ac ornare ligula, in tempor diam. Duis vitae ante et enim rutrum varius ac nec mi. Nulla nulla nisl, pellentesque eget ultrices aliquam, blandit eu quam. Fusce ut porta nisl, et tristique est. Proin eget.',
                                 ),
                               ],
@@ -138,12 +141,12 @@ class _ProductScreenState extends State<ProductScreen> {
                 Center(
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text(
+                    child: const AutoSizeText(
                       'Customize',
                       style: TextStyle(
-                        fontSize: 18,
                         decoration: TextDecoration.underline,
                       ),
+                      maxFontSize: 18,
                     ),
                   ),
                 ),
@@ -153,9 +156,9 @@ class _ProductScreenState extends State<ProductScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       ElevatedButton.icon(
-                        label: const Text(
+                        label: const AutoSizeText(
                           'Add to Cart',
-                          style: TextStyle(fontSize: 24),
+                          maxFontSize: 24,
                         ),
                         onPressed: () {},
                         icon: Icon(
@@ -186,12 +189,12 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                         color: Theme.of(context).primaryColor,
                         onPressed: () {},
-                        child: Text(
+                        child: AutoSizeText(
                           'Buy Now',
                           style: TextStyle(
-                            fontSize: 24,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
+                          maxFontSize: 24,
                         ),
                       ),
                     ],

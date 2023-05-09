@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/screens/auth_screens/reset_password_screen.dart';
 import 'package:furnday/widgets/auth/auth_text_field.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class AuthForm extends StatefulWidget {
-  AuthForm({
+  const AuthForm({
     super.key,
     required this.isSignIn,
     required this.onPressed,
@@ -83,15 +84,15 @@ class _AuthFormState extends State<AuthForm> {
                     onTap: () => Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => ResetPasswordScreen(),
+                        builder: (context) => const ResetPasswordScreen(),
                       ),
                     ),
-                    child: const Text(
+                    child: const AutoSizeText(
                       'Forgot password?',
                       style: TextStyle(
                         color: Colors.black38,
-                        fontSize: 18,
                       ),
+                      maxFontSize: 18,
                     ),
                   )
                 : const SizedBox.shrink(),
@@ -115,9 +116,10 @@ class _AuthFormState extends State<AuthForm> {
                   );
                 }
               },
-              child: Text(
+              child: AutoSizeText(
                 widget.isSignIn ? 'Sign In' : 'Sign Up',
                 style: productNameTextStyle.copyWith(color: Colors.white),
+                maxFontSize: 24,
               ),
             ),
             const SizedBox(height: 20),
@@ -131,8 +133,8 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 3.0),
-                  child:
-                      const Text("OR", style: TextStyle(color: Colors.black38)),
+                  child: const AutoSizeText("OR",
+                      style: TextStyle(color: Colors.black38)),
                 ),
                 Expanded(
                   child: Container(
@@ -146,7 +148,7 @@ class _AuthFormState extends State<AuthForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                InkWell(
+                GestureDetector(
                   onTap: () => widget.signInWithGoogle(),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
@@ -156,7 +158,7 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                 ),
                 const SizedBox(width: 20),
-                InkWell(
+                GestureDetector(
                   onTap: tapSignInWithOther,
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
@@ -166,7 +168,7 @@ class _AuthFormState extends State<AuthForm> {
                   ),
                 ),
                 const SizedBox(width: 20),
-                InkWell(
+                GestureDetector(
                   onTap: tapSignInWithOther,
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
@@ -260,7 +262,7 @@ class _AuthFormState extends State<AuthForm> {
       ..clearSnackBars()
       ..showSnackBar(
         const SnackBar(
-          content: Text(
+          content: AutoSizeText(
             'Not Implemented Yet',
             style: TextStyle(color: Colors.black),
           ),

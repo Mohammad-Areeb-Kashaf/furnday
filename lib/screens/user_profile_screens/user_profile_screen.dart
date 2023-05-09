@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +27,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           shape: const ContinuousRectangleBorder(),
-          title: const Text(
+          title: const AutoSizeText(
             'Profile',
             style: TextStyle(
               color: Colors.black,
@@ -58,7 +59,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     children: [
                       Column(
                         children: [
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -68,7 +69,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 ),
                               );
                             },
-                            highlightColor: Theme.of(context).highlightColor,
                             child: Hero(
                               tag: "profile_img",
                               transitionOnUserGestures: true,
@@ -91,18 +91,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            '${_auth.currentUser!.displayName}',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 32,
+                          Center(
+                            child: AutoSizeText(
+                              '${_auth.currentUser!.displayName}',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxFontSize: 22,
                             ),
                           ),
-                          Text(
-                            '${_auth.currentUser!.email}',
-                            style: const TextStyle(
-                                color: Colors.black38, fontSize: 20),
+                          Center(
+                            child: AutoSizeText(
+                              '${_auth.currentUser!.email}',
+                              style: const TextStyle(
+                                color: Colors.black38,
+                              ),
+                              maxFontSize: 16,
+                            ),
                           )
                         ],
                       ),
@@ -121,27 +127,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       CupertinoPageRoute(
                                           builder: (context) =>
                                               const MyOrdersScreen())),
-                                  title: const Text('My Orders'),
+                                  title: const AutoSizeText('My Orders'),
                                   leading: const Icon(Icons.shopping_bag),
                                   trailing: const Icon(Icons.chevron_right),
                                 ),
                                 const ListTile(
-                                  title: Text('Payment Methods'),
+                                  title: AutoSizeText('Payment Methods'),
                                   leading: Icon(Icons.payment),
                                   trailing: Icon(Icons.chevron_right),
                                 ),
                                 const ListTile(
-                                  title: Text('Delivery Addresses'),
+                                  title: AutoSizeText('Delivery Addresses'),
                                   leading: Icon(Icons.location_pin),
                                   trailing: Icon(Icons.chevron_right),
                                 ),
                                 const ListTile(
-                                  title: Text('My Favorites'),
+                                  title: AutoSizeText('My Favorites'),
                                   leading: Icon(Icons.favorite_outline),
                                   trailing: Icon(Icons.chevron_right),
                                 ),
                                 const ListTile(
-                                  title: Text('Settings'),
+                                  title: AutoSizeText('Settings'),
                                   leading: Icon(Icons.settings),
                                   trailing: Icon(Icons.chevron_right),
                                 ),
@@ -158,12 +164,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       } else {
                                         await _auth.signOut();
                                       }
+                                      Navigator.of(context).pop();
                                     } catch (e) {
                                       print(e);
                                       NetworkStatusService().checkInternet();
                                     }
                                   },
-                                  child: const Text(
+                                  child: const AutoSizeText(
                                     'Logout',
                                     style: TextStyle(color: Colors.black),
                                   ),

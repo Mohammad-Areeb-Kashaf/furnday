@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/models/product_review_model.dart';
@@ -18,9 +19,10 @@ class ProductReviewSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            const AutoSizeText(
               'Reviews',
               style: productNameTextStyle,
+              maxFontSize: 24,
             ),
             const SizedBox(height: 8),
             if (reviews.isNotEmpty)
@@ -33,13 +35,13 @@ class ProductReviewSection extends StatelessWidget {
                         children: [
                           const Icon(Icons.person, size: 20),
                           const SizedBox(width: 8),
-                          Text(
+                          AutoSizeText(
                             review.username,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            maxFontSize: 20,
                           ),
                           const SizedBox(width: 8),
-                          Text(
+                          AutoSizeText(
                             review.date.toString(),
                             style: const TextStyle(color: Colors.grey),
                           ),
@@ -50,7 +52,7 @@ class ProductReviewSection extends StatelessWidget {
                         rating: review.rating,
                       ),
                       const SizedBox(height: 8),
-                      Text(review.comment),
+                      AutoSizeText(review.comment),
                       const SizedBox(height: 16),
                       const Divider(thickness: 1),
                       const SizedBox(height: 16),
@@ -59,7 +61,7 @@ class ProductReviewSection extends StatelessWidget {
                 }).toList(),
               )
             else
-              const Text('No reviews yet.'),
+              const AutoSizeText('No reviews yet.'),
           ],
         ),
       ),

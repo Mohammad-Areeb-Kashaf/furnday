@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ enum ScreenDeterminer {
 }
 
 class MainScreen extends StatefulWidget {
-  MainScreen({super.key});
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -122,11 +123,9 @@ class _MainScreenState extends State<MainScreen> {
                           homeSelected = true;
                         });
                       },
-                      title: const Text(
+                      title: const AutoSizeText(
                         'Home',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        maxFontSize: 20,
                       ),
                     ),
                     ListTile(
@@ -140,11 +139,9 @@ class _MainScreenState extends State<MainScreen> {
                         });
                       },
                       selected: allProductsSelected,
-                      title: const Text(
+                      title: const AutoSizeText(
                         'All Products',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        maxFontSize: 20,
                       ),
                     ),
                     ListTile(
@@ -158,11 +155,9 @@ class _MainScreenState extends State<MainScreen> {
                         });
                       },
                       selected: categoriesSelected,
-                      title: const Text(
+                      title: const AutoSizeText(
                         'Categories',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        maxFontSize: 20,
                       ),
                     ),
                     ListTile(
@@ -176,11 +171,9 @@ class _MainScreenState extends State<MainScreen> {
                         });
                       },
                       selected: furnitureSelected,
-                      title: const Text(
+                      title: const AutoSizeText(
                         'Furniture',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        maxFontSize: 20,
                       ),
                     ),
                     ListTile(
@@ -194,11 +187,9 @@ class _MainScreenState extends State<MainScreen> {
                         });
                       },
                       selected: hardwareSelected,
-                      title: const Text(
+                      title: const AutoSizeText(
                         'Hardware',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        maxFontSize: 20,
                       ),
                     ),
                     ListTile(
@@ -212,11 +203,9 @@ class _MainScreenState extends State<MainScreen> {
                         });
                       },
                       selected: refurbishedSelected,
-                      title: const Text(
+                      title: const AutoSizeText(
                         'Refurbished',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        maxFontSize: 20,
                       ),
                     ),
                     ListTile(
@@ -228,11 +217,9 @@ class _MainScreenState extends State<MainScreen> {
                                 builder: (context) =>
                                     const HireACarpenterScreen()));
                       },
-                      title: const Text(
+                      title: const AutoSizeText(
                         'Hire a Carpenter',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                        maxFontSize: 20,
                       ),
                     ),
                   ],
@@ -244,7 +231,7 @@ class _MainScreenState extends State<MainScreen> {
           )
         : Scaffold(
             appBar: AppBar(
-              title: const Text(
+              title: const AutoSizeText(
                 'Verify Email',
                 style: TextStyle(
                   color: Colors.black,
@@ -257,7 +244,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    const AutoSizeText(
                       'A verification email has been sent to your email address',
                       textAlign: TextAlign.center,
                     ),
@@ -272,12 +259,12 @@ class _MainScreenState extends State<MainScreen> {
                         size: 32,
                         color: Colors.black,
                       ),
-                      label: const Text(
+                      label: const AutoSizeText(
                         'Resent Email',
                         style: TextStyle(
-                          fontSize: 24,
                           color: Colors.black,
                         ),
+                        maxFontSize: 24,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -290,15 +277,13 @@ class _MainScreenState extends State<MainScreen> {
                         Navigator.pushReplacement(
                           context,
                           CupertinoPageRoute(
-                            builder: (context) => SignInScreen(),
+                            builder: (context) => const SignInScreen(),
                           ),
                         );
                       },
-                      child: const Text(
+                      child: const AutoSizeText(
                         'Cancel',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
+                        maxFontSize: 24,
                       ),
                     ),
                   ],

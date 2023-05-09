@@ -12,8 +12,8 @@ class NetworkStatusService {
     Connectivity().onConnectivityChanged.listen((status) async {
       networkStatusController.add(await _getNetworkStatus(status));
     });
-    var timer =
-        Timer.periodic(const Duration(seconds: 8), (timer) => checkInternet());
+    var timer = Timer.periodic(
+        const Duration(seconds: 10000000000), (timer) => checkInternet());
   }
   checkInternet() async {
     var connection = await InternetConnectionChecker().hasConnection;

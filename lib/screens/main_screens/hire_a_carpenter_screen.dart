@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/widgets/internet_checker.dart';
@@ -28,6 +29,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         if (value!.isEmpty) {
           return 'Name is Required';
         }
+        return null;
       },
       onSaved: (value) {
         _name = value.toString();
@@ -43,6 +45,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         if (value!.isEmpty) {
           return 'Phone Number is Required';
         }
+        return null;
       },
       onSaved: (value) {
         _phoneNumber = value.toString();
@@ -58,6 +61,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         if (value!.isEmpty) {
           return 'Address is Required';
         }
+        return null;
       },
       onSaved: (value) {
         _address = value.toString();
@@ -73,6 +77,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         if (value!.isEmpty) {
           return 'Postal Code is Required';
         }
+        return null;
       },
       onSaved: (value) {
         _postalCode = value.toString();
@@ -82,16 +87,18 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
 
   Widget _buildCountry() {
     var countryItems = [
-      const DropdownMenuItem(value: 'India', child: Text('India')),
-      const DropdownMenuItem(value: 'Afghanistan', child: Text('Afghanistan'))
+      const DropdownMenuItem(value: 'India', child: AutoSizeText('India')),
+      const DropdownMenuItem(
+          value: 'Afghanistan', child: AutoSizeText('Afghanistan'))
     ];
     return DropdownButtonFormField(
-      hint: const Text('Country'),
+      hint: const AutoSizeText('Country'),
       items: countryItems,
       validator: (value) {
         if (value == null) {
           return "Country is Required";
         }
+        return null;
       },
       onChanged: (value) {
         _country = value.toString();
@@ -106,32 +113,33 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
     var hireForItems = [
       const DropdownMenuItem(
         value: 'New Built',
-        child: Text('New Built'),
+        child: AutoSizeText('New Built'),
       ),
       const DropdownMenuItem(
         value: 'Repair',
-        child: Text('Repair'),
+        child: AutoSizeText('Repair'),
       ),
       const DropdownMenuItem(
         value: 'Removal/Uninstallation',
-        child: Text('Removal/Uninstallation'),
+        child: AutoSizeText('Removal/Uninstallation'),
       ),
       const DropdownMenuItem(
         value: 'Assemble',
-        child: Text('Assemble'),
+        child: AutoSizeText('Assemble'),
       ),
       const DropdownMenuItem(
         value: 'Consultation',
-        child: Text('Consultation'),
+        child: AutoSizeText('Consultation'),
       ),
     ];
     return DropdownButtonFormField(
-      hint: const Text('Hiring For'),
+      hint: const AutoSizeText('Hiring For'),
       items: hireForItems,
       validator: (value) {
         if (value == null) {
           return "Hiring For is Required";
         }
+        return null;
       },
       onChanged: (value) {
         _hireFor = value.toString();
@@ -175,11 +183,11 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                         _formKey.currentState!.save();
                       }
                     },
-                    child: Text(
+                    child: AutoSizeText(
                       'Submit',
                       style: TextStyle(
-                          fontSize: 16,
                           color: Theme.of(context).colorScheme.secondary),
+                      maxFontSize: 16,
                     ),
                   )
                 ],

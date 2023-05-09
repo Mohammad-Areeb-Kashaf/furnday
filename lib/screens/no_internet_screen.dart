@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:furnday/services/network_services.dart';
 import 'package:furnday/widgets/my_appbar.dart';
 
@@ -14,8 +15,8 @@ class NoInternetScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('No Internet!'),
-            const Text(
+            const AutoSizeText('No Internet!'),
+            const AutoSizeText(
               'Please check your internet connection and Try again',
               textAlign: TextAlign.center,
             ),
@@ -24,7 +25,7 @@ class NoInternetScreen extends StatelessWidget {
               onPressed: () {
                 NetworkStatusService().checkInternet();
               },
-              child: const Text('Retry'),
+              child: const AutoSizeText('Retry'),
             )
           ],
         ),

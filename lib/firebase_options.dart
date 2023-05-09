@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,34 +43,41 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyB1hFnZtP-7BiPFDQTGhKMLulAGQ8jC-wY',
+    appId: '1:821542283157:web:af6d433fa7ea924a20789c',
+    messagingSenderId: '821542283157',
+    projectId: 'furnday-15bd6',
+    authDomain: 'furnday-15bd6.firebaseapp.com',
+    storageBucket: 'furnday-15bd6.appspot.com',
+    measurementId: 'G-38C19HDPS7',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAyBXFzc_lHi9KZLcO44e0KqqY9X560unI',
-    appId: '1:14342942591:android:fba0730494dc00a679744a',
-    messagingSenderId: '14342942591',
-    projectId: 'furnday-cb69e',
-    databaseURL: 'https://furnday-cb69e-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'furnday-cb69e.appspot.com',
+    apiKey: 'AIzaSyBsal8L742RlUQgfxwLWjTVAasw8uCFbuU',
+    appId: '1:821542283157:android:d373a142d015703d20789c',
+    messagingSenderId: '821542283157',
+    projectId: 'furnday-15bd6',
+    storageBucket: 'furnday-15bd6.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBpXLpl4xvDKF1_XURUT2OUAIapD-Rc11A',
-    appId: '1:14342942591:ios:daad6e073532ebd479744a',
-    messagingSenderId: '14342942591',
-    projectId: 'furnday-cb69e',
-    databaseURL: 'https://furnday-cb69e-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'furnday-cb69e.appspot.com',
-    iosClientId: '14342942591-u965ass9p35phoiv7t5kparugrv683pa.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCIn1ljS0GsErsiC_GAIV1o2mW9aCnX7uk',
+    appId: '1:821542283157:ios:41b9c78dcbec44bf20789c',
+    messagingSenderId: '821542283157',
+    projectId: 'furnday-15bd6',
+    storageBucket: 'furnday-15bd6.appspot.com',
+    iosClientId: '821542283157-9dv4eniqp6ok5il6bd9dl8c2dkn7632g.apps.googleusercontent.com',
     iosBundleId: 'com.furnday.furnday',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBpXLpl4xvDKF1_XURUT2OUAIapD-Rc11A',
-    appId: '1:14342942591:ios:daad6e073532ebd479744a',
-    messagingSenderId: '14342942591',
-    projectId: 'furnday-cb69e',
-    databaseURL: 'https://furnday-cb69e-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'furnday-cb69e.appspot.com',
-    iosClientId: '14342942591-u965ass9p35phoiv7t5kparugrv683pa.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCIn1ljS0GsErsiC_GAIV1o2mW9aCnX7uk',
+    appId: '1:821542283157:ios:41b9c78dcbec44bf20789c',
+    messagingSenderId: '821542283157',
+    projectId: 'furnday-15bd6',
+    storageBucket: 'furnday-15bd6.appspot.com',
+    iosClientId: '821542283157-9dv4eniqp6ok5il6bd9dl8c2dkn7632g.apps.googleusercontent.com',
     iosBundleId: 'com.furnday.furnday',
   );
 }

@@ -1,35 +1,41 @@
 {
   "project_info": {
-    "project_number": "14342942591",
-    "firebase_url": "https://furnday-cb69e-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "furnday-cb69e",
-    "storage_bucket": "furnday-cb69e.appspot.com"
+    "project_number": "821542283157",
+    "project_id": "furnday-15bd6",
+    "storage_bucket": "furnday-15bd6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:14342942591:android:fba0730494dc00a679744a",
+        "mobilesdk_app_id": "1:821542283157:android:d373a142d015703d20789c",
         "android_client_info": {
           "package_name": "com.furnday.furnday"
         }
       },
       "oauth_client": [
         {
-          "client_id": "14342942591-5hem6vjkidkqffdg56kgt050g6181ikv.apps.googleusercontent.com",
+          "client_id": "821542283157-6gio7cgu93958c3qdhobjisg347ff6kr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAyBXFzc_lHi9KZLcO44e0KqqY9X560unI"
+          "current_key": "AIzaSyBsal8L742RlUQgfxwLWjTVAasw8uCFbuU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "14342942591-5hem6vjkidkqffdg56kgt050g6181ikv.apps.googleusercontent.com",
+              "client_id": "821542283157-5ro5b6i8jjlf55a27aqatdtgod1pbugf.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "821542283157-9dv4eniqp6ok5il6bd9dl8c2dkn7632g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.furnday.furnday"
+              }
             }
           ]
         }

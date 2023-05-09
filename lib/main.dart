@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,10 +14,12 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -107,12 +110,12 @@ class _MyAppState extends State<MyApp> {
                 );
               } else if (snapshot.hasError) {
                 return const Center(
-                  child: Text('Something went wrong, Try again later'),
+                  child: AutoSizeText('Something went wrong, Try again later'),
                 );
               } else if (snapshot.hasData) {
-                return MainScreen();
+                return const MainScreen();
               } else {
-                return SignInScreen();
+                return const SignInScreen();
               }
             },
           ),

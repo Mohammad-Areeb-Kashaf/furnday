@@ -18,7 +18,7 @@ AppBar myAppBar(BuildContext context) {
         onPressed: () {},
         icon: const Icon(Icons.shopping_cart),
       ),
-      InkWell(
+      GestureDetector(
         onTap: () {
           Navigator.push(
             context,
@@ -27,7 +27,6 @@ AppBar myAppBar(BuildContext context) {
             ),
           );
         },
-        highlightColor: Theme.of(context).highlightColor,
         child: Hero(
           tag: "profile_img",
           transitionOnUserGestures: true,

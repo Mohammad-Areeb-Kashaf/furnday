@@ -5,6 +5,7 @@ import 'package:furnday/constants.dart';
 import 'package:furnday/screens/product_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/star_ratings.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key});
@@ -72,23 +73,24 @@ class _ProductCardState extends State<ProductCard> {
                   const Expanded(
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
+                      child: AutoSizeText(
                         'Product Category',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 12,
                           color: greyTextColor,
                         ),
+                        maxFontSize: 12,
                       ),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Product Name',
-                          style: productNameTextStyle.copyWith(
-                            fontSize: 16,
-                          )),
+                      child: AutoSizeText(
+                        'Product Name',
+                        style: productNameTextStyle,
+                        maxFontSize: 16,
+                      ),
                     ),
                   ),
                   Expanded(

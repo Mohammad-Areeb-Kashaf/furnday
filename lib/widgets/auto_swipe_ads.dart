@@ -35,7 +35,7 @@ class AutoSwipeAds extends StatelessWidget {
                     ),
                     child: DecoratedCard(
                       child: e.toString() == ""
-                          ? InkWell(
+                          ? GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,

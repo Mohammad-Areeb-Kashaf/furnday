@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 
@@ -19,9 +20,10 @@ class HeadingSectionText extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text(
+          child: AutoSizeText(
             headingText,
-            style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            maxFontSize: 26,
           ),
         ),
       ),

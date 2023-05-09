@@ -11,7 +11,7 @@ const radius = Radius.circular(10);
 const scrollPhysics = BouncingScrollPhysics();
 const highlightColor = Color(0xffF7CC59);
 const productNameTextStyle = TextStyle(
-  fontSize: 24,
+  // fontSize: 24,
   fontWeight: FontWeight.w600,
 );
 const productMRPTextStyle = TextStyle(
