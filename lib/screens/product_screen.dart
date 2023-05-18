@@ -73,9 +73,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               .toString()
                               .replaceAll("[", '')
                               .replaceAll(']', ''),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: greyTextColor),
+                          style: Theme.of(context).textTheme.labelMedium,
                           maxFontSize: 16,
                         ),
                       ),
@@ -86,8 +84,10 @@ class _ProductScreenState extends State<ProductScreen> {
                           children: [
                             AutoSizeText(
                               widget.productName,
-                              style: productNameTextStyle.copyWith(
-                                  color: Colors.black),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(color: Colors.black),
                               maxFontSize: 24,
                             ),
                             StarRating(
@@ -118,13 +118,13 @@ class _ProductScreenState extends State<ProductScreen> {
                             padding: const EdgeInsets.all(10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 AutoSizeText(
                                   "Details",
-                                  style: productNameTextStyle,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                   maxFontSize: 24,
                                 ),
-                                AutoSizeText(
+                                const AutoSizeText(
                                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget maximus mauris, ut dapibus eros. Duis ultricies posuere euismod. Etiam vel lacus sapien. Mauris fringilla vestibulum dignissim. Phasellus dui turpis, commodo vel elit non, cursus vestibulum urna. Vivamus sagittis nisl et sapien lobortis porta. In est velit, tristique nec lacus vel, rhoncus commodo arcu. Cras vulputate tellus ac nisi interdum, a feugiat nunc vestibulum. Ut ac ornare ligula, in tempor diam. Duis vitae ante et enim rutrum varius ac nec mi. Nulla nulla nisl, pellentesque eget ultrices aliquam, blandit eu quam. Fusce ut porta nisl, et tristique est. Proin eget.',
                                 ),
                               ],

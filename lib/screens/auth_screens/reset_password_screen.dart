@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/widgets/auth/auth_form.dart';
 import 'package:furnday/widgets/auth/auth_text_field.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
@@ -10,6 +9,7 @@ import 'package:furnday/widgets/internet_checker.dart';
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
 
+  static String? authError = 'null';
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
@@ -48,17 +48,25 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           children: [
                             AutoSizeText(
                               'Check your mail',
-                              style: productNameTextStyle.copyWith(
-                                color: Colors.black87,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                    color: Colors.black87,
+                                  ),
+                              minFontSize: 24,
                               maxFontSize: 32,
                             ),
                             AutoSizeText(
                               'We have sent a reset password link to your email.',
                               textAlign: TextAlign.center,
-                              style: productNameTextStyle.copyWith(
-                                color: Colors.black38,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                    color: Colors.black38,
+                                  ),
+                              minFontSize: 16,
                               maxFontSize: 22,
                             ),
                           ],
@@ -68,17 +76,25 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           children: [
                             AutoSizeText(
                               'Reset Password',
-                              style: productNameTextStyle.copyWith(
-                                color: Colors.black87,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                    color: Colors.black87,
+                                  ),
+                              minFontSize: 24,
                               maxFontSize: 32,
                             ),
                             AutoSizeText(
                               'Enter the email associated with your account and we\'ll send an email with a link to reset your password.',
                               textAlign: TextAlign.center,
-                              style: productNameTextStyle.copyWith(
-                                color: Colors.black38,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                    color: Colors.black38,
+                                  ),
+                              minFontSize: 14,
                               maxFontSize: 22,
                             ),
                             const SizedBox(height: 30),
@@ -110,25 +126,48 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                           ),
                                           color: Theme.of(context).primaryColor,
                                           onPressed: () async {
+                                            setState(() {
+                                              ResetPasswordScreen.authError =
+                                                  'null';
+                                            });
                                             if (formKey.currentState!
                                                 .validate()) {
                                               final email =
                                                   emailController.text.trim();
 
-                                              await _auth
-                                                  .sendPasswordResetEmail(
-                                                email: email,
-                                              );
+                                              try {
+                                                await _auth
+                                                    .sendPasswordResetEmail(
+                                                  email: email,
+                                                )
+                                                    .then((value) {
+                                                  formKey.currentState!
+                                                      .validate();
+                                                  formKey.currentState!.reset();
+                                                });
 
-                                              setState(() {
-                                                isEmailSent = true;
-                                              });
+                                                setState(() {
+                                                  isEmailSent = true;
+                                                });
+                                              } on FirebaseAuthException catch (e) {
+                                                print(e);
+
+                                                setState(() {
+                                                  ResetPasswordScreen
+                                                      .authError = e.toString();
+                                                  formKey.currentState!
+                                                      .validate();
+                                                });
+                                              }
                                             }
                                           },
                                           child: AutoSizeText(
                                             'Reset Password',
-                                            style: productNameTextStyle
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge!
                                                 .copyWith(color: Colors.white),
+                                            minFontSize: 16,
                                             maxFontSize: 24,
                                           ),
                                         )
@@ -171,23 +210,23 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     RegExp regex = RegExp(pattern.toString());
     if (!regex.hasMatch(value) || value.isEmpty) {
       return 'Enter a valid email address';
-    } else if (AuthForm.authError != 'null') {
-      if (AuthForm.authError ==
+    } else if (ResetPasswordScreen.authError != 'null') {
+      if (ResetPasswordScreen.authError ==
           '[firebase_auth/invalid-email] The email address is badly formatted.') {
         return 'Looks like your email is invalid';
-      } else if (AuthForm.authError ==
+      } else if (ResetPasswordScreen.authError ==
           '[firebase_auth/email-already-in-use] The email address is already in use by another account.') {
         return 'Email already in use, Login instead?';
-      } else if (AuthForm.authError ==
+      } else if (ResetPasswordScreen.authError ==
           '[firebase_auth/invalid-email] The email address is badly formatted.') {
         return 'This email address is not correctly formatted';
-      } else if (AuthForm.authError ==
+      } else if (ResetPasswordScreen.authError ==
           '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
         return 'User is not found';
-      } else if (AuthForm.authError ==
+      } else if (ResetPasswordScreen.authError ==
           '[firebase_auth/too-many-requests] We have blocked all requests from this device due to unusual activity. Try again later.') {
         return 'Too many request from this device. Please try again later';
-      } else if (AuthForm.authError ==
+      } else if (ResetPasswordScreen.authError ==
           '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
         return 'Internet unavailable. Please connect your mobile to a internet connection';
       }

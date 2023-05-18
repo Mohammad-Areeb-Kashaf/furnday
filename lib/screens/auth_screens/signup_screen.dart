@@ -43,23 +43,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: SingleChildScrollView(
                   physics: scrollPhysics,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       AutoSizeText(
                         'Sign up',
-                        style: productNameTextStyle.copyWith(
-                          color: Colors.black87,
-                        ),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Colors.black87,
+                            ),
+                        minFontSize: 24,
                         maxFontSize: 32,
                       ),
                       AutoSizeText(
                         'Create a new account',
-                        style: productNameTextStyle.copyWith(
-                          color: Colors.black38,
-                        ),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Colors.black38,
+                            ),
+                        minFontSize: 16,
                         maxFontSize: 22,
                       ),
-                      const SizedBox(height: 30),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 30),
@@ -80,7 +81,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 30),
                       TextButton(
                         style: ButtonStyle(
                             overlayColor: MaterialStateProperty.all<Color>(
@@ -96,10 +96,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             children: [
                               TextSpan(
                                 text: "Sign in Now!",
-                                style: productNameTextStyle.copyWith(
-                                  color: Colors.black87,
-                                  fontSize: 18,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                      color: Colors.black87,
+                                      fontSize: 18,
+                                    ),
                               )
                             ],
                           ),

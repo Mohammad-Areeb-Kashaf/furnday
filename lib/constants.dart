@@ -10,10 +10,6 @@ final borderRadiusCard = BorderRadius.circular(10);
 const radius = Radius.circular(10);
 const scrollPhysics = BouncingScrollPhysics();
 const highlightColor = Color(0xffF7CC59);
-const productNameTextStyle = TextStyle(
-  // fontSize: 24,
-  fontWeight: FontWeight.w600,
-);
 const productMRPTextStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w400,

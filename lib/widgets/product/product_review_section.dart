@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:furnday/constants.dart';
 import 'package:furnday/models/product_review_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/star_ratings.dart';
@@ -19,9 +18,9 @@ class ProductReviewSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AutoSizeText(
+            AutoSizeText(
               'Reviews',
-              style: productNameTextStyle,
+              style: Theme.of(context).textTheme.labelLarge,
               maxFontSize: 24,
             ),
             const SizedBox(height: 8),

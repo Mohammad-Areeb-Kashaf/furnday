@@ -45,23 +45,24 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: SingleChildScrollView(
                   physics: scrollPhysics,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       AutoSizeText(
                         'Sign in',
-                        style: productNameTextStyle.copyWith(
-                          color: Colors.black87,
-                        ),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Colors.black87,
+                            ),
+                        minFontSize: 24,
                         maxFontSize: 32,
                       ),
                       AutoSizeText(
                         'Login to your account',
-                        style: productNameTextStyle.copyWith(
-                          color: Colors.black38,
-                        ),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Colors.black38,
+                            ),
+                        minFontSize: 16,
                         maxFontSize: 22,
                       ),
-                      const SizedBox(height: 30),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 30),
@@ -81,7 +82,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 30),
                       TextButton(
                         style: ButtonStyle(
                           overlayColor: MaterialStateProperty.all<Color>(
@@ -95,21 +95,25 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           );
                         },
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
+                        child: AutoSizeText.rich(
+                          TextSpan(
                             text: "Don't have an account? ",
-                            style: const TextStyle(fontSize: 16),
+                            style: const TextStyle(color: Colors.white),
                             children: [
                               TextSpan(
                                 text: "Sign up Now!",
-                                style: productNameTextStyle.copyWith(
-                                  color: Colors.black87,
-                                  fontSize: 18,
-                                ),
-                              )
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(
+                                      color: Colors.black87,
+                                    ),
+                              ),
                             ],
                           ),
+                          textAlign: TextAlign.center,
+                          minFontSize: 16,
+                          maxFontSize: 20,
                         ),
                       )
                     ],

@@ -49,6 +49,15 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: "FurnDay",
         theme: ThemeData(
+          textTheme: const TextTheme(
+            labelMedium: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: greyTextColor,
+            ),
+            labelLarge: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           listTileTheme: const ListTileThemeData(
             selectedTileColor: highlightColor,
             selectedColor: Colors.black,

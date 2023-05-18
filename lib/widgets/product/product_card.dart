@@ -70,25 +70,22 @@ class _ProductCardState extends State<ProductCard> {
                           "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: AutoSizeText(
                         'Product Category',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: greyTextColor,
-                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
                         maxFontSize: 12,
                       ),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: AutoSizeText(
                         'Product Name',
-                        style: productNameTextStyle,
+                        style: Theme.of(context).textTheme.labelLarge,
                         maxFontSize: 16,
                       ),
                     ),

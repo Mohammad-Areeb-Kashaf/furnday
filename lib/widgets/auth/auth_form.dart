@@ -118,7 +118,11 @@ class _AuthFormState extends State<AuthForm> {
               },
               child: AutoSizeText(
                 widget.isSignIn ? 'Sign In' : 'Sign Up',
-                style: productNameTextStyle.copyWith(color: Colors.white),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge!
+                    .copyWith(color: Colors.white),
+                minFontSize: 16,
                 maxFontSize: 24,
               ),
             ),

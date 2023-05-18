@@ -1,13 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/screens/user_profile_screens/address/my_addresses_screen.dart';
 import 'package:furnday/screens/user_profile_screens/my_orders_screen.dart';
 import 'package:furnday/services/network_services.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:furnday/widgets/user_profile/user_profile_img.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -22,7 +23,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_auth.currentUser!.photoURL);
     return InternetChecker(
       child: Scaffold(
         appBar: AppBar(
@@ -72,19 +72,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             child: Hero(
                               tag: "profile_img",
                               transitionOnUserGestures: true,
-                              child: CircleAvatar(
-                                radius: 50,
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.black,
-                                child: _auth.currentUser!.photoURL != null
-                                    ? CachedNetworkImage(
-                                        imageUrl: _auth.currentUser!.photoURL
-                                            .toString(),
-                                      )
-                                    : const Icon(
-                                        Icons.person,
-                                        size: 50,
-                                      ),
+                              child: UserProfileImage(
+                                isAppBar: false,
                               ),
                             ),
                           ),
@@ -136,10 +125,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   leading: Icon(Icons.payment),
                                   trailing: Icon(Icons.chevron_right),
                                 ),
-                                const ListTile(
-                                  title: AutoSizeText('Delivery Addresses'),
-                                  leading: Icon(Icons.location_pin),
-                                  trailing: Icon(Icons.chevron_right),
+                                ListTile(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const MyAddressesScreen(),
+                                    ),
+                                  ),
+                                  title: const AutoSizeText('My Addresses'),
+                                  leading: const Icon(Icons.location_pin),
+                                  trailing: const Icon(Icons.chevron_right),
                                 ),
                                 const ListTile(
                                   title: AutoSizeText('My Favorites'),
@@ -172,7 +168,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   },
                                   child: const AutoSizeText(
                                     'Logout',
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ],
