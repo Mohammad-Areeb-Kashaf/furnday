@@ -72,10 +72,10 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
   Widget _buildPostalCode() {
     return TextFormField(
       keyboardType: TextInputType.number,
-      decoration: const InputDecoration(labelText: 'Postal Code'),
+      decoration: const InputDecoration(labelText: 'Zip / Postal Code'),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Postal Code is Required';
+          return 'Zip / Postal Code is Required';
         }
         return null;
       },
@@ -152,14 +152,13 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_name);
     return InternetChecker(
       child: Scaffold(
         appBar: myAppBar(context),
         body: SingleChildScrollView(
           physics: scrollPhysics,
-          child: Container(
-            margin: const EdgeInsets.all(24),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
             child: Form(
               key: _formKey,
               child: Column(

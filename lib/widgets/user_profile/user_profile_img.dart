@@ -14,9 +14,14 @@ class UserProfileImage extends StatelessWidget {
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
       child: _auth.currentUser!.photoURL != null
-          ? ClipOval(
-              child: CachedNetworkImage(
-                imageUrl: _auth.currentUser!.photoURL.toString(),
+          ? Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: CachedNetworkImageProvider(
+                      _auth.currentUser!.photoURL.toString(),
+                    ),
+                    fit: BoxFit.fill),
               ),
             )
           : isAppBar

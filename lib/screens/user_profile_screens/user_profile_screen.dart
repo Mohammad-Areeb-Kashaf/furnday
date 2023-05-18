@@ -120,11 +120,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   leading: const Icon(Icons.shopping_bag),
                                   trailing: const Icon(Icons.chevron_right),
                                 ),
-                                const ListTile(
-                                  title: AutoSizeText('Payment Methods'),
-                                  leading: Icon(Icons.payment),
-                                  trailing: Icon(Icons.chevron_right),
-                                ),
                                 ListTile(
                                   onTap: () => Navigator.push(
                                     context,
