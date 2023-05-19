@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:furnday/screens/main_screens/cart_screen.dart';
+import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/user_profile_screens/user_profile_screen.dart';
 import 'package:furnday/widgets/user_profile/user_profile_img.dart';
 
@@ -19,7 +19,7 @@ AppBar myAppBar(BuildContext context) {
         onPressed: () => Navigator.push(
           context,
           CupertinoPageRoute(
-            builder: (context) => const CartScreen(),
+            builder: (context) => const MyCartScreen(),
           ),
         ),
         icon: const Icon(Icons.shopping_cart),

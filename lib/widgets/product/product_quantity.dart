@@ -17,54 +17,51 @@ class _ProductQuantityState extends State<ProductQuantity> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: Theme.of(context).primaryColorDark,
-          ),
-          borderRadius: kBorderRadiusCard,
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: Theme.of(context).primaryColorDark,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (_qty > 1) {
-                  setState(() {
-                    _qty--;
-                  });
-                }
-              },
-              child: Icon(
-                Icons.remove,
-                size: 32,
-                color: Theme.of(context).primaryColorDark,
-              ),
-            ),
-            AutoSizeText(
-              formatter.format(_qty),
-              style: TextStyle(
-                color: Theme.of(context).primaryColorDark,
-              ),
-              maxFontSize: 18,
-            ),
-            GestureDetector(
-              onTap: () {
+        borderRadius: kBorderRadiusCard,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () {
+              if (_qty > 1) {
                 setState(() {
-                  _qty++;
+                  _qty--;
                 });
-              },
-              child: Icon(
-                Icons.add,
-                size: 32,
-                color: Theme.of(context).primaryColorDark,
-              ),
+              }
+            },
+            child: Icon(
+              Icons.remove,
+              size: 32,
+              color: Theme.of(context).primaryColorDark,
             ),
-          ],
-        ),
+          ),
+          AutoSizeText(
+            formatter.format(_qty),
+            style: TextStyle(
+              color: Theme.of(context).primaryColorDark,
+            ),
+            maxFontSize: 18,
+          ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _qty++;
+              });
+            },
+            child: Icon(
+              Icons.add,
+              size: 32,
+              color: Theme.of(context).primaryColorDark,
+            ),
+          ),
+        ],
       ),
     );
   }

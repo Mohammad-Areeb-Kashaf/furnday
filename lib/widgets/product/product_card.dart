@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/product_screen.dart';
+import 'package:furnday/screens/product/product_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/product/product_img.dart';
 import 'package:furnday/widgets/star_ratings.dart';
