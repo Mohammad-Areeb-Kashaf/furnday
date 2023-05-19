@@ -74,17 +74,46 @@ class MyCartScreen extends StatelessWidget {
                             height: 2,
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              AutoSizeText(
+                            children: [
+                              const AutoSizeText(
                                 "Shipping:",
                                 minFontSize: 18,
                                 maxFontSize: 22,
                               ),
-                              AutoSizeText(
-                                "Free shipping",
-                                minFontSize: 18,
-                                maxFontSize: 22,
+                              Column(
+                                children: [
+                                  const AutoSizeText(
+                                    "Free shipping",
+                                    minFontSize: 18,
+                                    maxFontSize: 22,
+                                  ),
+                                  const Flexible(
+                                    child: AutoSizeText.rich(
+                                      TextSpan(
+                                        text: "Shipping to ",
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                "XYZ Apartment, street, Mumbai 400001, Maharashtra",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      wrapWords: true,
+                                      minFontSize: 16,
+                                      maxFontSize: 20,
+                                      overflow: TextOverflow.visible,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: const Text("Change address"),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
