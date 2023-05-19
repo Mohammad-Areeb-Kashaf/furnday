@@ -32,8 +32,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    yellowColor,
-                    orangeColor,
+                    kYellowColor,
+                    kOrangeColor,
                   ],
                 ),
               ),
@@ -41,7 +41,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
-                  physics: scrollPhysics,
+                  physics: kScrollPhysics,
                   child: isEmailSent
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +122,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         MaterialButton(
                                           height: 48,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: borderRadiusCard,
+                                            borderRadius: kBorderRadiusCard,
                                           ),
                                           color: Theme.of(context).primaryColor,
                                           onPressed: () async {

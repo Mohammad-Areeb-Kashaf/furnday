@@ -156,7 +156,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
       child: Scaffold(
         appBar: myAppBar(context),
         body: SingleChildScrollView(
-          physics: scrollPhysics,
+          physics: kScrollPhysics,
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Form(

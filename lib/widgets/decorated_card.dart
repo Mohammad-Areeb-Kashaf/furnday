@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 
 class DecoratedCard extends StatelessWidget {
-  DecoratedCard({
+  const DecoratedCard({
     super.key,
     required this.child,
   });
@@ -12,14 +12,14 @@ class DecoratedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: borderRadiusCard,
+      borderRadius: kBorderRadiusCard,
       elevation: 8,
       child: Container(
         decoration: BoxDecoration(
-          color: whiteBackground,
-          borderRadius: borderRadiusCard,
+          color: kWhiteBackground,
+          borderRadius: kBorderRadiusCard,
           border: Border.all(
-            color: yellowColor,
+            color: kYellowColor,
           ),
         ),
         child: child,

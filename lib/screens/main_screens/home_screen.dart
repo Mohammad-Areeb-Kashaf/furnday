@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        physics: scrollPhysics,
+        physics: kScrollPhysics,
         child: Column(
           children: [
             AutoSwipeAds(),

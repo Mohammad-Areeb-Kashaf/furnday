@@ -18,8 +18,8 @@ class HeadingSectionText extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 246, 195, 60),
         borderRadius: BorderRadius.only(
-          topLeft: radius,
-          topRight: radius,
+          topLeft: kRadius,
+          topRight: kRadius,
         ),
       ),
       child: Row(

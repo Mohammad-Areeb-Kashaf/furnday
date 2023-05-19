@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:furnday/constants.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:furnday/screens/user_profile_screens/my_order_detail_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
+import 'package:furnday/widgets/product/product_img.dart';
 
 class MyOrderCard extends StatelessWidget {
   const MyOrderCard({
@@ -27,15 +26,9 @@ class MyOrderCard extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: borderRadiusCard,
-                  child: CachedNetworkImage(
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
-                    imageUrl:
-                        "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-                  ),
+                const ProductImg(
+                  height: 100,
+                  width: 100,
                 ),
                 const SizedBox(
                   width: 10,

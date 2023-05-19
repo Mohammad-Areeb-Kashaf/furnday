@@ -28,7 +28,7 @@ class _ProductGridState extends State<ProductGrid> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: GridView.count(
-        physics: scrollPhysics,
+        physics: kScrollPhysics,
         crossAxisCount: gridCrossAxisCount,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,

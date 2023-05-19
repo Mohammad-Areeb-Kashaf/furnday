@@ -44,8 +44,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    yellowColor,
-                    orangeColor,
+                    kYellowColor,
+                    kOrangeColor,
                   ],
                 ),
               ),
@@ -53,7 +53,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
-                  physics: scrollPhysics,
+                  physics: kScrollPhysics,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

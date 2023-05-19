@@ -20,11 +20,11 @@ class ProductPrice extends StatelessWidget {
     return RichText(
       text: TextSpan(
         children: [
-          TextSpan(text: '₹$mrp', style: productMRPTextStyle.merge(mrpStyle)),
+          TextSpan(text: '₹$mrp', style: kProductMRPTextStyle.merge(mrpStyle)),
           const TextSpan(text: ' '),
           TextSpan(
               text: '₹$discountedPrice',
-              style: productDiscountPriceTextStyle.merge(discountedPriceStyle))
+              style: kProductDiscountPriceTextStyle.merge(discountedPriceStyle))
         ],
       ),
     );

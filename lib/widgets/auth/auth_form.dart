@@ -99,7 +99,7 @@ class _AuthFormState extends State<AuthForm> {
             const SizedBox(height: 14),
             MaterialButton(
               height: 48,
-              shape: RoundedRectangleBorder(borderRadius: borderRadiusCard),
+              shape: RoundedRectangleBorder(borderRadius: kBorderRadiusCard),
               color: Theme.of(context).primaryColor,
               onPressed: () {
                 setState(() {

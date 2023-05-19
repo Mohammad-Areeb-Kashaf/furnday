@@ -9,7 +9,7 @@ class AllProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: scrollPhysics,
+      physics: kScrollPhysics,
       child: Column(
         children: [
           AutoSwipeAds(),

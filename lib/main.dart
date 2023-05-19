@@ -52,29 +52,29 @@ class _MyAppState extends State<MyApp> {
           textTheme: const TextTheme(
             labelMedium: TextStyle(
               fontWeight: FontWeight.w600,
-              color: greyTextColor,
+              color: kGreyTextColor,
             ),
             labelLarge: TextStyle(
               fontWeight: FontWeight.w600,
             ),
           ),
           listTileTheme: const ListTileThemeData(
-            selectedTileColor: highlightColor,
+            selectedTileColor: kHighlightColor,
             selectedColor: Colors.black,
           ),
-          highlightColor: highlightColor,
+          highlightColor: kHighlightColor,
           colorScheme: const ColorScheme(
               brightness: Brightness.light,
-              primary: yellowColor,
-              onPrimary: yellowColor,
-              secondary: whiteBackground,
-              onSecondary: whiteBackground,
+              primary: kYellowColor,
+              onPrimary: kYellowColor,
+              secondary: kWhiteBackground,
+              onSecondary: kWhiteBackground,
               error: Colors.red,
               onError: Colors.red,
-              background: whiteBackground,
-              onBackground: whiteBackground,
-              surface: whiteBackground,
-              onSurface: whiteBackground),
+              background: kWhiteBackground,
+              onBackground: kWhiteBackground,
+              surface: kWhiteBackground,
+              onSurface: kWhiteBackground),
           buttonTheme: ButtonThemeData(
             colorScheme: Theme.of(context).colorScheme,
             highlightColor: Theme.of(context).highlightColor,
@@ -94,12 +94,12 @@ class _MyAppState extends State<MyApp> {
               900: Color(0xffEFA11A),
             },
           ),
-          scaffoldBackgroundColor: whiteBackground,
+          scaffoldBackgroundColor: kWhiteBackground,
           appBarTheme: const AppBarTheme(
-            backgroundColor: yellowColor,
+            backgroundColor: kYellowColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
-                bottom: radius,
+                bottom: kRadius,
               ),
             ),
             iconTheme: IconThemeData(
@@ -114,7 +114,7 @@ class _MyAppState extends State<MyApp> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: SpinKitFoldingCube(
-                    color: yellowColor,
+                    color: kYellowColor,
                   ),
                 );
               } else if (snapshot.hasError) {

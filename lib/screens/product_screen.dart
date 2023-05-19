@@ -51,10 +51,10 @@ class _ProductScreenState extends State<ProductScreen> {
             color: Colors.black,
           ),
         ),
-        backgroundColor: whiteBackground,
+        backgroundColor: kWhiteBackground,
         body: SafeArea(
           child: SingleChildScrollView(
-            physics: scrollPhysics,
+            physics: kScrollPhysics,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -168,11 +168,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                            whiteBackground,
+                            kWhiteBackground,
                           ),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
-                              borderRadius: borderRadiusCard,
+                              borderRadius: kBorderRadiusCard,
                             ),
                           ),
                           side: MaterialStateProperty.all(
@@ -185,7 +185,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                       MaterialButton(
                         shape: RoundedRectangleBorder(
-                          borderRadius: borderRadiusCard,
+                          borderRadius: kBorderRadiusCard,
                         ),
                         color: Theme.of(context).primaryColor,
                         onPressed: () {},

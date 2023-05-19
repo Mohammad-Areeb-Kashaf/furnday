@@ -39,10 +39,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
               decoration: InputDecoration(
                 labelText: 'First Name',
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: borderRadiusCard,
+                  borderRadius: kBorderRadiusCard,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: borderRadiusCard,
+                  borderRadius: kBorderRadiusCard,
                 ),
               ),
               validator: (value) {
@@ -65,10 +65,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
               decoration: InputDecoration(
                 labelText: 'Last Name',
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: borderRadiusCard,
+                  borderRadius: kBorderRadiusCard,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: borderRadiusCard,
+                  borderRadius: kBorderRadiusCard,
                 ),
               ),
               validator: (value) {
@@ -95,10 +95,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         decoration: InputDecoration(
           labelText: 'Company Name (optional)',
           enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
           border: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
         ),
         validator: (value) {
@@ -122,10 +122,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         decoration: InputDecoration(
           labelText: 'Country / Region',
           enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
           border: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
         ),
         validator: (value) {
@@ -151,10 +151,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
               labelText: 'Street Address',
               hintText: 'House No. and Street Name',
               enabledBorder: OutlineInputBorder(
-                borderRadius: borderRadiusCard,
+                borderRadius: kBorderRadiusCard,
               ),
               border: OutlineInputBorder(
-                borderRadius: borderRadiusCard,
+                borderRadius: kBorderRadiusCard,
               ),
             ),
             validator: (value) {
@@ -175,10 +175,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
             decoration: InputDecoration(
               labelText: 'Apartment, suite, unit, etc. (optional)',
               enabledBorder: OutlineInputBorder(
-                borderRadius: borderRadiusCard,
+                borderRadius: kBorderRadiusCard,
               ),
               border: OutlineInputBorder(
-                borderRadius: borderRadiusCard,
+                borderRadius: kBorderRadiusCard,
               ),
             ),
             validator: (value) {
@@ -201,10 +201,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         decoration: InputDecoration(
           labelText: 'Town / City',
           enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
           border: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
         ),
         validator: (value) {
@@ -274,15 +274,15 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField(
         isExpanded: true,
-        borderRadius: borderRadiusCard,
+        borderRadius: kBorderRadiusCard,
         decoration: InputDecoration(
           labelText: "State",
-          hoverColor: highlightColor,
+          hoverColor: kHighlightColor,
           enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
           border: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
         ),
         validator: (value) {
@@ -310,10 +310,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         decoration: InputDecoration(
           labelText: 'Pin Code',
           enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
           border: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
         ),
         validator: (value) {
@@ -337,10 +337,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         decoration: InputDecoration(
           labelText: 'Phone',
           enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
           border: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
         ),
         validator: (value) {
@@ -364,10 +364,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         decoration: InputDecoration(
           labelText: 'Email Address',
           enabledBorder: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
           border: OutlineInputBorder(
-            borderRadius: borderRadiusCard,
+            borderRadius: kBorderRadiusCard,
           ),
         ),
         validator: (value) {

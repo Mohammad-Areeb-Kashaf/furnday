@@ -22,15 +22,15 @@ class AutoSwipeAds extends StatelessWidget {
       items: _listImage
           .map(
             (e) => ClipRRect(
-              borderRadius: borderRadiusCard,
+              borderRadius: kBorderRadiusCard,
               child: Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
                   Card(
                     shape: RoundedRectangleBorder(
-                      borderRadius: borderRadiusCard,
+                      borderRadius: kBorderRadiusCard,
                       side: const BorderSide(
-                        color: yellowColor,
+                        color: kYellowColor,
                       ),
                     ),
                     child: DecoratedCard(
@@ -46,7 +46,7 @@ class AutoSwipeAds extends StatelessWidget {
                                 );
                               },
                               child: ClipRRect(
-                                borderRadius: borderRadiusCard,
+                                borderRadius: kBorderRadiusCard,
                                 child: Image.asset(
                                   "assets/images/hire_carpenter.png",
                                   fit: BoxFit.cover,
@@ -54,7 +54,7 @@ class AutoSwipeAds extends StatelessWidget {
                               ),
                             )
                           : ClipRRect(
-                              borderRadius: borderRadiusCard,
+                              borderRadius: kBorderRadiusCard,
                               child: CachedNetworkImage(
                                 imageUrl: e,
                                 fit: BoxFit.cover,

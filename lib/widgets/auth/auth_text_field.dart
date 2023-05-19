@@ -27,15 +27,15 @@ class AuthTextField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
-          borderRadius: borderRadiusCard,
-          borderSide: const BorderSide(color: yellowColor),
+          borderRadius: kBorderRadiusCard,
+          borderSide: const BorderSide(color: kYellowColor),
         ),
         border: OutlineInputBorder(
-          borderRadius: borderRadiusCard,
-          borderSide: const BorderSide(color: yellowColor),
+          borderRadius: kBorderRadiusCard,
+          borderSide: const BorderSide(color: kYellowColor),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: borderRadiusCard,
+          borderRadius: kBorderRadiusCard,
           borderSide: const BorderSide(color: Colors.grey),
         ),
         labelText: labelText,

@@ -34,8 +34,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    yellowColor,
-                    orangeColor,
+                    kYellowColor,
+                    kOrangeColor,
                   ],
                 ),
               ),
@@ -43,7 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
             SafeArea(
               child: Center(
                 child: SingleChildScrollView(
-                  physics: scrollPhysics,
+                  physics: kScrollPhysics,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

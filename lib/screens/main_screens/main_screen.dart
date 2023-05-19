@@ -110,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
         ? InternetChecker(
             child: Scaffold(
               drawer: Drawer(
-                backgroundColor: whiteBackground,
+                backgroundColor: kWhiteBackground,
                 child: ListView(
                   children: [
                     ListTile(
@@ -240,8 +240,8 @@ class _MainScreenState extends State<MainScreen> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          yellowColor,
-                          orangeColor,
+                          kYellowColor,
+                          kOrangeColor,
                         ],
                       ),
                     ),

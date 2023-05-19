@@ -25,7 +25,7 @@ class _ProductQuantityState extends State<ProductQuantity> {
             width: 1,
             color: Theme.of(context).primaryColorDark,
           ),
-          borderRadius: borderRadiusCard,
+          borderRadius: kBorderRadiusCard,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

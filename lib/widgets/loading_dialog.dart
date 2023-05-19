@@ -7,7 +7,7 @@ loadDialog(BuildContext context) {
     context: context,
     builder: (context) => const Center(
       child: SpinKitFoldingCube(
-        color: yellowColor,
+        color: kYellowColor,
       ),
     ),
   );

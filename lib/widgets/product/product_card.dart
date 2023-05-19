@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/screens/product_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
+import 'package:furnday/widgets/product/product_img.dart';
 import 'package:furnday/widgets/star_ratings.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -62,14 +63,7 @@ class _ProductCardState extends State<ProductCard> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: borderRadiusCard,
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-                    ),
-                  ),
+                  const ProductImg(),
                   Expanded(
                     child: Align(
                       alignment: Alignment.centerLeft,
@@ -93,7 +87,7 @@ class _ProductCardState extends State<ProductCard> {
                   Expanded(
                     child: StarRating(
                       rating: 4.5,
-                      color: yellowColor,
+                      color: kYellowColor,
                     ),
                   ),
                   Expanded(
@@ -105,7 +99,7 @@ class _ProductCardState extends State<ProductCard> {
                             const TextSpan(
                               text: '₹1000',
                               style: TextStyle(
-                                color: greyMRPColor,
+                                color: kGreyMRPColor,
                                 decoration: TextDecoration.lineThrough,
                                 fontSize: 18,
                               ),
@@ -114,7 +108,7 @@ class _ProductCardState extends State<ProductCard> {
                             TextSpan(
                               text: '₹900',
                               style: TextStyle(
-                                color: greyDiscountedPriceColor,
+                                color: kGreyDiscountedPriceColor,
                                 fontSize: 18,
                               ),
                             )

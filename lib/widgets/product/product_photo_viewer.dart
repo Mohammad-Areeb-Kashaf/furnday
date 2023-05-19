@@ -31,7 +31,7 @@ class ProductPhotoViewer extends StatelessWidget {
                 },
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
-                      bottomLeft: radius, bottomRight: radius),
+                      bottomLeft: kRadius, bottomRight: kRadius),
                   child: CachedNetworkImage(
                     imageUrl: photos[index],
                     fit: BoxFit.cover,

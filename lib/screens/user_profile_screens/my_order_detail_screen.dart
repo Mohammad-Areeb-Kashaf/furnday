@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/models/order/track_order_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:furnday/widgets/product/product_img.dart';
 import 'package:im_stepper/stepper.dart';
 
 class MyOrderDetailScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
           ),
         ),
         body: SingleChildScrollView(
-          physics: scrollPhysics,
+          physics: kScrollPhysics,
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -207,15 +207,8 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   ),
                                 ],
                               ),
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: borderRadiusCard,
-                                  child: CachedNetworkImage(
-                                    fit: BoxFit.cover,
-                                    imageUrl:
-                                        "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-                                  ),
-                                ),
+                              const Expanded(
+                                child: ProductImg(),
                               ),
                             ],
                           ),
@@ -261,7 +254,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                               ),
                               Expanded(
                                 child: ListView.builder(
-                                  physics: scrollPhysics,
+                                  physics: kScrollPhysics,
                                   shrinkWrap: true,
                                   padding: EdgeInsets.zero,
                                   itemCount: trackOrderList.length,
@@ -299,6 +292,84 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                 ),
                               ),
                             ],
+                          ),
+                          const Divider(
+                            thickness: 2.0,
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: const [
+                                AutoSizeText(
+                                  "Subtotal",
+                                  minFontSize: 16,
+                                  maxFontSize: 19,
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                AutoSizeText(
+                                  "₹14000",
+                                  minFontSize: 16,
+                                  maxFontSize: 19,
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: const [
+                                AutoSizeText(
+                                  "Delivery Charges",
+                                  minFontSize: 16,
+                                  maxFontSize: 19,
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                AutoSizeText(
+                                  "Free",
+                                  minFontSize: 16,
+                                  maxFontSize: 19,
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Row(
+                              children: const [
+                                AutoSizeText(
+                                  "Total",
+                                  minFontSize: 16,
+                                  maxFontSize: 19,
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                Spacer(),
+                                AutoSizeText(
+                                  "₹14000",
+                                  minFontSize: 16,
+                                  maxFontSize: 19,
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4,
                           ),
                         ],
                       ),
