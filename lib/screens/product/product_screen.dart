@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/models/product_review_model.dart';
+import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/product/product_price.dart';
@@ -45,7 +47,12 @@ class _ProductScreenState extends State<ProductScreen> {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () {},
+          onPressed: () => Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => const MyCartScreen(),
+            ),
+          ),
           child: const Icon(
             Icons.shopping_cart,
             color: Colors.black,

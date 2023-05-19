@@ -11,70 +11,77 @@ class MyCartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedCard(
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.clear_rounded),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: DecoratedCard(
+        child: Column(
+          children: [
+            Column(
               children: [
-                const ProductImg(
-                  height: 100,
-                  width: 100,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: const [
-                            AutoSizeText(
-                              'Bed',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              minFontSize: 20,
-                              maxFontSize: 26,
-                            ),
-                            Spacer(),
-                            AutoSizeText(
-                              '₹14000',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                              minFontSize: 20,
-                              maxFontSize: 26,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Align(
-                          alignment: Alignment.bottomRight,
-                          child: ProductQuantity(),
-                        ),
-                      ],
-                    ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.close),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ProductImg(
+                    height: 100,
+                    width: 100,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: const [
+                              AutoSizeText(
+                                'Bed',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                minFontSize: 20,
+                                maxFontSize: 26,
+                              ),
+                              Spacer(),
+                              AutoSizeText(
+                                '₹14000',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                minFontSize: 20,
+                                maxFontSize: 26,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Align(
+                            alignment: Alignment.bottomRight,
+                            child: ProductQuantity(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
