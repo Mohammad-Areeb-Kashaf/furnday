@@ -16,17 +16,20 @@ AppBar myAppBar(BuildContext context) {
         onPressed: () {},
         icon: const Icon(Icons.search),
       ),
-      badges.Badge(
-        position: badges.BadgePosition.custom(top: -5, end: 0),
-        badgeContent: const Text('3'),
-        child: IconButton(
-          onPressed: () => Navigator.push(
-            context,
-            CupertinoPageRoute(
-              builder: (context) => const MyCartScreen(),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: badges.Badge(
+          position: badges.BadgePosition.custom(top: -5, end: 0),
+          badgeContent: const Text('3'),
+          child: IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => const MyCartScreen(),
+              ),
             ),
+            icon: const Icon(Icons.shopping_cart),
           ),
-          icon: const Icon(Icons.shopping_cart),
         ),
       ),
       GestureDetector(
