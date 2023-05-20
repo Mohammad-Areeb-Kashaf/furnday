@@ -133,11 +133,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   trailing: const Icon(Icons.chevron_right),
                                 ),
                                 const ListTile(
-                                  title: AutoSizeText('My Favorites'),
-                                  leading: Icon(Icons.favorite_outline),
-                                  trailing: Icon(Icons.chevron_right),
-                                ),
-                                const ListTile(
                                   title: AutoSizeText('Settings'),
                                   leading: Icon(Icons.settings),
                                   trailing: Icon(Icons.chevron_right),

@@ -17,7 +17,7 @@ AppBar myAppBar(BuildContext context) {
         icon: const Icon(Icons.search),
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.only(top: 4.0),
         child: badges.Badge(
           position: badges.BadgePosition.custom(top: -5, end: 0),
           badgeContent: const Text('3'),

@@ -56,93 +56,66 @@ class _ProductCardState extends State<ProductCard> {
         );
       },
       child: DecoratedCard(
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  const ProductImg(),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: AutoSizeText(
-                        'Product Category',
-                        style: Theme.of(context).textTheme.labelMedium,
-                        maxFontSize: 12,
-                      ),
-                    ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const ProductImg(),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    'Product Category',
+                    style: Theme.of(context).textTheme.labelMedium,
+                    maxFontSize: 12,
                   ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: AutoSizeText(
-                        'Product Name',
-                        style: Theme.of(context).textTheme.labelLarge,
-                        maxFontSize: 16,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: StarRating(
-                      rating: 4.5,
-                      color: kYellowColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            const TextSpan(
-                              text: '₹1000',
-                              style: TextStyle(
-                                color: kGreyMRPColor,
-                                decoration: TextDecoration.lineThrough,
-                                fontSize: 18,
-                              ),
-                            ),
-                            const TextSpan(text: ' '),
-                            TextSpan(
-                              text: '₹900',
-                              style: TextStyle(
-                                color: kGreyDiscountedPriceColor,
-                                fontSize: 18,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: 15,
-              right: 15,
-              child: CircleAvatar(
-                backgroundColor: Colors.white24,
-                foregroundColor: Colors.black,
-                child: IconButton(
-                  onPressed: () {
-                    if (isFavorite) {
-                      setState(() {
-                        isFavorite = false;
-                      });
-                    } else {
-                      setState(() {
-                        isFavorite = true;
-                      });
-                    }
-                  },
-                  icon:
-                      Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
                 ),
               ),
-            )
-          ],
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    'Product Name',
+                    style: Theme.of(context).textTheme.labelLarge,
+                    maxFontSize: 16,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: StarRating(
+                  rating: 4.5,
+                  color: kYellowColor,
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(
+                          text: '₹1000',
+                          style: TextStyle(
+                            color: kGreyMRPColor,
+                            decoration: TextDecoration.lineThrough,
+                            fontSize: 18,
+                          ),
+                        ),
+                        const TextSpan(text: ' '),
+                        TextSpan(
+                          text: '₹900',
+                          style: TextStyle(
+                            color: kGreyDiscountedPriceColor,
+                            fontSize: 18,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
