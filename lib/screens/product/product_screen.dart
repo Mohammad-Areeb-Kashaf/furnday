@@ -13,6 +13,7 @@ import 'package:furnday/widgets/product/product_section.dart';
 import 'package:furnday/widgets/star_ratings.dart';
 import 'package:intl/intl.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart' as badges;
 
 class ProductScreen extends StatefulWidget {
   final String productName;
@@ -45,17 +46,21 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return InternetChecker(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () => Navigator.push(
-            context,
-            CupertinoPageRoute(
-              builder: (context) => const MyCartScreen(),
+        floatingActionButton: badges.Badge(
+          position: badges.BadgePosition.custom(top: -5, end: 0),
+          badgeContent: const Text('3'),
+          child: FloatingActionButton(
+            backgroundColor: Theme.of(context).primaryColor,
+            onPressed: () => Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => const MyCartScreen(),
+              ),
             ),
-          ),
-          child: const Icon(
-            Icons.shopping_cart,
-            color: Colors.black,
+            child: const Icon(
+              Icons.shopping_cart,
+              color: Colors.black,
+            ),
           ),
         ),
         backgroundColor: kWhiteBackground,

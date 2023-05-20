@@ -28,50 +28,58 @@ class AddressCard extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          const AutoSizeText(
-            "Company Name",
-            minFontSize: 18,
-            maxFontSize: 20,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          const AutoSizeText(
-            "FirstName LastName",
-            minFontSize: 18,
-            maxFontSize: 20,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          const AutoSizeText(
-            "Street Address",
-            minFontSize: 18,
-            maxFontSize: 20,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          const AutoSizeText(
-            "Apartment, suite, unit, etc.",
-            minFontSize: 18,
-            maxFontSize: 20,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          const AutoSizeText(
-            "Town/City Pincode",
-            minFontSize: 18,
-            maxFontSize: 20,
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          const AutoSizeText(
-            "State",
-            minFontSize: 18,
-            maxFontSize: 20,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                AutoSizeText(
+                  "Company Name",
+                  minFontSize: 18,
+                  maxFontSize: 20,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                AutoSizeText(
+                  "FirstName LastName",
+                  minFontSize: 18,
+                  maxFontSize: 20,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                AutoSizeText(
+                  "Street Address",
+                  minFontSize: 18,
+                  maxFontSize: 20,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                AutoSizeText(
+                  "Apartment, suite, unit, etc.",
+                  minFontSize: 18,
+                  maxFontSize: 20,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                AutoSizeText(
+                  "Town/City Pincode",
+                  minFontSize: 18,
+                  maxFontSize: 20,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                AutoSizeText(
+                  "State",
+                  minFontSize: 18,
+                  maxFontSize: 20,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 4,
