@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/models/product_review_model.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
+import 'package:furnday/screens/product/product_3d_view.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/product/product_price.dart';
@@ -109,18 +110,40 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ProductPrice(
-                          mrp: double.parse(widget.productMRP),
-                          discountedPrice:
-                              double.parse(widget.productDiscountedPrice),
-                          mrpStyle: TextStyle(
-                              color: Theme.of(context).highlightColor),
-                          discountedPriceStyle: TextStyle(
-                            color: Theme.of(context).primaryColorDark,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: ProductPrice(
+                              mrp: double.parse(widget.productMRP),
+                              discountedPrice:
+                                  double.parse(widget.productDiscountedPrice),
+                              mrpStyle: TextStyle(
+                                  color: Theme.of(context).highlightColor),
+                              discountedPriceStyle: TextStyle(
+                                color: Theme.of(context).primaryColorDark,
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => const Product3dView(),
+                                ),
+                              ),
+                              child: const Text(
+                                "View in 3D",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 10),
                       Padding(
