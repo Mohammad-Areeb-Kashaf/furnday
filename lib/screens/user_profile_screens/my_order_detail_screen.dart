@@ -208,7 +208,9 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                 ],
                               ),
                               const Expanded(
-                                child: ProductImg(),
+                                child: ProductImg(
+                                  imagePath: "",
+                                ),
                               ),
                             ],
                           ),

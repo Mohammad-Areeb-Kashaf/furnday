@@ -4,10 +4,12 @@ class ProductModel {
   String? discountedPrice;
   bool? featured;
   String? id;
-  List<String>? imagesIds;
+  List<String>? productImagesName;
+  String? productImagesPath;
   String? mrp;
   String? name;
-  List<String>? product3dImagesIds;
+  List<String>? product3dImagesName;
+  String? product3dImagesPath;
   bool? product3dView;
   List<ProductReviews>? productReviews;
   double? rating;
@@ -18,10 +20,12 @@ class ProductModel {
       this.discountedPrice,
       this.featured,
       this.id,
-      this.imagesIds,
+      this.productImagesName,
+      this.productImagesPath,
       this.mrp,
       this.name,
-      this.product3dImagesIds,
+      this.product3dImagesName,
+      this.product3dImagesPath,
       this.product3dView,
       this.productReviews,
       this.rating});
@@ -37,14 +41,16 @@ class ProductModel {
     discountedPrice = json['discountedPrice'];
     featured = json['featured'];
     id = json['id'];
-    imagesIds = json['images_ids'].cast<String>();
+    productImagesName = json['productImagesName'].cast<String>();
+    productImagesPath = json['productImagesPath'];
     mrp = json['mrp'];
     name = json['name'];
-    product3dImagesIds = json['product_3d_images_ids'].cast<String>();
-    product3dView = json['product_3d_view'];
-    if (json['product_reviews'] != null) {
+    product3dImagesName = json['product3dImagesName'].cast<String>();
+    product3dImagesPath = json['product3dImagesPath'];
+    product3dView = json['product3dView'];
+    if (json['productReviews'] != null) {
       productReviews = <ProductReviews>[];
-      json['product_reviews'].forEach((v) {
+      json['productReviews'].forEach((v) {
         productReviews!.add(ProductReviews.fromJson(v));
       });
     }
@@ -60,13 +66,15 @@ class ProductModel {
     data['discountedPrice'] = discountedPrice;
     data['featured'] = featured;
     data['id'] = id;
-    data['images_ids'] = imagesIds;
+    data['productImagesName'] = productImagesName;
+    data['productImagesPath'] = productImagesPath;
     data['mrp'] = mrp;
     data['name'] = name;
-    data['product_3d_images_ids'] = product3dImagesIds;
-    data['product_3d_view'] = product3dView;
+    data['product3dImagesName'] = product3dImagesName;
+    data['product3dImagesPath'] = product3dImagesPath;
+    data['product3dView'] = product3dView;
     if (productReviews != null) {
-      data['product_reviews'] = productReviews!.map((v) => v.toJson()).toList();
+      data['productReviews'] = productReviews!.map((v) => v.toJson()).toList();
     }
     data['rating'] = rating;
     return data;

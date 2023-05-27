@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:furnday/screens/user_profile_screens/my_order_detail_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/product/product_img.dart';
 
 class MyOrderCard extends StatelessWidget {
   const MyOrderCard({
@@ -26,7 +25,7 @@ class MyOrderCard extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
-                const ProductImg(
+                const SizedBox(
                   height: 100,
                   width: 100,
                 ),

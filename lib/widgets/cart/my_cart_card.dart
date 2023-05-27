@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/product/product_img.dart';
 import 'package:furnday/widgets/product/product_quantity.dart';
 
 class MyCartCard extends StatelessWidget {
@@ -32,7 +31,7 @@ class MyCartCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ProductImg(
+                  const SizedBox(
                     height: 100,
                     width: 100,
                   ),

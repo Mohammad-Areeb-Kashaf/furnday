@@ -7,7 +7,7 @@ import 'package:furnday/widgets/product/product_card.dart';
 class ProductServices {
   final _firestore = FirebaseFirestore.instance;
 
-  Widget getProducts(BuildContext context,
+  Widget getAllProducts(BuildContext context,
       {gridCrossAxisCount, gridChildAspectRatio}) {
     final productsStream = _firestore.collection('all_products').snapshots();
 
@@ -34,7 +34,7 @@ class ProductServices {
                 return ProductCard(product: product);
               }).toList());
         } else {
-          return Text("Something went wrong");
+          return const Text("Something went wrong");
         }
       },
     );

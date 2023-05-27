@@ -26,7 +26,7 @@ class _ProductGridState extends State<ProductGrid> {
     });
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: ProductServices().getProducts(
+      child: ProductServices().getAllProducts(
         context,
         gridChildAspectRatio: gridChildAspectRatio,
         gridCrossAxisCount: gridCrossAxisCount,

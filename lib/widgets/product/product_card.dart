@@ -34,7 +34,7 @@ class _ProductCardState extends State<ProductCard> {
                     productMRP: widget.product.mrp.toString(),
                     productDiscountedPrice:
                         widget.product.discountedPrice.toString(),
-                    productImages: [
+                    productImages: const [
                       "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
                       "https://shop.furnday.com/wp-content/uploads/2022/12/Untitled-design-1-1-300x300.jpg",
                       "https://shop.furnday.com/wp-content/uploads/2022/12/Dining-Table-Classy-300x298.jpg",
@@ -48,7 +48,9 @@ class _ProductCardState extends State<ProductCard> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              const ProductImg(),
+              ProductImg(
+                imagePath: widget.product.productImagesPath.toString(),
+              ),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerLeft,
