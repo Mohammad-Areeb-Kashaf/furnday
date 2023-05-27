@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 
 class ProductPrice extends StatelessWidget {
-  final double mrp;
-  final double discountedPrice;
+  final String mrp;
+  final String discountedPrice;
   final TextStyle? mrpStyle;
   final TextStyle? discountedPriceStyle;
 

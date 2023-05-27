@@ -14,8 +14,10 @@ const kProductMRPTextStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w400,
   decoration: TextDecoration.lineThrough,
+  color: kGreyMRPColor,
 );
 const kProductDiscountPriceTextStyle = TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 20,
+  color: kGreyTextColor,
 );

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:furnday/constants.dart';
-import 'package:furnday/widgets/product/product_card.dart';
+import 'package:furnday/services/product_services.dart';
 
 class ProductGrid extends StatefulWidget {
   const ProductGrid({super.key});
@@ -27,20 +26,10 @@ class _ProductGridState extends State<ProductGrid> {
     });
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: GridView.count(
-        physics: kScrollPhysics,
-        crossAxisCount: gridCrossAxisCount,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        shrinkWrap: true,
-        childAspectRatio: gridChildAspectRatio,
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        children: List.generate(
-          60,
-          (index) {
-            return const ProductCard();
-          },
-        ),
+      child: ProductServices().getProducts(
+        context,
+        gridChildAspectRatio: gridChildAspectRatio,
+        gridCrossAxisCount: gridCrossAxisCount,
       ),
     );
   }
@@ -60,7 +49,7 @@ class _ProductGridState extends State<ProductGrid> {
   gridChildAspectRatioDeterminer() {
     if (gridCrossAxisCount == 3) {
       return MediaQuery.of(context).size.width /
-          (MediaQuery.of(context).size.height / 0.8);
+          (MediaQuery.of(context).size.height / 1);
     } else {
       return MediaQuery.of(context).size.width /
           (MediaQuery.of(context).size.height / 1.25);

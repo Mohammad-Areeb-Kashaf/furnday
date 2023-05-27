@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 
 class ProductImg extends StatelessWidget {
-  const ProductImg({super.key, this.height, this.width});
+  const ProductImg({super.key, this.height, this.width, this.imagePath});
   final double? height, width;
+  final String imagePath;
 
   @override
   Widget build(BuildContext context) {

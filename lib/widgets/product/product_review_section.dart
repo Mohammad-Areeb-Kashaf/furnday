@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:furnday/models/product_review_model.dart';
+import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/star_ratings.dart';
 
 class ProductReviewSection extends StatelessWidget {
-  final List<ProductReview> reviews;
+  final List<ProductReviews> reviews;
 
   const ProductReviewSection({Key? key, required this.reviews})
       : super(key: key);
@@ -35,7 +35,7 @@ class ProductReviewSection extends StatelessWidget {
                           const Icon(Icons.person, size: 20),
                           const SizedBox(width: 8),
                           AutoSizeText(
-                            review.username,
+                            review.username.toString(),
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             maxFontSize: 20,
                           ),
@@ -48,10 +48,10 @@ class ProductReviewSection extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       StarRating(
-                        rating: review.rating,
+                        rating: review.rating!.toDouble(),
                       ),
                       const SizedBox(height: 8),
-                      AutoSizeText(review.comment),
+                      AutoSizeText(review.comment.toString()),
                       const SizedBox(height: 16),
                       const Divider(thickness: 1),
                       const SizedBox(height: 16),

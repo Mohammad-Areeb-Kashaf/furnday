@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/models/product_review_model.dart';
+import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/product/product_3d_view.dart';
 import 'package:furnday/widgets/decorated_card.dart';
@@ -23,7 +23,7 @@ class ProductScreen extends StatefulWidget {
   final String productMRP;
   final String productDiscountedPrice;
   final List<String> productImages;
-  final List<Map<String, dynamic>> reviews;
+  final List<ProductReviews> reviews;
 
   const ProductScreen({
     Key? key,
@@ -116,9 +116,8 @@ class _ProductScreenState extends State<ProductScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: ProductPrice(
-                              mrp: double.parse(widget.productMRP),
-                              discountedPrice:
-                                  double.parse(widget.productDiscountedPrice),
+                              mrp: widget.productMRP,
+                              discountedPrice: widget.productDiscountedPrice,
                               mrpStyle: TextStyle(
                                   color: Theme.of(context).highlightColor),
                               discountedPriceStyle: TextStyle(
@@ -238,34 +237,9 @@ class _ProductScreenState extends State<ProductScreen> {
                 const SizedBox(height: 10),
                 ProductReviewSection(
                   reviews: [
-                    ProductReview(
+                    ProductReviews(
                         username: 'FurnDay User',
-                        date: DateFormat("yyyy-MM--dd")
-                            .format(DateTime.utc(2023, 3, 12)),
-                        rating: 4.5,
-                        comment: "Very Good Product"),
-                    ProductReview(
-                        username: 'FurnDay User',
-                        date: DateFormat("yyyy-MM--dd")
-                            .format(DateTime.parse("20230312")),
-                        rating: 4.5,
-                        comment: "Very Good Product"),
-                    ProductReview(
-                        username: 'FurnDay User',
-                        date: DateFormat("yyyy-MM--dd")
-                            .format(DateTime.parse("20230312")),
-                        rating: 4.5,
-                        comment: "Very Good Product"),
-                    ProductReview(
-                        username: 'FurnDay User',
-                        date: DateFormat("yyyy-MM--dd")
-                            .format(DateTime.parse("20230312")),
-                        rating: 4.5,
-                        comment: "Very Good Product"),
-                    ProductReview(
-                        username: 'FurnDay User',
-                        date: DateFormat("yyyy-MM--dd")
-                            .format(DateTime.parse("20230312")),
+                        date: "22/5/2023",
                         rating: 4.5,
                         comment: "Very Good Product"),
                   ],
