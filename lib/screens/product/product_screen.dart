@@ -6,6 +6,7 @@ import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/product/product_3d_view_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:furnday/widgets/product/product_grid_type.dart';
 import 'package:furnday/widgets/product/product_price.dart';
 import 'package:furnday/widgets/product/product_photo_viewer.dart';
 import 'package:furnday/widgets/product/product_quantity.dart';
@@ -253,7 +254,10 @@ class _ProductScreenState extends State<ProductScreen> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const ProductSection(headingText: "You might also like"),
+                const ProductSection(
+                  headingText: "You might also like",
+                  productGridType: ProductGridType.allProducts,
+                ),
                 const SizedBox(height: 10),
               ],
             ),

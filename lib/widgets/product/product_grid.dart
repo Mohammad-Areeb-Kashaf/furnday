@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/services/product_services.dart';
+import 'package:furnday/widgets/product/product_grid_type.dart';
 
 class ProductGrid extends StatefulWidget {
-  const ProductGrid({super.key});
+  const ProductGrid({super.key, required this.productGridType});
 
+  final ProductGridType productGridType;
   @override
   State<ProductGrid> createState() => _ProductGridState();
 }
@@ -18,6 +20,33 @@ class _ProductGridState extends State<ProductGrid> {
     super.initState();
   }
 
+  productGridTypeDeterminer() {
+    switch (widget.productGridType) {
+      case ProductGridType.allProducts:
+        return ProductServices().getAllProducts(
+          context,
+          gridChildAspectRatio: gridChildAspectRatio,
+          gridCrossAxisCount: gridCrossAxisCount,
+        );
+      case ProductGridType.featuredProducts:
+        return ProductServices().getFeaturedProducts(
+          context,
+          gridChildAspectRatio: gridChildAspectRatio,
+          gridCrossAxisCount: gridCrossAxisCount,
+        );
+      case ProductGridType.refurbishedProducts:
+        return const Placeholder();
+      case ProductGridType.furniture:
+        return const Placeholder();
+      case ProductGridType.hardware:
+        return const Placeholder();
+      case ProductGridType.plywood:
+        return const Placeholder();
+      default:
+        return const Placeholder();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     setState(() {
@@ -26,11 +55,7 @@ class _ProductGridState extends State<ProductGrid> {
     });
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: ProductServices().getAllProducts(
-        context,
-        gridChildAspectRatio: gridChildAspectRatio,
-        gridCrossAxisCount: gridCrossAxisCount,
-      ),
+      child: productGridTypeDeterminer(),
     );
   }
 

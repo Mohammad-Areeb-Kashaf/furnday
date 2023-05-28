@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/widgets/auto_swipe_ads.dart';
+import 'package:furnday/widgets/product/product_grid_type.dart';
 import 'package:furnday/widgets/product/product_section.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,18 +20,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        physics: kScrollPhysics,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AutoSwipeAds(),
-            const ProductSection(headingText: "Featured Products"),
-            const ProductSection(
-              headingText: "Popular",
-            ),
-          ],
-        ),
-      );
+      physics: kScrollPhysics,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AutoSwipeAds(),
+          const ProductSection(
+            headingText: "Featured Products",
+            productGridType: ProductGridType.featuredProducts,
+          ),
+        ],
+      ),
+    );
   }
 }

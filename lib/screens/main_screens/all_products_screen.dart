@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/widgets/auto_swipe_ads.dart';
+import 'package:furnday/widgets/product/product_grid_type.dart';
 import 'package:furnday/widgets/product/product_section.dart';
 
 class AllProductsScreen extends StatelessWidget {
@@ -13,7 +14,10 @@ class AllProductsScreen extends StatelessWidget {
       child: Column(
         children: [
           AutoSwipeAds(),
-          const ProductSection(headingText: "All Products")
+          const ProductSection(
+            headingText: "All Products",
+            productGridType: ProductGridType.allProducts,
+          )
         ],
       ),
     );

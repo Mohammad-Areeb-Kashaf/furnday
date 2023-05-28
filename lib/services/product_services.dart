@@ -19,7 +19,41 @@ class ProductServices {
         } else if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('Loading');
         } else if (snapshot.hasData) {
-          var product;
+          return GridView.count(
+              crossAxisCount: gridCrossAxisCount,
+              childAspectRatio: gridChildAspectRatio,
+              physics: kScrollPhysics,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              shrinkWrap: true,
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+                var product = ProductModel.fromJson(data);
+                return ProductCard(product: product);
+              }).toList());
+        } else {
+          return const Text("Something went wrong");
+        }
+      },
+    );
+  }
+
+  Widget getFeaturedProducts(BuildContext context,
+      {gridCrossAxisCount, gridChildAspectRatio}) {
+    final featuredProductsStream = _firestore
+        .collection('all_products')
+        .where("featured", isEqualTo: true)
+        .snapshots();
+
+    return StreamBuilder(
+      stream: featuredProductsStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('Loading');
+        } else if (snapshot.hasData) {
           return GridView.count(
               crossAxisCount: gridCrossAxisCount,
               childAspectRatio: gridChildAspectRatio,
