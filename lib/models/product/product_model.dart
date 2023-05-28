@@ -4,12 +4,10 @@ class ProductModel {
   String? discountedPrice;
   bool? featured;
   String? id;
-  List<String>? productImagesName;
-  String? productImagesPath;
+  List<String>? productImages;
   String? mrp;
   String? name;
-  List<String>? product3dImagesName;
-  String? product3dImagesPath;
+  List<String>? product3dImages;
   bool? product3dView;
   List<ProductReviews>? productReviews;
   double? rating;
@@ -20,12 +18,10 @@ class ProductModel {
       this.discountedPrice,
       this.featured,
       this.id,
-      this.productImagesName,
-      this.productImagesPath,
+      this.productImages,
       this.mrp,
       this.name,
-      this.product3dImagesName,
-      this.product3dImagesPath,
+      this.product3dImages,
       this.product3dView,
       this.productReviews,
       this.rating});
@@ -41,12 +37,10 @@ class ProductModel {
     discountedPrice = json['discountedPrice'];
     featured = json['featured'];
     id = json['id'];
-    productImagesName = json['productImagesName'].cast<String>();
-    productImagesPath = json['productImagesPath'];
+    productImages = json['productImages'].cast<String>();
     mrp = json['mrp'];
     name = json['name'];
-    product3dImagesName = json['product3dImagesName'].cast<String>();
-    product3dImagesPath = json['product3dImagesPath'];
+    product3dImages = json['product3dImages'].cast<String>();
     product3dView = json['product3dView'];
     if (json['productReviews'] != null) {
       productReviews = <ProductReviews>[];
@@ -66,12 +60,10 @@ class ProductModel {
     data['discountedPrice'] = discountedPrice;
     data['featured'] = featured;
     data['id'] = id;
-    data['productImagesName'] = productImagesName;
-    data['productImagesPath'] = productImagesPath;
+    data['productImages'] = productImages;
     data['mrp'] = mrp;
     data['name'] = name;
-    data['product3dImagesName'] = product3dImagesName;
-    data['product3dImagesPath'] = product3dImagesPath;
+    data['product3dImages'] = product3dImages;
     data['product3dView'] = product3dView;
     if (productReviews != null) {
       data['productReviews'] = productReviews!.map((v) => v.toJson()).toList();

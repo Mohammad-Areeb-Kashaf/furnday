@@ -27,20 +27,10 @@ class _ProductCardState extends State<ProductCard> {
         Navigator.push(
           context,
           CupertinoPageRoute(
-              builder: (context) => ProductScreen(
-                    productName: widget.product.name.toString(),
-                    productCategories: widget.product.category!.toList(),
-                    productDescription: 'This is an example product.',
-                    productMRP: widget.product.mrp.toString(),
-                    productDiscountedPrice:
-                        widget.product.discountedPrice.toString(),
-                    productImages: const [
-                      "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-                      "https://shop.furnday.com/wp-content/uploads/2022/12/Untitled-design-1-1-300x300.jpg",
-                      "https://shop.furnday.com/wp-content/uploads/2022/12/Dining-Table-Classy-300x298.jpg",
-                    ],
-                    reviews: widget.product.productReviews!.toList(),
-                  )),
+            builder: (context) => ProductScreen(
+              product: widget.product,
+            ),
+          ),
         );
       },
       child: DecoratedCard(
@@ -49,7 +39,7 @@ class _ProductCardState extends State<ProductCard> {
           child: Column(
             children: [
               ProductImg(
-                imagePath: widget.product.productImagesPath.toString(),
+                images: widget.product.productImages!.toList(),
               ),
               Expanded(
                 child: Align(

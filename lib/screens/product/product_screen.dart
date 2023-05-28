@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
-import 'package:furnday/screens/product/product_3d_view.dart';
+import 'package:furnday/screens/product/product_3d_view_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/product/product_price.dart';
@@ -12,28 +12,15 @@ import 'package:furnday/widgets/product/product_quantity.dart';
 import 'package:furnday/widgets/product/product_review_section.dart';
 import 'package:furnday/widgets/product/product_section.dart';
 import 'package:furnday/widgets/star_ratings.dart';
-import 'package:intl/intl.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:badges/badges.dart' as badges;
 
 class ProductScreen extends StatefulWidget {
-  final String productName;
-  final List<String> productCategories;
-  final String productDescription;
-  final String productMRP;
-  final String productDiscountedPrice;
-  final List<String> productImages;
-  final List<ProductReviews> reviews;
+  final ProductModel product;
 
   const ProductScreen({
     Key? key,
-    required this.productName,
-    required this.productCategories,
-    required this.productDescription,
-    required this.productMRP,
-    required this.productDiscountedPrice,
-    required this.productImages,
-    required this.reviews,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -72,7 +59,7 @@ class _ProductScreenState extends State<ProductScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ProductPhotoViewer(
-                  photos: widget.productImages,
+                  photos: widget.product.productImages!.toList(),
                 ),
                 const SizedBox(height: 10),
                 DecoratedCard(
@@ -82,7 +69,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: AutoSizeText(
-                          widget.productCategories
+                          widget.product.category
                               .toString()
                               .replaceAll("[", '')
                               .replaceAll(']', ''),
@@ -96,7 +83,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             AutoSizeText(
-                              widget.productName,
+                              widget.product.name.toString(),
                               style: Theme.of(context)
                                   .textTheme
                                   .labelLarge!
@@ -116,8 +103,9 @@ class _ProductScreenState extends State<ProductScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: ProductPrice(
-                              mrp: widget.productMRP,
-                              discountedPrice: widget.productDiscountedPrice,
+                              mrp: widget.product.mrp.toString(),
+                              discountedPrice:
+                                  widget.product.discountedPrice.toString(),
                               mrpStyle: TextStyle(
                                   color: Theme.of(context).highlightColor),
                               discountedPriceStyle: TextStyle(
@@ -125,43 +113,60 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: ElevatedButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => const Product3dView(),
-                                ),
-                              ),
-                              child: const Text(
-                                "View in 3D",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
+                          widget.product.product3dView == true
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: ElevatedButton(
+                                    onPressed: () => Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const Product3dViewScreen(),
+                                      ),
+                                    ),
+                                    child: const Text(
+                                      "View in 3D",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
                         ],
                       ),
                       const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: DecoratedCard(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  "Details",
-                                  style: Theme.of(context).textTheme.labelLarge,
-                                  maxFontSize: 24,
-                                ),
-                                const AutoSizeText(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget maximus mauris, ut dapibus eros. Duis ultricies posuere euismod. Etiam vel lacus sapien. Mauris fringilla vestibulum dignissim. Phasellus dui turpis, commodo vel elit non, cursus vestibulum urna. Vivamus sagittis nisl et sapien lobortis porta. In est velit, tristique nec lacus vel, rhoncus commodo arcu. Cras vulputate tellus ac nisi interdum, a feugiat nunc vestibulum. Ut ac ornare ligula, in tempor diam. Duis vitae ante et enim rutrum varius ac nec mi. Nulla nulla nisl, pellentesque eget ultrices aliquam, blandit eu quam. Fusce ut porta nisl, et tristique est. Proin eget.',
-                                ),
-                              ],
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: List.generate(
+                              widget.product.description!.length,
+                              (index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AutoSizeText(
+                                        widget.product.description![index].title
+                                            .toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge,
+                                        maxFontSize: 24,
+                                      ),
+                                      AutoSizeText(
+                                        widget.product.description![index].desc
+                                            .toString(),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),

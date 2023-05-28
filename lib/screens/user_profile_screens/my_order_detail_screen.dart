@@ -4,7 +4,6 @@ import 'package:furnday/constants.dart';
 import 'package:furnday/models/order/track_order_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
-import 'package:furnday/widgets/product/product_img.dart';
 import 'package:im_stepper/stepper.dart';
 
 class MyOrderDetailScreen extends StatefulWidget {
@@ -207,11 +206,11 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   ),
                                 ],
                               ),
-                              const Expanded(
-                                child: ProductImg(
-                                  imagePath: "",
-                                ),
-                              ),
+                              // const Expanded(
+                              //   child: ProductImg(
+                              //     images: [],
+                              //   ),
+                              // ),
                             ],
                           ),
                           const SizedBox(

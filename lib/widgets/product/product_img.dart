@@ -8,45 +8,37 @@ class ProductImg extends StatefulWidget {
     super.key,
     this.height,
     this.width,
-    this.imagePath = '',
-    this.imageName = '',
+    this.images,
   });
   final double? height, width;
-  final String imagePath;
-  final String imageName;
+  final List<String>? images;
 
   @override
   State<ProductImg> createState() => _ProductImgState();
 }
 
 class _ProductImgState extends State<ProductImg> {
-  late String imageUrl;
-  final _storage = FirebaseStorage.instance;
+  String imageUrl = '';
+  final storageRef = FirebaseStorage.instance;
 
   @override
   void initState() {
     super.initState();
-    imageUrl = '';
-    getImageUrl();
-  }
-
-  Future<void> getImageUrl() async {
-    print('imagePath: ${widget.imagePath}');
-    print('imageName: ${widget.imageName}');
-
-    final ref = _storage.ref();
+    imageUrl = widget.images![0].toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: kBorderRadiusCard,
-      child: CachedNetworkImage(
-        fit: BoxFit.cover,
-        height: widget.height,
-        width: widget.width,
-        imageUrl: "https://shop.furnday.com/wp-content/uploads/2022/09/Bed.jpg",
-      ),
+      child: imageUrl.isNotEmpty
+          ? CachedNetworkImage(
+              fit: BoxFit.cover,
+              height: widget.height,
+              width: widget.width,
+              imageUrl: imageUrl,
+            )
+          : const SizedBox.shrink(),
     );
   }
 }

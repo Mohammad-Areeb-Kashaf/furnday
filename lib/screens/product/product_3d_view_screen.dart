@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:imageview360/imageview360.dart';
 
-class Product3dView extends StatefulWidget {
-  const Product3dView({Key? key}) : super(key: key);
+class Product3dViewScreen extends StatefulWidget {
+  const Product3dViewScreen({Key? key}) : super(key: key);
 
   @override
-  _Product3dViewState createState() => _Product3dViewState();
+  _Product3dViewScreenState createState() => _Product3dViewScreenState();
 }
 
-class _Product3dViewState extends State<Product3dView> {
+class _Product3dViewScreenState extends State<Product3dViewScreen> {
   List<ImageProvider> imageList = <ImageProvider>[];
   int rotationCount = 22;
   int swipeSensitivity = 1;

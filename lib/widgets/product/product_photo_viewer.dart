@@ -8,13 +8,13 @@ import 'package:photo_view/photo_view.dart';
 class ProductPhotoViewer extends StatelessWidget {
   final List<String> photos;
 
-  const ProductPhotoViewer({required this.photos});
+  const ProductPhotoViewer({super.key, required this.photos});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: 400, // adjust the height according to your requirement
           child: Swiper(
             itemBuilder: (BuildContext context, int index) {
