@@ -172,7 +172,10 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const ProductQuantity(),
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: ProductQuantity(),
+                      ),
                       const SizedBox(height: 10),
                     ],
                   ),
