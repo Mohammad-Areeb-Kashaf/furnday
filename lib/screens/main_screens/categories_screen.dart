@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/services/product_services.dart';
 import 'package:furnday/widgets/auto_swipe_ads.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class CategoriesScreen extends StatelessWidget {
       child: Column(
         children: [
           AutoSwipeAds(),
+          ProductServices().getCategories(),
         ],
       ),
     );

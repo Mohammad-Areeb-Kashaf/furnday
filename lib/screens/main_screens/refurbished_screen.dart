@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/services/product_services.dart';
 import 'package:furnday/widgets/auto_swipe_ads.dart';
 import 'package:furnday/widgets/product/product_grid_type.dart';
 import 'package:furnday/widgets/product/product_section.dart';
@@ -14,9 +15,10 @@ class RefurbishedScreen extends StatelessWidget {
       child: Column(
         children: [
           AutoSwipeAds(),
-          const ProductSection(
+          ProductSection(
             headingText: "Refurbished",
             productGridType: ProductGridType.refurbishedProducts,
+            productServicesInstance: ProductServices(),
           )
         ],
       ),

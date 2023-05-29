@@ -4,11 +4,15 @@ import 'package:furnday/services/product_services.dart';
 import 'package:furnday/widgets/product/product_grid_type.dart';
 
 class ProductGrid extends StatefulWidget {
-  const ProductGrid({super.key, required this.productGridType});
+  const ProductGrid(
+      {super.key,
+      required this.productGridType,
+      required this.productServicesInstance});
 
   final ProductGridType productGridType;
   @override
   State<ProductGrid> createState() => _ProductGridState();
+  final ProductServices productServicesInstance;
 }
 
 class _ProductGridState extends State<ProductGrid> {
@@ -23,25 +27,37 @@ class _ProductGridState extends State<ProductGrid> {
   productGridTypeDeterminer() {
     switch (widget.productGridType) {
       case ProductGridType.allProducts:
-        return ProductServices().getAllProducts(
+        return widget.productServicesInstance.getAllProducts(
           context,
           gridChildAspectRatio: gridChildAspectRatio,
           gridCrossAxisCount: gridCrossAxisCount,
         );
       case ProductGridType.featuredProducts:
-        return ProductServices().getFeaturedProducts(
+        return widget.productServicesInstance.getFeaturedProducts(
           context,
           gridChildAspectRatio: gridChildAspectRatio,
           gridCrossAxisCount: gridCrossAxisCount,
         );
       case ProductGridType.refurbishedProducts:
-        return const Placeholder();
-      case ProductGridType.furniture:
-        return const Placeholder();
-      case ProductGridType.hardware:
-        return const Placeholder();
-      case ProductGridType.plywood:
-        return const Placeholder();
+        return widget.productServicesInstance.getRefurbishedProducts(
+          gridChildAspectRatio,
+          gridCrossAxisCount,
+        );
+      case ProductGridType.furnitureProducts:
+        return widget.productServicesInstance.getFurnitureProducts(
+          gridChildAspectRatio,
+          gridCrossAxisCount,
+        );
+      case ProductGridType.hardwareProducts:
+        return widget.productServicesInstance.getHardwareProducts(
+          gridChildAspectRatio,
+          gridCrossAxisCount,
+        );
+      case ProductGridType.selectedCategoryProducts:
+        return widget.productServicesInstance.getSelectedCategoryProducts(
+          gridChildAspectRatio,
+          gridCrossAxisCount,
+        );
       default:
         return const Placeholder();
     }

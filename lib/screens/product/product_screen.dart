@@ -4,6 +4,7 @@ import 'package:furnday/constants.dart';
 import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/product/product_3d_view_screen.dart';
+import 'package:furnday/services/product_services.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/product/product_grid_type.dart';
@@ -254,9 +255,10 @@ class _ProductScreenState extends State<ProductScreen> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const ProductSection(
+                ProductSection(
                   headingText: "You might also like",
                   productGridType: ProductGridType.allProducts,
+                  productServicesInstance: ProductServices(),
                 ),
                 const SizedBox(height: 10),
               ],

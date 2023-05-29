@@ -2,7 +2,8 @@ enum ProductGridType {
   allProducts,
   featuredProducts,
   refurbishedProducts,
-  furniture,
-  hardware,
-  plywood,
+  categoryProducts,
+  furnitureProducts,
+  hardwareProducts,
+  selectedCategoryProducts,
 }
