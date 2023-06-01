@@ -255,8 +255,7 @@ class _AuthFormState extends State<AuthForm> {
       return "Confirm password should not be empty";
     } else if (value.length < 6) {
       return 'Password length should be at least 6';
-    } else if (value.toString().trim() !=
-        passwordController.text.toString().trim()) {
+    } else if (value.trim() != passwordController.text.trim()) {
       return "Password didn't match";
     }
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:furnday/screens/user_profile_screens/my_order_detail_screen.dart';
+import 'package:furnday/screens/user_profile_screens/my_orders/my_order_detail_screen.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 
 class MyOrderCard extends StatelessWidget {

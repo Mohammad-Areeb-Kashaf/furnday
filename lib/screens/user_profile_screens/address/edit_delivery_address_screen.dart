@@ -1,11 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/models/user/user_address_model.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 
 class EditDeliveryAddressScreen extends StatefulWidget {
-  const EditDeliveryAddressScreen({super.key, required this.addressType});
+  const EditDeliveryAddressScreen(
+      {super.key,
+      required this.addressType,
+      required this.userAddress,
+      this.isAddressNull = false});
   final String addressType;
+  final UserAddressModel userAddress;
+  final bool isAddressNull;
 
   @override
   State<EditDeliveryAddressScreen> createState() =>
@@ -16,17 +23,47 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
   String firstName = '',
       lastName = '',
       companyName = '',
-      houseStreetName = '',
-      apartmentSuiteUnit = '',
+      streetAddress = '',
+      apartmentSuiteName = '',
       townCity = '',
       state = '',
       pinCode = '',
-      phoneNo = '',
+      phoneNumber = '',
       emailAddress = '';
 
+  TextEditingController firstNameController = TextEditingController(),
+      lastNameController = TextEditingController(),
+      companyNameController = TextEditingController(),
+      streetAddressController = TextEditingController(),
+      apartmentSuiteController = TextEditingController(),
+      townCityNameController = TextEditingController(),
+      pinCodeController = TextEditingController(),
+      phoneNumberController = TextEditingController(),
+      emailController = TextEditingController();
   TextEditingController countryRegionNameController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.isAddressNull == false) {
+      firstNameController.text = widget.userAddress.firstName.toString().trim();
+      lastNameController.text = widget.userAddress.lastName.toString().trim();
+      companyNameController.text =
+          widget.userAddress.companyName.toString().trim();
+      streetAddressController.text =
+          widget.userAddress.streetAddress.toString().trim();
+      apartmentSuiteController.text =
+          widget.userAddress.apartmentSuite.toString().trim();
+      townCityNameController.text =
+          widget.userAddress.townCityName.toString().trim();
+      pinCodeController.text = widget.userAddress.pincode.toString().trim();
+      phoneNumberController.text =
+          widget.userAddress.phoneNumber.toString().trim();
+      emailController.text = widget.userAddress.email.toString().trim();
+    }
+  }
 
   Widget _buildName() {
     return Padding(
@@ -35,6 +72,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         children: [
           Expanded(
             child: TextFormField(
+              controller: firstNameController,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 labelText: 'First Name',
@@ -61,6 +99,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           ),
           Expanded(
             child: TextFormField(
+              controller: lastNameController,
               keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 labelText: 'Last Name',
@@ -91,6 +130,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: companyNameController,
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           labelText: 'Company Name (optional)',
@@ -145,6 +185,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            controller: streetAddressController,
             keyboardType: TextInputType.streetAddress,
             decoration: InputDecoration(
               alignLabelWithHint: true,
@@ -164,13 +205,14 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
               return null;
             },
             onSaved: (value) {
-              houseStreetName = value.toString();
+              streetAddress = value.toString();
             },
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
+            controller: apartmentSuiteController,
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
               labelText: 'Apartment, suite, unit, etc. (optional)',
@@ -185,7 +227,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
               return null;
             },
             onSaved: (value) {
-              apartmentSuiteUnit = value.toString();
+              apartmentSuiteName = value.toString();
             },
           ),
         ),
@@ -197,6 +239,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: townCityNameController,
         keyboardType: TextInputType.name,
         decoration: InputDecoration(
           labelText: 'Town / City',
@@ -306,6 +349,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: pinCodeController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           labelText: 'Pin Code',
@@ -333,6 +377,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: phoneNumberController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           labelText: 'Phone',
@@ -350,7 +395,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           return null;
         },
         onSaved: (value) {
-          phoneNo = value.toString();
+          phoneNumber = value.toString();
         },
       ),
     );
@@ -360,6 +405,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        controller: emailController,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           labelText: 'Email Address',
@@ -389,7 +435,9 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Edit ${widget.addressType} Address',
+            widget.isAddressNull
+                ? 'Add ${widget.addressType} Address'
+                : 'Edit ${widget.addressType} Address',
             style: const TextStyle(color: Colors.black),
           ),
         ),
@@ -410,10 +458,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
                     _buildTownCity(),
                     _buildState(),
                     _buildPinCode(),
-                    widget.addressType == "Billing"
+                    widget.addressType == "Shipping"
                         ? _buildPhoneNumber()
                         : const SizedBox.shrink(),
-                    widget.addressType == "Billing"
+                    widget.addressType == "Shipping"
                         ? _buildEmailAddress()
                         : const SizedBox.shrink(),
                     Padding(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:furnday/services/user_services.dart';
 import 'package:furnday/widgets/internet_checker.dart';
-import 'package:furnday/widgets/user_profile/address_card.dart';
 
 class MyAddressesScreen extends StatelessWidget {
   const MyAddressesScreen({super.key});
@@ -20,12 +20,9 @@ class MyAddressesScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                children: const [
-                  AddressCard(),
-                  SizedBox(height: 8),
-                  AddressCard(
-                    isShipping: true,
-                  ),
+                children: [
+                  UserServices().getBillingAddress(),
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
