@@ -106,6 +106,9 @@ class _AuthFormState extends State<AuthForm> {
                   AuthForm.authError = 'null';
                 });
                 if (widget.formkey.currentState!.validate()) {
+                  return;
+                } else {
+                  widget.formkey.currentState!.save();
                   final name = nameController.text.trim();
                   final email = emailController.text.trim();
                   final password = passwordController.text.trim();

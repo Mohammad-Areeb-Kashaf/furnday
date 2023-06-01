@@ -8,7 +8,47 @@ class UserServices {
   final _firestore = FirebaseFirestore.instance;
   final userUid = FirebaseAuth.instance.currentUser!.uid;
 
-  Widget getBillingAddress() {
+  getBillingAddressModel() async {
+    try {
+      var doc = await _firestore.collection("users").doc(userUid).get();
+      UserAddressModel billingAddress =
+          UserAddressModel.fromJson(doc.data()!['billingAddress']);
+      return billingAddress;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  getShippingAddressModel() async {
+    try {
+      var doc = await _firestore.collection("users").doc(userUid).get();
+      UserAddressModel shippingAddress =
+          UserAddressModel.fromJson(doc.data()!['shippingAddress']);
+      return shippingAddress;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  setBillingAddress({required UserAddressModel userAddress}) async {
+    var doc = _firestore.collection('users').doc(userUid);
+    try {
+      await doc.update({"billingAddress": userAddress.toJson()});
+    } catch (e) {
+      await doc.set({"billingAddress": userAddress.toJson()});
+    }
+  }
+
+  setShippingAddress({required UserAddressModel userAddress}) async {
+    var doc = _firestore.collection('users').doc(userUid);
+    try {
+      await doc.update({"shippingAddress": userAddress.toJson()});
+    } catch (e) {
+      await doc.set({"shippingAddress": userAddress.toJson()});
+    }
+  }
+
+  Widget getBillingAddressCard() {
     final billingAddressStream =
         _firestore.collection("users").doc(userUid).snapshots();
 

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/models/user/user_address_model.dart';
+import 'package:furnday/services/user_services.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 
 class EditDeliveryAddressScreen extends StatefulWidget {
@@ -20,12 +21,13 @@ class EditDeliveryAddressScreen extends StatefulWidget {
 }
 
 class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
+  final _userServices = UserServices();
   String firstName = '',
       lastName = '',
       companyName = '',
       streetAddress = '',
       apartmentSuiteName = '',
-      townCity = '',
+      townCityName = '',
       state = '',
       pinCode = '',
       phoneNumber = '',
@@ -41,8 +43,8 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
       phoneNumberController = TextEditingController(),
       emailController = TextEditingController();
   TextEditingController countryRegionNameController = TextEditingController();
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var stateValue;
 
   @override
   void initState() {
@@ -62,6 +64,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
       phoneNumberController.text =
           widget.userAddress.phoneNumber.toString().trim();
       emailController.text = widget.userAddress.email.toString().trim();
+      state = widget.userAddress.state.toString().trim();
     }
   }
 
@@ -90,7 +93,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
                 return null;
               },
               onSaved: (value) {
-                firstName = value.toString();
+                firstName = value.toString().trim();
               },
             ),
           ),
@@ -117,7 +120,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
                 return null;
               },
               onSaved: (value) {
-                lastName = value.toString();
+                lastName = value.toString().trim();
               },
             ),
           ),
@@ -145,7 +148,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           return null;
         },
         onSaved: (value) {
-          companyName = value.toString();
+          companyName = value.toString().trim();
         },
       ),
     );
@@ -205,7 +208,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
               return null;
             },
             onSaved: (value) {
-              streetAddress = value.toString();
+              streetAddress = value.toString().trim();
             },
           ),
         ),
@@ -227,7 +230,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
               return null;
             },
             onSaved: (value) {
-              apartmentSuiteName = value.toString();
+              apartmentSuiteName = value.toString().trim();
             },
           ),
         ),
@@ -257,7 +260,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           return null;
         },
         onSaved: (value) {
-          townCity = value.toString();
+          townCityName = value.toString().trim();
         },
       ),
     );
@@ -316,6 +319,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField(
+        value: state.isNotEmpty ? state : null,
         isExpanded: true,
         borderRadius: kBorderRadiusCard,
         decoration: InputDecoration(
@@ -329,17 +333,17 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           ),
         ),
         validator: (value) {
-          if (value.toString().isEmpty) {
+          if (value.toString().trim().isEmpty) {
             return "State is required";
           }
           return null;
         },
         onSaved: (value) {
-          state = value.toString();
+          state = value.toString().trim();
         },
         items: dropDownItems,
         onChanged: (value) {
-          state = value.toString();
+          state = value.toString().trim();
         },
       ),
     );
@@ -367,7 +371,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           return null;
         },
         onSaved: (value) {
-          pinCode = value.toString();
+          pinCode = value.toString().trim();
         },
       ),
     );
@@ -395,7 +399,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           return null;
         },
         onSaved: (value) {
-          phoneNumber = value.toString();
+          phoneNumber = value.toString().trim();
         },
       ),
     );
@@ -423,10 +427,50 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           return null;
         },
         onSaved: (value) {
-          emailAddress = value.toString();
+          emailAddress = value.toString().trim();
         },
       ),
     );
+  }
+
+  saveAddress() async {
+    if (!_formKey.currentState!.validate()) {
+    } else {
+      _formKey.currentState!.save();
+      try {
+        if (widget.addressType == "Shipping") {
+          UserAddressModel userAddress = UserAddressModel(
+            firstName: firstName,
+            lastName: lastName,
+            companyName: companyName,
+            streetAddress: streetAddress,
+            apartmentSuite: apartmentSuiteName,
+            townCityName: townCityName,
+            pincode: int.parse(pinCode),
+            state: state,
+            email: emailAddress,
+            phoneNumber: int.parse(phoneNumber),
+          );
+          await _userServices.setShippingAddress(userAddress: userAddress);
+          Navigator.pop(context);
+        } else {
+          UserAddressModel userAddress = UserAddressModel(
+            firstName: firstName,
+            lastName: lastName,
+            companyName: companyName,
+            streetAddress: streetAddress,
+            apartmentSuite: apartmentSuiteName,
+            townCityName: townCityName,
+            pincode: int.parse(pinCode),
+            state: state,
+          );
+          await _userServices.setBillingAddress(userAddress: userAddress);
+          Navigator.pop(context);
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 
   @override
@@ -467,13 +511,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                        onPressed: () {
-                          if (!_formKey.currentState!.validate()) {
-                            return;
-                          } else {
-                            _formKey.currentState!.save();
-                          }
-                        },
+                        onPressed: () => saveAddress(),
                         child: AutoSizeText(
                           'Save Address',
                           style: TextStyle(

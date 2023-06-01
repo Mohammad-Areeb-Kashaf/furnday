@@ -53,21 +53,19 @@ class _AddressCardState extends State<AddressCard> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const AutoSizeText("No Address Found"),
-                        const SizedBox(
-                          height: 4,
-                        ),
                         TextButton(
-                            onPressed: () => Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) =>
-                                        EditDeliveryAddressScreen(
-                                            isAddressNull: true,
-                                            addressType: widget.isShipping
-                                                ? "Shipping"
-                                                : "Billing",
-                                            userAddress: UserAddressModel()))),
-                            child: const Text('Add Address'))
+                          onPressed: () => Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) =>
+                                      EditDeliveryAddressScreen(
+                                          isAddressNull: true,
+                                          addressType: widget.isShipping
+                                              ? "Shipping"
+                                              : "Billing",
+                                          userAddress: UserAddressModel()))),
+                          child: const Text('Add Address'),
+                        ),
                       ],
                     ),
                   )

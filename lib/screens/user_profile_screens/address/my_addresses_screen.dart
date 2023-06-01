@@ -21,7 +21,7 @@ class MyAddressesScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  UserServices().getBillingAddress(),
+                  UserServices().getBillingAddressCard(),
                   const SizedBox(height: 8),
                   UserServices().getShippingAddress(),
                 ],
