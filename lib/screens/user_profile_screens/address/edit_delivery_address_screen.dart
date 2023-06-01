@@ -384,7 +384,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         controller: phoneNumberController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-          labelText: 'Phone',
+          labelText: 'Phone (+91)',
           enabledBorder: OutlineInputBorder(
             borderRadius: kBorderRadiusCard,
           ),
@@ -395,6 +395,8 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         validator: (value) {
           if (value!.isEmpty) {
             return 'Phone is Required';
+          } else if (value.length != 10) {
+            return 'Phone number should contain 10 numbers';
           }
           return null;
         },
@@ -423,6 +425,15 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         validator: (value) {
           if (value!.isEmpty) {
             return 'Email Address is Required';
+          } else if (value.isNotEmpty) {
+            Pattern pattern =
+                r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                r"{0,253}[a-zA-Z0-9])?)*$";
+            RegExp regex = RegExp(pattern.toString());
+            if (!regex.hasMatch(value) || value.isEmpty) {
+              return 'Enter a valid email address';
+            }
           }
           return null;
         },
