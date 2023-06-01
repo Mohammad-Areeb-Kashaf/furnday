@@ -23,6 +23,7 @@ class MyAddressesScreen extends StatelessWidget {
                 children: [
                   UserServices().getBillingAddress(),
                   const SizedBox(height: 8),
+                  UserServices().getShippingAddress(),
                 ],
               ),
             ),
