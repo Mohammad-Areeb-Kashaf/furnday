@@ -44,6 +44,10 @@ class ProductServices {
         },
       );
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
       return const Text('Something went wrong');
     }
   }
@@ -83,6 +87,10 @@ class ProductServices {
         },
       );
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
       return const Text('Something went wrong');
     }
   }
@@ -142,6 +150,10 @@ class ProductServices {
         },
       );
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
       return const Text('Something went wrong');
     }
   }
@@ -183,6 +195,10 @@ class ProductServices {
         },
       );
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
       return const Text('Something went wrong');
     }
   }
@@ -224,6 +240,10 @@ class ProductServices {
         },
       );
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
       return const Text('Something went wrong');
     }
   }
@@ -265,6 +285,10 @@ class ProductServices {
         },
       );
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
       return const Text('Something went wrong');
     }
   }
@@ -306,6 +330,10 @@ class ProductServices {
         },
       );
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
       return const Text('Something went wrong');
     }
   }

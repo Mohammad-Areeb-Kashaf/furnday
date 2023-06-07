@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/providers/cart_provider.dart';
 import 'package:furnday/screens/main_screens/all_products_screen.dart';
 import 'package:furnday/screens/auth_screens/signin_screen.dart';
 import 'package:furnday/screens/main_screens/categories_screen.dart';
@@ -16,6 +18,7 @@ import 'package:furnday/size_config.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/my_appbar.dart';
+import 'package:provider/provider.dart';
 
 enum ScreenDeterminer {
   home,
@@ -75,7 +78,13 @@ class _MainScreenState extends State<MainScreen> {
         timer.cancel();
       }
     } catch (e) {
-      print(e.toString());
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      await FirebaseFirestore.instance
+          .collection("app")
+          .doc('errors')
+          .update(errorData);
     }
   }
 
@@ -98,12 +107,21 @@ class _MainScreenState extends State<MainScreen> {
         () => canResendEmail = true,
       );
     } catch (e) {
-      print(e);
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      await FirebaseFirestore.instance
+          .collection("app")
+          .doc('errors')
+          .update(errorData);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (Provider.of<CartProvider>(context).cartItems.isEmpty) {
+      Provider.of<CartProvider>(context).getCartItems();
+    }
     SizeConfig().init(context);
     return isEmailVerified
         ? InternetChecker(

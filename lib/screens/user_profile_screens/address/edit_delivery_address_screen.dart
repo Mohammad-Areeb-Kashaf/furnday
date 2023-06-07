@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/models/user/user_address_model.dart';
@@ -479,7 +480,13 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           Navigator.pop(context);
         }
       } catch (e) {
-        print(e);
+        var errorData = {
+          "errors": [e.toString()]
+        };
+        await FirebaseFirestore.instance
+            .collection("app")
+            .doc('errors')
+            .update(errorData);
       }
     }
   }

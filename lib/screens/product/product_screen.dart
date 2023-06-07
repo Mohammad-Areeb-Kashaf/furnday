@@ -44,7 +44,7 @@ class _ProductScreenState extends State<ProductScreen> {
             onPressed: () => Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => const MyCartScreen(),
+                builder: (context) => MyCartScreen(),
               ),
             ),
             child: const Icon(
@@ -202,7 +202,6 @@ class _ProductScreenState extends State<ProductScreen> {
                       ElevatedButton.icon(
                         label: const AutoSizeText(
                           'Add to Cart',
-                          maxFontSize: 24,
                         ),
                         onPressed: () {},
                         icon: Icon(

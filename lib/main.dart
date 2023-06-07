@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:furnday/constants.dart';
 import 'package:furnday/firebase_options.dart';
+import 'package:furnday/providers/cart_provider.dart';
 import 'package:furnday/screens/auth_screens/signin_screen.dart';
 import 'package:furnday/screens/main_screens/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,6 +45,9 @@ class _MyAppState extends State<MyApp> {
           create: (context) =>
               NetworkStatusService().networkStatusController.stream,
           initialData: NetworkStatus.online,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
         ),
       ],
       child: MaterialApp(

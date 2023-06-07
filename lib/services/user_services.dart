@@ -1,12 +1,59 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:furnday/constants.dart';
+import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/models/user/user_address_model.dart';
+import 'package:furnday/widgets/cart/my_cart_card.dart';
 import 'package:furnday/widgets/user_profile/address_card.dart';
 
 class UserServices {
   final _firestore = FirebaseFirestore.instance;
   final userUid = FirebaseAuth.instance.currentUser!.uid;
+  static var cartItemsList = [];
+
+  getCartItems() {
+    try {
+      final cartItemsStream =
+          _firestore.collection('users').doc(userUid).snapshots();
+
+      return StreamBuilder(
+        stream: cartItemsStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text('Loading');
+          } else if (snapshot.hasData) {
+            List? cartItems = snapshot.data!.data()!['cart'];
+            if (cartItems != null) {
+              for (var element in cartItems) {
+                cartItemsList.add(ProductModel.fromJson(element));
+              }
+              return ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  shrinkWrap: true,
+                  physics: kScrollPhysics,
+                  itemCount: cartItemsList.length,
+                  itemBuilder: (context, index) {
+                    return MyCartCard(product: cartItemsList[index]);
+                  });
+            } else {
+              return const Text("No Items in your cart");
+            }
+          } else {
+            return const Text('Something went wrong');
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  addToCart(ProductModel product) {
+    try {} catch (e) {}
+  }
 
   getBillingAddressModel() async {
     try {
@@ -15,7 +62,10 @@ class UserServices {
           UserAddressModel.fromJson(doc.data()!['billingAddress']);
       return billingAddress;
     } catch (e) {
-      print(e);
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      await _firestore.collection("app").doc('errors').update(errorData);
     }
   }
 
@@ -27,6 +77,11 @@ class UserServices {
       return shippingAddress;
     } catch (e) {
       print(e);
+
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      await _firestore.collection("app").doc('errors').update(errorData);
     }
   }
 
@@ -35,6 +90,7 @@ class UserServices {
     try {
       await doc.update({"billingAddress": userAddress.toJson()});
     } catch (e) {
+      print(e);
       await doc.set({"billingAddress": userAddress.toJson()});
     }
   }
@@ -44,6 +100,10 @@ class UserServices {
     try {
       await doc.update({"shippingAddress": userAddress.toJson()});
     } catch (e) {
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      await _firestore.collection("app").doc('errors').update(errorData);
       await doc.set({"shippingAddress": userAddress.toJson()});
     }
   }
@@ -78,6 +138,10 @@ class UserServices {
               );
             }
           } catch (e) {
+            var errorData = {
+              "errors": [e.toString()]
+            };
+            _firestore.collection("app").doc('errors').update(errorData);
             return AddressCard(
               userAddress: UserAddressModel(),
               isAddressNull: true,
@@ -90,7 +154,7 @@ class UserServices {
     );
   }
 
-  Widget getShippingAddress() {
+  Widget getShippingAddressCard() {
     final shippingAddressStream =
         _firestore.collection('users').doc(userUid).snapshots();
 
@@ -122,6 +186,10 @@ class UserServices {
               );
             }
           } catch (e) {
+            var errorData = {
+              "errors": [e.toString()]
+            };
+            _firestore.collection("app").doc('errors').update(errorData);
             return AddressCard(
               userAddress: UserAddressModel(),
               isAddressNull: true,

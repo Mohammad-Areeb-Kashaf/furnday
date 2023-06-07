@@ -1,12 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
+import 'package:furnday/widgets/product/product_img.dart';
 import 'package:furnday/widgets/product/product_quantity.dart';
 
 class MyCartCard extends StatelessWidget {
   const MyCartCard({
     super.key,
+    required this.product,
   });
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +35,10 @@ class MyCartCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
+                  ProductImg(
                     height: 100,
                     width: 100,
+                    images: product.productImages,
                   ),
                   const SizedBox(
                     width: 10,
@@ -44,20 +49,20 @@ class MyCartCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Row(
-                            children: const [
+                            children: [
                               AutoSizeText(
-                                'Bed',
-                                style: TextStyle(
+                                product.name.toString(),
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 minFontSize: 20,
                                 maxFontSize: 26,
                               ),
-                              Spacer(),
+                              const Spacer(),
                               AutoSizeText(
-                                '₹14000',
-                                style: TextStyle(
+                                product.discountedPrice.toString(),
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
                                 minFontSize: 20,

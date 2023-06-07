@@ -11,20 +11,23 @@ class ProductModel {
   bool? product3dView;
   List<ProductReviews>? productReviews;
   double? rating;
+  int? inStock;
 
-  ProductModel(
-      {this.category,
-      this.description,
-      this.discountedPrice,
-      this.featured,
-      this.id,
-      this.productImages,
-      this.mrp,
-      this.name,
-      this.product3dImages,
-      this.product3dView,
-      this.productReviews,
-      this.rating});
+  ProductModel({
+    this.category,
+    this.description,
+    this.discountedPrice,
+    this.featured,
+    this.id,
+    this.productImages,
+    this.mrp,
+    this.name,
+    this.product3dImages,
+    this.product3dView,
+    this.productReviews,
+    this.rating,
+    this.inStock,
+  });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     category = json['category'].cast<String>();
@@ -49,6 +52,7 @@ class ProductModel {
       });
     }
     rating = json['rating'];
+    inStock = json['inStock'];
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +73,7 @@ class ProductModel {
       data['productReviews'] = productReviews!.map((v) => v.toJson()).toList();
     }
     data['rating'] = rating;
+    data['inStock'] = inStock;
     return data;
   }
 }
