@@ -1,12 +1,22 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cferrorresponse/cferrorresponse.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cfpayment/cfdropcheckoutpayment.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cfpaymentcomponents/cfpaymentcomponent.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cfpaymentgateway/cfpaymentgatewayservice.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cfsession/cfsession.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cftheme/cftheme.dart';
+import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
+import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/providers/cart_provider.dart';
+import 'package:furnday/controllers/cart_controller.dart';
+import 'package:furnday/models/api/create_order_model.dart';
+import 'package:furnday/services/cashfree_services.dart';
 import 'package:furnday/services/user_services.dart';
 import 'package:furnday/widgets/cart/my_cart_card.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class MyCartScreen extends StatefulWidget {
   const MyCartScreen({super.key});
@@ -17,19 +27,25 @@ class MyCartScreen extends StatefulWidget {
 
 class _MyCartScreenState extends State<MyCartScreen> {
   var shippingAddress;
+  var cfPaymentGatewayService = CFPaymentGatewayService();
+  late Future<CreateOrderModel> createOrderModel;
+  String orderId = '';
+  String paymentSessionId = '';
+  CFEnvironment environment = CFEnvironment.SANDBOX;
+  final cartController = Get.find<CartController>();
 
   @override
   void initState() {
     super.initState();
     shippingAddress = UserServices().getShippingAddressCard();
+    cfPaymentGatewayService.setCallback(verifyPayment, onError);
   }
 
   @override
   Widget build(BuildContext context) {
     return InternetChecker(
-      child: Consumer<CartProvider>(
-        builder: (context, cartProviderModel, widget) {
-          cartProviderModel.getCartItems();
+      child: GetX<CartController>(
+        builder: (controller) {
           return Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -49,11 +65,12 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         physics: kScrollPhysics,
-                        itemCount: cartProviderModel.cartItems.length,
+                        itemCount: controller.cartItems.length,
                         itemBuilder: (context, index) {
-                          print(cartProviderModel.cartItems[index]);
                           return MyCartCard(
-                              product: cartProviderModel.cartItems[index]);
+                            product: controller.productCartItems[index],
+                            cart: controller.cartItems[index],
+                          );
                         },
                       ),
                       DecoratedCard(
@@ -84,7 +101,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     maxFontSize: 22,
                                   ),
                                   AutoSizeText(
-                                    "₹${cartProviderModel.cartSubtotal.toString()}",
+                                    "₹${controller.totalPrice.toString()}",
                                     minFontSize: 18,
                                     maxFontSize: 22,
                                   ),
@@ -138,7 +155,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     maxFontSize: 22,
                                   ),
                                   AutoSizeText(
-                                    "₹${cartProviderModel.cartTotal}",
+                                    "₹${controller.totalPrice}",
                                     minFontSize: 18,
                                     maxFontSize: 22,
                                   ),
@@ -152,9 +169,23 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 height: 2,
                               ),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  try {
+                                    await CashfreeServices()
+                                        .createOrder(controller.totalPrice)
+                                        .then((value) {
+                                      print('Order ID:- ${value.orderId}');
+                                      orderId = value.orderId.toString();
+                                      paymentSessionId =
+                                          value.paymentSessionId.toString();
+                                      pay();
+                                    });
+                                  } catch (e) {
+                                    print(e);
+                                  }
+                                },
                                 child: const Text(
-                                  'Proceed to Checkout',
+                                  'Proceed to Pay',
                                   style: TextStyle(
                                     color: Colors.black,
                                   ),
@@ -176,5 +207,59 @@ class _MyCartScreenState extends State<MyCartScreen> {
         },
       ),
     );
+  }
+
+  void verifyPayment(String orderId) {
+    print("Verify Payment");
+  }
+
+  void onError(CFErrorResponse errorResponse, String orderId) {
+    print(errorResponse.getMessage());
+    print("Error while making payment");
+  }
+
+  CFSession? createSession() {
+    try {
+      var session = CFSessionBuilder()
+          .setEnvironment(environment)
+          .setOrderId(orderId)
+          .setPaymentSessionId(paymentSessionId)
+          .build();
+      return session;
+    } on CFException catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
+  pay() async {
+    try {
+      var session = createSession();
+      List<CFPaymentModes> components = <CFPaymentModes>[];
+      var paymentComponent =
+          CFPaymentComponentBuilder().setComponents(components).build();
+
+      var theme = CFThemeBuilder()
+          .setNavigationBarBackgroundColorColor("#F6C33C")
+          .setPrimaryFont("Menlo")
+          .setSecondaryFont("Futura")
+          .setPrimaryTextColor("#000000")
+          .setButtonBackgroundColor("#F6C33C")
+          .setBackgroundColor("#F6C33C")
+          .setNavigationBarTextColor("#000000")
+          .setSecondaryTextColor("#000000")
+          .setButtonTextColor("#000000")
+          .build();
+
+      var cfDropCheckoutPayment = CFDropCheckoutPaymentBuilder()
+          .setSession(session!)
+          .setPaymentComponent(paymentComponent)
+          .setTheme(theme)
+          .build();
+
+      cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
+    } on CFException catch (e) {
+      print(e.message);
+    }
   }
 }

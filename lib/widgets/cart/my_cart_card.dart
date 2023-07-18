@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:furnday/models/product/cart_model.dart';
 import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/product/product_img.dart';
@@ -9,8 +10,10 @@ class MyCartCard extends StatelessWidget {
   const MyCartCard({
     super.key,
     required this.product,
+    this.cart,
   });
   final ProductModel product;
+  final CartModel? cart;
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +76,11 @@ class MyCartCard extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.bottomRight,
-                            child: ProductQuantity(),
+                            child: ProductQuantity(
+                              cart: cart,
+                            ),
                           ),
                         ],
                       ),

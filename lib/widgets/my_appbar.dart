@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:furnday/providers/cart_provider.dart';
+import 'package:furnday/controllers/cart_controller.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/user_profile_screens/user_profile_screen.dart';
 import 'package:furnday/widgets/user_profile/user_profile_img.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 AppBar myAppBar(BuildContext context) {
-  var cartItemsCount = Provider.of<CartProvider>(context).cartItemsCount;
+  var cartController = Get.find<CartController>();
+  var cartItemsCount = cartController.cartItemsCount.toInt();
 
   return AppBar(
     centerTitle: false,
@@ -26,7 +27,7 @@ AppBar myAppBar(BuildContext context) {
             onPressed: () => Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => MyCartScreen(),
+                builder: (context) => const MyCartScreen(),
               ),
             ),
             icon: const Icon(Icons.shopping_cart),

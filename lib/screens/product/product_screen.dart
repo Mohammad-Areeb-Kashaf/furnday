@@ -44,7 +44,7 @@ class _ProductScreenState extends State<ProductScreen> {
             onPressed: () => Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => MyCartScreen(),
+                builder: (context) => const MyCartScreen(),
               ),
             ),
             child: const Icon(
@@ -174,8 +174,8 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Padding(
-                        padding: EdgeInsets.all(10.0),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
                         child: ProductQuantity(),
                       ),
                       const SizedBox(height: 10),
