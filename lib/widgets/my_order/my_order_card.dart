@@ -18,18 +18,18 @@ class MyOrderCard extends StatelessWidget {
           builder: (context) => const MyOrderDetailScreen(),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
+      child: const Padding(
+        padding: EdgeInsets.all(10.0),
         child: DecoratedCard(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(10.0),
             child: Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   height: 100,
                   width: 100,
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 10,
                 ),
                 Expanded(
@@ -37,7 +37,7 @@ class MyOrderCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: const [
+                        children: [
                           AutoSizeText(
                             'Bed',
                             style: TextStyle(
@@ -57,7 +57,7 @@ class MyOrderCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const AutoSizeText(
+                      AutoSizeText(
                         '#1234567890',
                         style: TextStyle(
                           color: Colors.black,
@@ -66,7 +66,7 @@ class MyOrderCard extends StatelessWidget {
                         maxFontSize: 20,
                       ),
                       Row(
-                        children: const [
+                        children: [
                           AutoSizeText(
                             'Deliver Date:',
                             style: TextStyle(
@@ -86,7 +86,7 @@ class MyOrderCard extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           AutoSizeText(
                             'qty:',
                             style: TextStyle(

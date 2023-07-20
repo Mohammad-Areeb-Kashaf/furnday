@@ -68,7 +68,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: StarRating(
                   rating: 4.5,
                   color: kYellowColor,

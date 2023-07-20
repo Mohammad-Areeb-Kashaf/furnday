@@ -87,11 +87,11 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   const SizedBox(
                                     height: 2,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 16.0),
                                     child: Row(
-                                      children: const [
+                                      children: [
                                         AutoSizeText(
                                           'Deliver Date:',
                                           style: TextStyle(
@@ -115,13 +115,13 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   const SizedBox(
                                     height: 2,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 16.0),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
-                                      children: const [
+                                      children: [
                                         AutoSizeText(
                                           'qty:',
                                           style: TextStyle(
@@ -145,13 +145,13 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   const SizedBox(
                                     height: 4,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
                                         horizontal: 16.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      children: const [
+                                      children: [
                                         AutoSizeText(
                                           "Payment Method",
                                           style: TextStyle(
@@ -180,10 +180,10 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                     child: SizedBox(
                                       width: MediaQuery.of(context).size.width /
                                           1.8,
-                                      child: Column(
+                                      child: const Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: const [
+                                        children: [
                                           AutoSizeText(
                                             "Delivery Address",
                                             style: TextStyle(
@@ -300,11 +300,11 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                           const SizedBox(
                             height: 4,
                           ),
-                          Padding(
+                          const Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
+                                EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
-                              children: const [
+                              children: [
                                 AutoSizeText(
                                   "Subtotal",
                                   minFontSize: 16,
@@ -324,11 +324,11 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                           const SizedBox(
                             height: 2,
                           ),
-                          Padding(
+                          const Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
+                                EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
-                              children: const [
+                              children: [
                                 AutoSizeText(
                                   "Delivery Charges",
                                   minFontSize: 16,
@@ -348,11 +348,11 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                           const SizedBox(
                             height: 2,
                           ),
-                          Padding(
+                          const Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
+                                EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
-                              children: const [
+                              children: [
                                 AutoSizeText(
                                   "Total",
                                   minFontSize: 16,

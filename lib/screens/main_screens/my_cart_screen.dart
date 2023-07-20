@@ -114,11 +114,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               const SizedBox(
                                 height: 2,
                               ),
-                              Row(
+                              const Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
+                                children: [
                                   AutoSizeText(
                                     "Shipping:",
                                     minFontSize: 18,

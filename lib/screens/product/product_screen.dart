@@ -92,7 +92,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                   .copyWith(color: Colors.black),
                               maxFontSize: 24,
                             ),
-                            StarRating(
+                            const StarRating(
                               rating: 4.5,
                             ),
                           ],
