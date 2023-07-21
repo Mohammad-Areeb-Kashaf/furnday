@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/models/product/cart_model.dart';
 import 'package:furnday/models/product/product_model.dart';
-import 'package:furnday/widgets/loading_dialog.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -12,14 +11,15 @@ class CartController extends GetxController {
   var cartItems = <CartModel>[].obs;
   var productCartItems = <ProductModel>[].obs;
   var cart = {}.obs;
-  var cartItemsCount = 0.obs;
 
   @override
   void onInit() async {
     super.onInit();
     await getCartItems();
-    await getCartItemsCount();
   }
+
+  int get cartItemsCount => cartItems.fold(
+      0, (previousValue, element) => previousValue + element.qty!.toInt());
 
   double get totalPrice => cartItems.fold(
       0,
@@ -47,7 +47,6 @@ class CartController extends GetxController {
           productCartItems.add(productItem);
         },
       );
-      getCartItemsCount();
     } catch (e) {
       print(e);
     }
@@ -55,13 +54,11 @@ class CartController extends GetxController {
 
   addToCart(BuildContext context, CartModel cartItem) async {
     cartItems.add(cartItem);
-    await updateCart(context);
+    await updateCart();
     await getCartItems();
-    await getCartItemsCount();
   }
 
-  updateCart(BuildContext context) async {
-    loadDialog(context);
+  updateCart() async {
     var cartProds = {};
     for (var cartItem in cartItems) {
       var cartItemJson = cartItem.toJson();
@@ -72,21 +69,10 @@ class CartController extends GetxController {
         .doc(userUid)
         .update({"cart": cartProds});
     await getCartItems();
-    await getCartItemsCount();
-    Navigator.of(context).pop();
   }
 
   orderedAllCart() async {
     await _firestore.collection('users').doc(userUid).update({"cart": {}});
     getCartItems();
-    getCartItemsCount();
-  }
-
-  getCartItemsCount() async {
-    var itemCount = 0;
-    for (var cartItem in cartItems) {
-      itemCount += cartItem.qty!.toInt();
-    }
-    cartItemsCount.value = itemCount;
   }
 }

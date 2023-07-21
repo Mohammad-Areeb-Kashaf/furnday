@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 
 AppBar myAppBar(BuildContext context) {
   var cartController = Get.find<CartController>();
-  var cartItemsCount = cartController.cartItemsCount.toInt();
 
   return AppBar(
     centerTitle: false,
@@ -20,19 +19,21 @@ AppBar myAppBar(BuildContext context) {
       ),
       Padding(
         padding: const EdgeInsets.only(top: 4.0),
-        child: badges.Badge(
-          position: badges.BadgePosition.custom(top: -5, end: 0),
-          badgeContent: Text(cartItemsCount.toString()),
-          child: IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => const MyCartScreen(),
+        child: GetX<CartController>(builder: (controller) {
+          return badges.Badge(
+            position: badges.BadgePosition.custom(top: -5, end: 0),
+            badgeContent: Text(controller.cartItemsCount.toString()),
+            child: IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => const MyCartScreen(),
+                ),
               ),
+              icon: const Icon(Icons.shopping_cart),
             ),
-            icon: const Icon(Icons.shopping_cart),
-          ),
-        ),
+          );
+        }),
       ),
       GestureDetector(
         onTap: () {

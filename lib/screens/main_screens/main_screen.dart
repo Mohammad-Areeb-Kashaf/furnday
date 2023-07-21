@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/controllers/cart_controller.dart';
 import 'package:furnday/screens/main_screens/all_products_screen.dart';
 import 'package:furnday/screens/auth_screens/signin_screen.dart';
 import 'package:furnday/screens/main_screens/categories_screen.dart';
@@ -17,6 +18,7 @@ import 'package:furnday/size_config.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/my_appbar.dart';
+import 'package:get/get.dart';
 
 enum ScreenDeterminer {
   home,
@@ -46,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
   late bool isEmailVerified;
   bool canResendEmail = false;
   Timer timer = Timer(Duration.zero, () {});
+  final cartController = Get.put(CartController());
 
   @override
   void initState() {

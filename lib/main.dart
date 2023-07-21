@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/cart_controller.dart';
 import 'package:furnday/firebase_options.dart';
 import 'package:furnday/screens/auth_screens/signin_screen.dart';
 import 'package:furnday/screens/main_screens/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:furnday/services/network_services.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -28,7 +26,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _auth = FirebaseAuth.instance;
-  final cartController = Get.put(CartController());
 
   @override
   void initState() {
