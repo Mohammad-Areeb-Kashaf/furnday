@@ -53,7 +53,14 @@ class CartController extends GetxController {
   }
 
   addToCart(BuildContext context, CartModel cartItem) async {
-    cartItems.add(cartItem);
+    if (cartItems.contains(cartItem)) {
+      var cartItemIndex =
+          cartItems.indexWhere((cartItem) => cartItem == cartItem);
+      var cartItemQty = cartItems[cartItemIndex].qty!.toInt();
+      cartItems[cartItemIndex].qty = cartItemQty + cartItem.qty!.toInt();
+    } else {
+      cartItems.add(cartItem);
+    }
     await updateCart();
     await getCartItems();
   }
@@ -68,7 +75,7 @@ class CartController extends GetxController {
         .collection('users')
         .doc(userUid)
         .update({"cart": cartProds});
-    await getCartItems();
+    getCartItems();
   }
 
   orderedAllCart() async {

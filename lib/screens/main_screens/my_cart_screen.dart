@@ -32,7 +32,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
   String orderId = '';
   String paymentSessionId = '';
   CFEnvironment environment = CFEnvironment.SANDBOX;
-  final cartController = Get.find<CartController>();
 
   @override
   void initState() {

@@ -1,19 +1,25 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:furnday/controllers/cart_controller.dart';
 import 'package:furnday/models/product/cart_model.dart';
 import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
+import 'package:furnday/widgets/loading_dialog.dart';
 import 'package:furnday/widgets/product/product_img.dart';
 import 'package:furnday/widgets/product/product_quantity.dart';
+import 'package:get/get.dart';
 
 class MyCartCard extends StatelessWidget {
-  const MyCartCard({
+  MyCartCard({
     super.key,
     required this.product,
     this.cart,
   });
   final ProductModel product;
   final CartModel? cart;
+  final cartController = Get.find<CartController>();
+  var indexCartItem;
+  int _qty = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,11 @@ class MyCartCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      cartController.cartItems
+                          .removeWhere((element) => element == cart);
+                      cartController.updateCart();
+                    },
                     icon: const Icon(Icons.close),
                   ),
                 ),
@@ -78,9 +88,7 @@ class MyCartCard extends StatelessWidget {
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
-                            child: ProductQuantity(
-                              cart: cart,
-                            ),
+                            child: _buildProductQuantity(),
                           ),
                         ],
                       ),
@@ -92,6 +100,34 @@ class MyCartCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildProductQuantity() {
+    return GetX<CartController>(
+      builder: (controller) {
+        void valueChanged(
+          BuildContext context,
+          int qty,
+        ) async {
+          try {
+            loadDialog(context);
+            controller.cartItems[indexCartItem].qty = qty;
+            await controller.updateCart();
+            Navigator.pop(context);
+          } catch (e) {
+            print(e);
+          }
+        }
+
+        indexCartItem = controller.cartItems.indexOf(cart);
+        _qty = cart!.qty!.toInt();
+
+        return ProductQuantity(
+          qty: _qty,
+          valueChanged: valueChanged,
+        );
+      },
     );
   }
 }

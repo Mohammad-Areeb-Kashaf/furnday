@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:furnday/controllers/cart_controller.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/user_profile_screens/user_profile_screen.dart';
+import 'package:furnday/widgets/cart/cart_item_count_btn.dart';
 import 'package:furnday/widgets/user_profile/user_profile_img.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:get/get.dart';
 
 AppBar myAppBar(BuildContext context) {
-  var cartController = Get.find<CartController>();
-
   return AppBar(
     centerTitle: false,
     actions: [
@@ -19,21 +15,17 @@ AppBar myAppBar(BuildContext context) {
       ),
       Padding(
         padding: const EdgeInsets.only(top: 4.0),
-        child: GetX<CartController>(builder: (controller) {
-          return badges.Badge(
-            position: badges.BadgePosition.custom(top: -5, end: 0),
-            badgeContent: Text(controller.cartItemsCount.toString()),
-            child: IconButton(
-              onPressed: () => Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => const MyCartScreen(),
-                ),
+        child: CartItemCountBtn(
+          child: IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => const MyCartScreen(),
               ),
-              icon: const Icon(Icons.shopping_cart),
             ),
-          );
-        }),
+            icon: const Icon(Icons.shopping_cart),
+          ),
+        ),
       ),
       GestureDetector(
         onTap: () {

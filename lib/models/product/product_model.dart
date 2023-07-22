@@ -1,3 +1,5 @@
+import 'package:furnday/models/product/cart_model.dart';
+
 class ProductModel {
   List<String>? category;
   List<Description>? description;
@@ -75,6 +77,15 @@ class ProductModel {
     data['rating'] = rating;
     data['inStock'] = inStock;
     return data;
+  }
+
+  CartModel toCartModel() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['qty'] = 1;
+    data['mrp'] = mrp;
+    data['discountedPrice'] = discountedPrice;
+    return CartModel.fromJson(data);
   }
 }
 

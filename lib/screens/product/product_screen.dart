@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
+import 'package:furnday/controllers/cart_controller.dart';
 import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/product/product_3d_view_screen.dart';
 import 'package:furnday/services/product_services.dart';
+import 'package:furnday/widgets/cart/cart_item_count_btn.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/product/product_grid_type.dart';
@@ -15,7 +17,7 @@ import 'package:furnday/widgets/product/product_review_section.dart';
 import 'package:furnday/widgets/product/product_section.dart';
 import 'package:furnday/widgets/star_ratings.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:badges/badges.dart' as badges;
+import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductModel product;
@@ -31,14 +33,14 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   int selectedImage = 0;
+  final cartController = Get.find<CartController>();
+  final int _qty = 1;
 
   @override
   Widget build(BuildContext context) {
     return InternetChecker(
       child: Scaffold(
-        floatingActionButton: badges.Badge(
-          position: badges.BadgePosition.custom(top: -5, end: 0),
-          badgeContent: const Text('3'),
+        floatingActionButton: CartItemCountBtn(
           child: FloatingActionButton(
             backgroundColor: Theme.of(context).primaryColor,
             onPressed: () => Navigator.push(
@@ -176,7 +178,10 @@ class _ProductScreenState extends State<ProductScreen> {
                       const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: ProductQuantity(),
+                        child: ProductQuantity(
+                          qty: _qty,
+                          valueChanged: (context, qty) => valueChanged,
+                        ),
                       ),
                       const SizedBox(height: 10),
                     ],
@@ -203,7 +208,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         label: const AutoSizeText(
                           'Add to Cart',
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          var cartController = Get.find<CartController>();
+                          await cartController.addToCart(
+                              context, widget.product.toCartModel());
+                        },
                         icon: Icon(
                           Icons.add_shopping_cart,
                           size: 32,
@@ -266,5 +275,9 @@ class _ProductScreenState extends State<ProductScreen> {
         ),
       ),
     );
+  }
+
+  valueChanged(BuildContext context, int qty) {
+    qty = _qty;
   }
 }
