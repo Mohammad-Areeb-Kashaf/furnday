@@ -9,6 +9,7 @@ import 'package:furnday/services/product_services.dart';
 import 'package:furnday/widgets/cart/cart_item_count_btn.dart';
 import 'package:furnday/widgets/decorated_card.dart';
 import 'package:furnday/widgets/internet_checker.dart';
+import 'package:furnday/widgets/loading_dialog.dart';
 import 'package:furnday/widgets/product/product_grid_type.dart';
 import 'package:furnday/widgets/product/product_price.dart';
 import 'package:furnday/widgets/product/product_photo_viewer.dart';
@@ -211,11 +212,13 @@ class _ProductScreenState extends State<ProductScreen> {
                         onPressed: () async {
                           print("Product screen: $_qty");
                           var cartController = Get.find<CartController>();
+                          loadDialog(context);
                           await cartController.addToCart(
                             context,
                             productCartItem: widget.product.toCartModel(),
                             qty: _qty,
                           );
+                          Navigator.pop(context);
                         },
                         icon: Icon(
                           Icons.add_shopping_cart,
