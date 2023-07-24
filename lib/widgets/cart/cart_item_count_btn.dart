@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/controllers/cart_controller.dart';
 import 'package:badges/badges.dart' as badges;
@@ -13,7 +14,12 @@ class CartItemCountBtn extends StatelessWidget {
       builder: (controller) {
         return badges.Badge(
           position: badges.BadgePosition.custom(top: -5, end: 0),
-          badgeContent: Text(controller.cartItemsCount.toString()),
+          badgeContent: Center(
+              child: AutoSizeText(
+            controller.cartItemsCount.toString(),
+            minFontSize: 8,
+            maxFontSize: 9,
+          )),
           child: child,
         );
       },
