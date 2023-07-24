@@ -10,7 +10,7 @@ class ProductQuantity extends StatefulWidget {
     required this.qty,
   });
 
-  final Function(BuildContext context, int qty) valueChanged;
+  final Function valueChanged;
   final int qty;
 
   @override

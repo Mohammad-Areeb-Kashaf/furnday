@@ -82,7 +82,7 @@ class ProductModel {
   CartModel toCartModel() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['qty'] = 1;
+    data['qty'] = 0;
     data['mrp'] = mrp;
     data['discountedPrice'] = discountedPrice;
     return CartModel.fromJson(data);

@@ -52,17 +52,23 @@ class CartController extends GetxController {
     }
   }
 
-  addToCart(BuildContext context, CartModel cartItem) async {
-    if (cartItems.contains(cartItem)) {
+  addToCart(BuildContext context,
+      {required CartModel productCartItem, required int qty}) async {
+    if (cartItems.any((element) => element.id == productCartItem.id)) {
+      print("requirement satisfied");
       var cartItemIndex =
-          cartItems.indexWhere((cartItem) => cartItem == cartItem);
-      var cartItemQty = cartItems[cartItemIndex].qty!.toInt();
-      cartItems[cartItemIndex].qty = cartItemQty + cartItem.qty!.toInt();
+          cartItems.indexWhere((element) => element.id == productCartItem.id);
+      var cartItemQty = cartItems[cartItemIndex].qty! + qty;
+      print(cartItemQty);
+      cartItems[cartItemIndex].qty = cartItemQty;
+      await updateCart();
     } else {
-      cartItems.add(cartItem);
+      print('requirement not satisfied');
+      productCartItem.qty = (productCartItem.qty! + qty);
+      print(productCartItem.qty);
+      cartItems.add(productCartItem);
+      await updateCart();
     }
-    await updateCart();
-    await getCartItems();
   }
 
   updateCart() async {

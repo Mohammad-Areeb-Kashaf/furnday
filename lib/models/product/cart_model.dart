@@ -1,15 +1,15 @@
 class CartModel {
+  CartModel({
+    this.id = "0",
+    this.qty = 1,
+    this.mrp = "0",
+    this.discountedPrice = "0",
+  });
+
   String? id;
   int? qty;
   String? mrp;
   String? discountedPrice;
-
-  CartModel({
-    this.id,
-    this.qty,
-    this.mrp,
-    this.discountedPrice,
-  });
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

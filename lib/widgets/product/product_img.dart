@@ -33,6 +33,12 @@ class _ProductImgState extends State<ProductImg> {
       borderRadius: kBorderRadiusCard,
       child: imageUrl.isNotEmpty
           ? CachedNetworkImage(
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                child: CircularProgressIndicator(
+                  value: downloadProgress.progress,
+                ),
+              ),
               fit: BoxFit.cover,
               height: widget.height,
               width: widget.width,

@@ -34,7 +34,7 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   int selectedImage = 0;
   final cartController = Get.find<CartController>();
-  final int _qty = 1;
+  int _qty = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +180,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         padding: const EdgeInsets.all(10.0),
                         child: ProductQuantity(
                           qty: _qty,
-                          valueChanged: (context, qty) => valueChanged,
+                          valueChanged: valueChanged,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -209,9 +209,13 @@ class _ProductScreenState extends State<ProductScreen> {
                           'Add to Cart',
                         ),
                         onPressed: () async {
+                          print("Product screen: $_qty");
                           var cartController = Get.find<CartController>();
                           await cartController.addToCart(
-                              context, widget.product.toCartModel());
+                            context,
+                            productCartItem: widget.product.toCartModel(),
+                            qty: _qty,
+                          );
                         },
                         icon: Icon(
                           Icons.add_shopping_cart,
@@ -278,6 +282,8 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   valueChanged(BuildContext context, int qty) {
-    qty = _qty;
+    setState(() {
+      _qty = qty;
+    });
   }
 }
