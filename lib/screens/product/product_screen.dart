@@ -1,24 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/cart_controller.dart';
-import 'package:furnday/models/product/product_model.dart';
-import 'package:furnday/screens/main_screens/my_cart_screen.dart';
-import 'package:furnday/screens/product/product_3d_view_screen.dart';
-import 'package:furnday/services/product_services.dart';
-import 'package:furnday/widgets/cart/cart_item_count_btn.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/internet_checker.dart';
-import 'package:furnday/widgets/loading_dialog.dart';
-import 'package:furnday/widgets/product/product_grid_type.dart';
-import 'package:furnday/widgets/product/product_price.dart';
-import 'package:furnday/widgets/product/product_photo_viewer.dart';
-import 'package:furnday/widgets/product/product_quantity.dart';
-import 'package:furnday/widgets/product/product_review_section.dart';
-import 'package:furnday/widgets/product/product_section.dart';
-import 'package:furnday/widgets/star_ratings.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:get/get.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductModel product;
@@ -212,7 +192,7 @@ class _ProductScreenState extends State<ProductScreen> {
                         onPressed: () async {
                           print("Product screen: $_qty");
                           var cartController = Get.find<CartController>();
-                          loadDialog(context);
+                          context.loaderOverlay.show();
                           await cartController.addToCart(
                             context,
                             productCartItem: widget.product.toCartModel(),

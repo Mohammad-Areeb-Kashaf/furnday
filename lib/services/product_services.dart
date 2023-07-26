@@ -1,12 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/models/product/product_model.dart';
-import 'package:furnday/widgets/my_appbar.dart';
-import 'package:furnday/widgets/product/product_card.dart';
-import 'package:furnday/widgets/product/product_grid_type.dart';
-import 'package:furnday/widgets/product/product_section.dart';
 
 class ProductServices {
   final _firestore = FirebaseFirestore.instance;

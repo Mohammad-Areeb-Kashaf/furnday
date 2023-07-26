@@ -1,22 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_cashfree_pg_sdk/api/cferrorresponse/cferrorresponse.dart';
-import 'package:flutter_cashfree_pg_sdk/api/cfpayment/cfdropcheckoutpayment.dart';
-import 'package:flutter_cashfree_pg_sdk/api/cfpaymentcomponents/cfpaymentcomponent.dart';
-import 'package:flutter_cashfree_pg_sdk/api/cfpaymentgateway/cfpaymentgatewayservice.dart';
-import 'package:flutter_cashfree_pg_sdk/api/cfsession/cfsession.dart';
-import 'package:flutter_cashfree_pg_sdk/api/cftheme/cftheme.dart';
-import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
-import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/cart_controller.dart';
-import 'package:furnday/models/api/create_order_model.dart';
-import 'package:furnday/services/cashfree_services.dart';
-import 'package:furnday/services/user_services.dart';
-import 'package:furnday/widgets/cart/my_cart_card.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/internet_checker.dart';
-import 'package:get/get.dart';
 
 class MyCartScreen extends StatefulWidget {
   const MyCartScreen({super.key});
@@ -32,6 +14,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   String orderId = '';
   String paymentSessionId = '';
   CFEnvironment environment = CFEnvironment.SANDBOX;
+  CartController cartController = CartController();
 
   @override
   void initState() {
@@ -45,6 +28,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
     return InternetChecker(
       child: GetX<CartController>(
         builder: (controller) {
+          cartController = controller;
           return Scaffold(
             appBar: AppBar(
               title: const Text(
@@ -170,6 +154,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               ElevatedButton(
                                 onPressed: () async {
                                   try {
+                                    context.loaderOverlay.show();
                                     await CashfreeServices()
                                         .createOrder(controller.totalPrice)
                                         .then((value) {
@@ -180,6 +165,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       pay();
                                     });
                                   } catch (e) {
+                                    context.loaderOverlay.hide();
                                     print(e);
                                   }
                                 },
@@ -208,8 +194,37 @@ class _MyCartScreenState extends State<MyCartScreen> {
     );
   }
 
-  void verifyPayment(String orderId) {
-    print("Verify Payment");
+  void verifyPayment(String paymentOrderId) async {
+    bool paymentVerified = await CashfreeServices().getOrder(orderId);
+    if (paymentVerified) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(
+          const SnackBar(
+            content: Center(
+              child: Text(
+                'Payment Successful!!!',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+        );
+      context.loaderOverlay.show();
+      await cartController
+          .orderedAllCart()
+          .then((value) => context.loaderOverlay.hide());
+    } else {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(
+          const SnackBar(
+            content: Center(
+              child: Text('Payment Unsuccessful',
+                  style: TextStyle(color: Colors.black)),
+            ),
+          ),
+        );
+    }
   }
 
   void onError(CFErrorResponse errorResponse, String orderId) {
@@ -231,7 +246,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
     return null;
   }
 
-  pay() async {
+  Future pay() async {
     try {
       var session = createSession();
       List<CFPaymentModes> components = <CFPaymentModes>[];
@@ -257,7 +272,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
           .build();
 
       cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
+      context.loaderOverlay.hide();
     } on CFException catch (e) {
+      context.loaderOverlay.hide();
       print(e.message);
     }
   }

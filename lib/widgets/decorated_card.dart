@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
 
 class DecoratedCard extends StatelessWidget {

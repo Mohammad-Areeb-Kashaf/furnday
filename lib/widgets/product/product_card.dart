@@ -1,13 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/models/product/product_model.dart';
-import 'package:furnday/screens/product/product_screen.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/product/product_img.dart';
-import 'package:furnday/widgets/star_ratings.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:furnday/widgets/product/product_price.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.product});

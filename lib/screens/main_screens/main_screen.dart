@@ -1,24 +1,4 @@
-import 'dart:async';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/cart_controller.dart';
-import 'package:furnday/screens/main_screens/all_products_screen.dart';
-import 'package:furnday/screens/auth_screens/signin_screen.dart';
-import 'package:furnday/screens/main_screens/categories_screen.dart';
-import 'package:furnday/screens/main_screens/furniture_screen.dart';
-import 'package:furnday/screens/main_screens/hardware_screen.dart';
-import 'package:furnday/screens/main_screens/hire_a_carpenter_screen.dart';
-import 'package:furnday/screens/main_screens/home_screen.dart';
-import 'package:furnday/screens/main_screens/refurbished_screen.dart';
-import 'package:furnday/size_config.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/internet_checker.dart';
-import 'package:furnday/widgets/my_appbar.dart';
-import 'package:get/get.dart';
 
 enum ScreenDeterminer {
   home,

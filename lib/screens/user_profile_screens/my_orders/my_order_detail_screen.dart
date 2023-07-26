@@ -1,10 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/models/order/track_order_model.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/internet_checker.dart';
-import 'package:im_stepper/stepper.dart';
 
 class MyOrderDetailScreen extends StatefulWidget {
   const MyOrderDetailScreen({Key? key}) : super(key: key);
@@ -88,8 +82,8 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                     height: 2,
                                   ),
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Row(
                                       children: [
                                         AutoSizeText(
@@ -116,8 +110,8 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                     height: 2,
                                   ),
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -146,8 +140,8 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                     height: 4,
                                   ),
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -301,8 +295,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                             height: 4,
                           ),
                           const Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
                               children: [
                                 AutoSizeText(
@@ -325,8 +318,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                             height: 2,
                           ),
                           const Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
                               children: [
                                 AutoSizeText(
@@ -349,8 +341,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                             height: 2,
                           ),
                           const Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 16.0),
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
                               children: [
                                 AutoSizeText(

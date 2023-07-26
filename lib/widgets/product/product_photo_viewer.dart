@@ -1,10 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_swiper_3/flutter_swiper_3.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/widgets/loading_dialog.dart';
-import 'package:photo_view/photo_view.dart';
 
 class ProductPhotoViewer extends StatelessWidget {
   final List<String> photos;
@@ -77,7 +71,13 @@ class ProductPhotoView extends StatelessWidget {
           minScale: PhotoViewComputedScale.contained,
           maxScale: PhotoViewComputedScale.covered * 2.5,
           initialScale: PhotoViewComputedScale.contained,
-          loadingBuilder: (context, event) => loadDialog(context),
+          loadingBuilder: (context, event) {
+            return const Center(
+              child: SpinKitFoldingCube(
+                color: kYellowColor,
+              ),
+            );
+          },
         ),
       ),
     );

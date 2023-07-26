@@ -1,16 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/auth_screens/signup_screen.dart';
-import 'package:furnday/services/network_services.dart';
-import 'package:furnday/widgets/auth/auth_form.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/internet_checker.dart';
-import 'package:furnday/widgets/loading_dialog.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -133,7 +121,7 @@ class _SignInScreenState extends State<SignInScreen> {
     required String email,
     required String password,
   }) async {
-    loadDialog(context);
+    context.loaderOverlay.show();
     try {
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
@@ -141,13 +129,13 @@ class _SignInScreenState extends State<SignInScreen> {
         (value) {
           formKey.currentState!.validate();
           formKey.currentState!.reset();
-          Navigator.pop(context);
+          context.loaderOverlay.hide();
         },
       );
     } on FirebaseAuthException catch (e) {
       print(e);
 
-      Navigator.pop(context);
+      context.loaderOverlay.hide();
       setState(() {
         AuthForm.authError = e.toString();
         formKey.currentState!.validate();
@@ -167,12 +155,12 @@ class _SignInScreenState extends State<SignInScreen> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    loadDialog(context);
+    context.loaderOverlay.show();
     try {
       await auth.signInWithCredential(credential);
-      Navigator.pop(context);
+      context.loaderOverlay.hide();
     } catch (e) {
-      Navigator.pop(context);
+      context.loaderOverlay.hide();
       NetworkStatusService().checkInternet();
       var errorData = {
         "errors": [e.toString()]

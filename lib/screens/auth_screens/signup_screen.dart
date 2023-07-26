@@ -1,14 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/services/network_services.dart';
-import 'package:furnday/widgets/auth/auth_form.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/internet_checker.dart';
-import 'package:furnday/widgets/loading_dialog.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -138,7 +128,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     required String email,
     required String password,
   }) async {
-    loadDialog(context);
+    context.loaderOverlay.show();
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -147,12 +137,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         formKey.currentState!.validate();
         formKey.currentState!.reset();
         await _auth.currentUser!.reload();
-        Navigator.pop(context);
+        context.loaderOverlay.hide();
         Navigator.pop(context);
       });
     } on FirebaseAuthException catch (e) {
       print(e);
-      Navigator.pop(context);
+      context.loaderOverlay.hide();
       setState(() {
         AuthForm.authError = e.toString();
         formKey.currentState!.validate();
@@ -173,12 +163,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       idToken: googleAuth.idToken,
     );
     try {
-      loadDialog(context);
+      context.loaderOverlay.show();
       await auth.signInWithCredential(credential);
       Navigator.pop(context);
-      Navigator.pop(context);
+      context.loaderOverlay.hide();
     } catch (e) {
-      Navigator.pop(context);
+      context.loaderOverlay.hide();
       NetworkStatusService().checkInternet();
 
       var errorData = {

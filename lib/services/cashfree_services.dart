@@ -38,4 +38,30 @@ class CashfreeServices {
       return null;
     }
   }
+
+  getOrder(orderId) async {
+    try {
+      Map<String, dynamic>? queryParameters = {
+        "order_id": orderId,
+      };
+      var uri = Uri.http(
+          "areebkashaf.pythonanywhere.com", "/getOrder", queryParameters);
+      var response = await http.get(uri);
+      if (response.statusCode == 200) {
+        var jsonBody = jsonDecode(response.body);
+        if (jsonBody['order_status'] == "PAID") {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        print(response.body);
+        print(response.statusCode.toString());
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

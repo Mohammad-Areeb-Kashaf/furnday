@@ -1,16 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/user_profile_screens/address/my_addresses_screen.dart';
-import 'package:furnday/screens/user_profile_screens/my_orders/my_orders_screen.dart';
-import 'package:furnday/services/network_services.dart';
-import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/internet_checker.dart';
-import 'package:furnday/widgets/user_profile/user_profile_img.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);

@@ -1,11 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/models/product/product_model.dart';
-import 'package:furnday/models/user/user_address_model.dart';
-import 'package:furnday/widgets/cart/my_cart_card.dart';
-import 'package:furnday/widgets/user_profile/address_card.dart';
 
 class UserServices {
   final _firestore = FirebaseFirestore.instance;

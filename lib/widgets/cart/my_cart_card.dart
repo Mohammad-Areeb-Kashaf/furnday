@@ -4,10 +4,10 @@ import 'package:furnday/controllers/cart_controller.dart';
 import 'package:furnday/models/product/cart_model.dart';
 import 'package:furnday/models/product/product_model.dart';
 import 'package:furnday/widgets/decorated_card.dart';
-import 'package:furnday/widgets/loading_dialog.dart';
 import 'package:furnday/widgets/product/product_img.dart';
 import 'package:furnday/widgets/product/product_quantity.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class MyCartCard extends StatelessWidget {
   MyCartCard({
@@ -111,10 +111,11 @@ class MyCartCard extends StatelessWidget {
           int qty,
         ) async {
           try {
-            loadDialog(context);
+            context.loaderOverlay.show();
             controller.cartItems[indexCartItem].qty = qty;
-            await controller.updateCart();
-            Navigator.pop(context);
+            await controller.updateCart().then((value) {
+              context.loaderOverlay.hide();
+            });
           } catch (e) {
             print(e);
           }

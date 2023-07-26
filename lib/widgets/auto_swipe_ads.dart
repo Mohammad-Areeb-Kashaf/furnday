@@ -1,10 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:furnday/constants.dart';
-import 'package:furnday/screens/main_screens/hire_a_carpenter_screen.dart';
-import 'package:furnday/widgets/decorated_card.dart';
 
 class AutoSwipeAds extends StatelessWidget {
   AutoSwipeAds({super.key});

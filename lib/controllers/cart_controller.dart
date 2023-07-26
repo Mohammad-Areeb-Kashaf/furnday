@@ -28,7 +28,7 @@ class CartController extends GetxController {
           (int.parse(item.discountedPrice.toString()) *
               int.parse(item.qty.toString())));
 
-  getCartItems() async {
+  Future getCartItems() async {
     try {
       cartItems.value = [];
       productCartItems.value = [];
@@ -52,39 +52,41 @@ class CartController extends GetxController {
     }
   }
 
-  addToCart(BuildContext context,
+  Future addToCart(BuildContext context,
       {required CartModel productCartItem, required int qty}) async {
     if (cartItems.any((element) => element.id == productCartItem.id)) {
-      print("requirement satisfied");
       var cartItemIndex =
           cartItems.indexWhere((element) => element.id == productCartItem.id);
       var cartItemQty = cartItems[cartItemIndex].qty! + qty;
-      print(cartItemQty);
       cartItems[cartItemIndex].qty = cartItemQty;
       await updateCart();
     } else {
-      print('requirement not satisfied');
       productCartItem.qty = (productCartItem.qty! + qty);
-      print(productCartItem.qty);
       cartItems.add(productCartItem);
       await updateCart();
     }
   }
 
-  updateCart() async {
-    var cartProds = {};
-    for (var cartItem in cartItems) {
-      var cartItemJson = cartItem.toJson();
-      cartProds.addAll({cartItem.id: cartItemJson});
+  Future updateCart() async {
+    try {
+      var cartProds = {};
+      for (var cartItem in cartItems) {
+        var cartItemJson = cartItem.toJson();
+        cartProds.addAll({cartItem.id: cartItemJson});
+      }
+      cartItems.value = [];
+      await _firestore
+          .collection('users')
+          .doc(userUid)
+          .update({"cart": cartProds});
+
+      await getCartItems();
+    } catch (e) {
+      print("Error occured: $e");
     }
-    await _firestore
-        .collection('users')
-        .doc(userUid)
-        .update({"cart": cartProds});
-    getCartItems();
   }
 
-  orderedAllCart() async {
+  Future orderedAllCart() async {
     await _firestore.collection('users').doc(userUid).update({"cart": {}});
     getCartItems();
   }
