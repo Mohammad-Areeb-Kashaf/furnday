@@ -499,6 +499,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
+            physics: kScrollPhysics,
             child: Padding(
               padding: const EdgeInsets.all(24.0),
               child: Form(

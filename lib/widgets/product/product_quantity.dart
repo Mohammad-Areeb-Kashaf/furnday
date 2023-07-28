@@ -45,7 +45,6 @@ class _ProductQuantityState extends State<ProductQuantity> {
                   _qty--;
                 });
                 widget.valueChanged(
-                  context,
                   _qty,
                 );
               }
@@ -69,7 +68,6 @@ class _ProductQuantityState extends State<ProductQuantity> {
                 _qty++;
               });
               widget.valueChanged(
-                context,
                 _qty,
               );
             },

@@ -57,7 +57,7 @@ dependencies:
   flutter_cashfree_pg_sdk: ^2.0.12+15
   http: ^0.13.6
   get: ^4.6.5
-  loader_overlay: ^2.3.0
+  overlay_loader_with_app_icon: ^0.0.3
 
 dev_dependencies:
   flutter_test:

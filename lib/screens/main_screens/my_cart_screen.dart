@@ -14,7 +14,10 @@ class _MyCartScreenState extends State<MyCartScreen> {
   String orderId = '';
   String paymentSessionId = '';
   CFEnvironment environment = CFEnvironment.SANDBOX;
-  CartController cartController = CartController();
+  late CartController cartController;
+  bool isLoading = false;
+  var indexCartItem;
+  var _qty;
 
   @override
   void initState() {
@@ -26,170 +29,180 @@ class _MyCartScreenState extends State<MyCartScreen> {
   @override
   Widget build(BuildContext context) {
     return InternetChecker(
-      child: GetX<CartController>(
-        builder: (controller) {
-          cartController = controller;
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                'My Cart',
-                style: TextStyle(color: Colors.black),
+      child: LoadingOverlay(
+        isLoading: isLoading,
+        child: GetX<CartController>(
+          builder: (controller) {
+            cartController = controller;
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text(
+                  'My Cart',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
-            ),
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListView.builder(
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        physics: kScrollPhysics,
-                        itemCount: controller.cartItems.length,
-                        itemBuilder: (context, index) {
-                          return MyCartCard(
-                            product: controller.productCartItems[index],
-                            cart: controller.cartItems[index],
-                          );
-                        },
-                      ),
-                      DecoratedCard(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              const AutoSizeText(
-                                "Cart Total",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                minFontSize: 20,
-                                maxFontSize: 24,
-                              ),
-                              const Divider(thickness: 2.0),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const AutoSizeText(
-                                    "Subtotal:",
-                                    minFontSize: 18,
-                                    maxFontSize: 22,
-                                  ),
-                                  AutoSizeText(
-                                    "₹${controller.totalPrice.toString()}",
-                                    minFontSize: 18,
-                                    maxFontSize: 22,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              const Divider(),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              const Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  AutoSizeText(
-                                    "Shipping:",
-                                    minFontSize: 18,
-                                    maxFontSize: 22,
-                                  ),
-                                  AutoSizeText(
-                                    "Free shipping",
-                                    minFontSize: 18,
-                                    maxFontSize: 22,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              shippingAddress!,
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              const Divider(),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const AutoSizeText(
-                                    "Total:",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    minFontSize: 18,
-                                    maxFontSize: 22,
-                                  ),
-                                  AutoSizeText(
-                                    "₹${controller.totalPrice}",
-                                    minFontSize: 18,
-                                    maxFontSize: 22,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              const Divider(),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  try {
-                                    context.loaderOverlay.show();
-                                    await CashfreeServices()
-                                        .createOrder(controller.totalPrice)
-                                        .then((value) {
-                                      print('Order ID:- ${value.orderId}');
-                                      orderId = value.orderId.toString();
-                                      paymentSessionId =
-                                          value.paymentSessionId.toString();
-                                      pay();
-                                    });
-                                  } catch (e) {
-                                    context.loaderOverlay.hide();
-                                    print(e);
-                                  }
-                                },
-                                child: const Text(
-                                  'Proceed to Pay',
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  physics: kScrollPhysics,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          physics: kScrollPhysics,
+                          itemCount: controller.cartItems.length,
+                          itemBuilder: (context, index) {
+                            return MyCartCard(
+                              product: controller.productCartItems[index],
+                              productQuantityWidget: _buildProductQuantity,
+                              removeCartItem: (cart) => removeCartItem(cart),
+                              cart: controller.cartItems[index],
+                            );
+                          },
+                        ),
+                        DecoratedCard(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                const AutoSizeText(
+                                  "Cart Total",
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  minFontSize: 20,
+                                  maxFontSize: 24,
+                                ),
+                                const Divider(thickness: 2.0),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const AutoSizeText(
+                                      "Subtotal:",
+                                      minFontSize: 18,
+                                      maxFontSize: 22,
+                                    ),
+                                    AutoSizeText(
+                                      "₹${controller.totalPrice.toString()}",
+                                      minFontSize: 18,
+                                      maxFontSize: 22,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                const Divider(),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                const Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Shipping:",
+                                      minFontSize: 18,
+                                      maxFontSize: 22,
+                                    ),
+                                    AutoSizeText(
+                                      "Free shipping",
+                                      minFontSize: 18,
+                                      maxFontSize: 22,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                shippingAddress!,
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                const Divider(),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const AutoSizeText(
+                                      "Total:",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      minFontSize: 18,
+                                      maxFontSize: 22,
+                                    ),
+                                    AutoSizeText(
+                                      "₹${controller.totalPrice}",
+                                      minFontSize: 18,
+                                      maxFontSize: 22,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                const Divider(),
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    try {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      await CashfreeServices()
+                                          .createOrder(controller.totalPrice)
+                                          .then((value) {
+                                        print('Order ID:- ${value.orderId}');
+                                        orderId = value.orderId.toString();
+                                        paymentSessionId =
+                                            value.paymentSessionId.toString();
+                                        pay();
+                                      });
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    } catch (e) {
+                                      print(e);
+                                    }
+                                  },
+                                  child: const Text(
+                                    'Proceed to Pay',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                            ],
+                                const SizedBox(
+                                  height: 2,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -209,21 +222,26 @@ class _MyCartScreenState extends State<MyCartScreen> {
             ),
           ),
         );
-      context.loaderOverlay.show();
-      await cartController
-          .orderedAllCart()
-          .then((value) => context.loaderOverlay.hide());
+      setState(() {
+        isLoading = true;
+      });
+      await cartController.orderedAllCart();
+      setState(() {
+        isLoading = false;
+      });
     } else {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(
-          const SnackBar(
-            content: Center(
-              child: Text('Payment Unsuccessful',
-                  style: TextStyle(color: Colors.black)),
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+          ..clearSnackBars()
+          ..showSnackBar(
+            const SnackBar(
+              content: Center(
+                child: Text('Payment Unsuccessful',
+                    style: TextStyle(color: Colors.black)),
+              ),
             ),
-          ),
-        );
+          );
+      }
     }
   }
 
@@ -272,10 +290,50 @@ class _MyCartScreenState extends State<MyCartScreen> {
           .build();
 
       cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
-      context.loaderOverlay.hide();
     } on CFException catch (e) {
-      context.loaderOverlay.hide();
       print(e.message);
     }
+  }
+
+  Widget _buildProductQuantity(cart) {
+    return GetX<CartController>(
+      builder: (controller) {
+        void valueChanged(
+          int qty,
+        ) async {
+          setState(() {
+            isLoading = true;
+          });
+          try {
+            controller.cartItems[indexCartItem].qty = qty;
+            await controller.updateCart();
+          } catch (e) {
+            print(e);
+          }
+          setState(() {
+            isLoading = false;
+          });
+        }
+
+        indexCartItem = controller.cartItems.indexOf(cart);
+        _qty = cart!.qty!.toInt();
+
+        return ProductQuantity(
+          qty: _qty,
+          valueChanged: valueChanged,
+        );
+      },
+    );
+  }
+
+  void removeCartItem(cart) async {
+    setState(() {
+      isLoading = true;
+    });
+    cartController.cartItems.removeWhere((element) => element == cart);
+    await cartController.updateCart();
+    setState(() {
+      isLoading = false;
+    });
   }
 }

@@ -5,49 +5,6 @@ class UserServices {
   final userUid = FirebaseAuth.instance.currentUser!.uid;
   static var cartItemsList = [];
 
-  getCartItems() {
-    try {
-      final cartItemsStream =
-          _firestore.collection('users').doc(userUid).snapshots();
-
-      return StreamBuilder(
-        stream: cartItemsStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          } else if (snapshot.hasData) {
-            List? cartItems = snapshot.data!.data()!['cart'];
-            if (cartItems != null) {
-              for (var element in cartItems) {
-                cartItemsList.add(ProductModel.fromJson(element));
-              }
-              return ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  shrinkWrap: true,
-                  physics: kScrollPhysics,
-                  itemCount: cartItemsList.length,
-                  itemBuilder: (context, index) {
-                    return MyCartCard(product: cartItemsList[index]);
-                  });
-            } else {
-              return const Text("No Items in your cart");
-            }
-          } else {
-            return const Text('Something went wrong');
-          }
-        },
-      );
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  addToCart(ProductModel product) {
-    try {} catch (e) {}
-  }
-
   getBillingAddressModel() async {
     try {
       var doc = await _firestore.collection("users").doc(userUid).get();

@@ -8,7 +8,6 @@ export 'package:furnday/screens/auth_screens/signin_screen.dart';
 export 'package:furnday/screens/main_screens/main_screen.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:furnday/services/network_services.dart';
-export 'package:loader_overlay/loader_overlay.dart';
 export 'package:provider/provider.dart';
 export 'package:furnday/widgets/internet_checker.dart';
 export 'package:furnday/widgets/decorated_card.dart';
@@ -72,6 +71,8 @@ export 'package:firebase_storage/firebase_storage.dart';
 export 'package:flutter_swiper_3/flutter_swiper_3.dart';
 export 'package:photo_view/photo_view.dart';
 export 'package:intl/intl.dart' hide TextDirection;
+export 'package:furnday/models/product/cart_model.dart';
+export 'package:furnday/widgets/loading_overlay.dart';
 
 import 'package:flutter/material.dart';
 

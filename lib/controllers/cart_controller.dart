@@ -1,9 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:furnday/models/product/cart_model.dart';
-import 'package:furnday/models/product/product_model.dart';
-import 'package:get/get.dart';
+import 'package:furnday/constants.dart';
 
 class CartController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
@@ -28,7 +23,7 @@ class CartController extends GetxController {
           (int.parse(item.discountedPrice.toString()) *
               int.parse(item.qty.toString())));
 
-  Future getCartItems() async {
+  Future<bool> getCartItems() async {
     try {
       cartItems.value = [];
       productCartItems.value = [];
@@ -47,27 +42,35 @@ class CartController extends GetxController {
           productCartItems.add(productItem);
         },
       );
+      return true;
     } catch (e) {
       print(e);
+      return false;
     }
   }
 
-  Future addToCart(BuildContext context,
+  Future<bool> addToCart(
       {required CartModel productCartItem, required int qty}) async {
-    if (cartItems.any((element) => element.id == productCartItem.id)) {
-      var cartItemIndex =
-          cartItems.indexWhere((element) => element.id == productCartItem.id);
-      var cartItemQty = cartItems[cartItemIndex].qty! + qty;
-      cartItems[cartItemIndex].qty = cartItemQty;
-      await updateCart();
-    } else {
-      productCartItem.qty = (productCartItem.qty! + qty);
-      cartItems.add(productCartItem);
-      await updateCart();
+    try {
+      if (cartItems.any((element) => element.id == productCartItem.id)) {
+        var cartItemIndex =
+            cartItems.indexWhere((element) => element.id == productCartItem.id);
+        var cartItemQty = cartItems[cartItemIndex].qty! + qty;
+        cartItems[cartItemIndex].qty = cartItemQty;
+        await updateCart();
+      } else {
+        productCartItem.qty = (productCartItem.qty! + qty);
+        cartItems.add(productCartItem);
+        await updateCart();
+      }
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 
-  Future updateCart() async {
+  Future<bool> updateCart() async {
     try {
       var cartProds = {};
       for (var cartItem in cartItems) {
@@ -81,13 +84,21 @@ class CartController extends GetxController {
           .update({"cart": cartProds});
 
       await getCartItems();
+      return true;
     } catch (e) {
       print("Error occured: $e");
+      return false;
     }
   }
 
-  Future orderedAllCart() async {
-    await _firestore.collection('users').doc(userUid).update({"cart": {}});
-    getCartItems();
+  Future<bool> orderedAllCart() async {
+    try {
+      await _firestore.collection('users').doc(userUid).update({"cart": {}});
+      await getCartItems();
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }

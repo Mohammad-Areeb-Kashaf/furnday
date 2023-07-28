@@ -28,11 +28,12 @@ class _MainScreenState extends State<MainScreen> {
   late bool isEmailVerified;
   bool canResendEmail = false;
   Timer timer = Timer(Duration.zero, () {});
-  final cartController = Get.put(CartController());
+  late final cartController;
 
   @override
   void initState() {
     super.initState();
+    cartController = Get.put(CartController());
     setState(() {
       isEmailVerified = _auth.currentUser!.emailVerified;
     });
@@ -244,6 +245,7 @@ class _MainScreenState extends State<MainScreen> {
                   SafeArea(
                     child: Center(
                       child: SingleChildScrollView(
+                        physics: kScrollPhysics,
                         child: Column(
                           children: [
                             Padding(

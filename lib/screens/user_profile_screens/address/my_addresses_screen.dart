@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:furnday/services/user_services.dart';
-import 'package:furnday/widgets/internet_checker.dart';
+import 'package:furnday/constants.dart';
 
 class MyAddressesScreen extends StatelessWidget {
   const MyAddressesScreen({super.key});
@@ -17,6 +15,7 @@ class MyAddressesScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: SingleChildScrollView(
+            physics: kScrollPhysics,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
