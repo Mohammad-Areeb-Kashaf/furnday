@@ -1,4 +1,5 @@
 import 'package:furnday/constants.dart';
+import 'package:furnday/controllers/products_controller.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductModel product;
@@ -17,6 +18,12 @@ class _ProductScreenState extends State<ProductScreen> {
   final cartController = Get.find<CartController>();
   int _qty = 1;
   bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ProductsController().getAllProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +203,6 @@ class _ProductScreenState extends State<ProductScreen> {
                             'Add to Cart',
                           ),
                           onPressed: () async {
-                            print("Product screen: $_qty");
                             var cartController = Get.find<CartController>();
                             setState(() {
                               isLoading = true;
@@ -236,7 +242,26 @@ class _ProductScreenState extends State<ProductScreen> {
                             borderRadius: kBorderRadiusCard,
                           ),
                           color: Theme.of(context).primaryColor,
-                          onPressed: () {},
+                          onPressed: () async {
+                            var cartController = Get.find<CartController>();
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await cartController.addToCart(
+                              productCartItem: widget.product.toCartModel(),
+                              qty: _qty,
+                            );
+                            setState(() {
+                              isLoading = false;
+                            });
+                            if (context.mounted) {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const MyCartScreen()));
+                            }
+                          },
                           child: AutoSizeText(
                             'Buy Now',
                             style: TextStyle(
@@ -249,13 +274,16 @@ class _ProductScreenState extends State<ProductScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   ProductReviewSection(
                     reviews: [
                       ProductReviews(
-                          username: 'FurnDay User',
-                          date: "22/5/2023",
-                          rating: 4.5,
-                          comment: "Very Good Product"),
+                        username: 'FurnDay User',
+                        date: "22/5/2023",
+                        rating: 4.5,
+                        comment: "Very Good Product",
+                        email: "areebkashaf7350@gmail.com",
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),

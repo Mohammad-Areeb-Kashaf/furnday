@@ -58,6 +58,7 @@ dependencies:
   http: ^0.13.6
   get: ^4.6.5
   overlay_loader_with_app_icon: ^0.0.3
+  flutter_layout_grid: ^2.0.4
 
 dev_dependencies:
   flutter_test:

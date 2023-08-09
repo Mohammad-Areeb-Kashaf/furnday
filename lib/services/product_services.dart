@@ -1,4 +1,5 @@
 import 'package:furnday/constants.dart';
+import 'package:furnday/controllers/products_controller.dart';
 
 class ProductServices {
   final _firestore = FirebaseFirestore.instance;
@@ -6,33 +7,23 @@ class ProductServices {
 
   Widget getAllProducts(BuildContext context,
       {gridCrossAxisCount, gridChildAspectRatio}) {
-    final productsStream = _firestore.collection('all_products').snapshots();
-
     try {
-      return StreamBuilder(
-        stream: productsStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          } else if (snapshot.hasData) {
-            return GridView.count(
-                crossAxisCount: gridCrossAxisCount,
-                childAspectRatio: gridChildAspectRatio,
-                physics: kScrollPhysics,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                shrinkWrap: true,
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  var product = ProductModel.fromJson(data);
-                  return ProductCard(product: product);
-                }).toList());
-          } else {
-            return const Text("Something went wrong");
-          }
+      return GetX<ProductsController>(
+        builder: (controller) {
+          var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: gridCrossAxisCount,
+            childAspectRatio: gridChildAspectRatio,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          );
+          return GridView.builder(
+            gridDelegate: gridDelegate,
+            physics: kScrollPhysics,
+            shrinkWrap: true,
+            itemCount: controller.products.length,
+            itemBuilder: (context, index) =>
+                ProductCard(product: controller.products[index]),
+          );
         },
       );
     } catch (e) {
@@ -46,36 +37,23 @@ class ProductServices {
 
   Widget getFeaturedProducts(BuildContext context,
       {required gridCrossAxisCount, required gridChildAspectRatio}) {
-    final featuredProductsStream = _firestore
-        .collection('all_products')
-        .where("featured", isEqualTo: true)
-        .snapshots();
-
     try {
-      return StreamBuilder(
-        stream: featuredProductsStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          } else if (snapshot.hasData) {
-            return GridView.count(
-                crossAxisCount: gridCrossAxisCount,
-                childAspectRatio: gridChildAspectRatio,
-                physics: kScrollPhysics,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                shrinkWrap: true,
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data =
-                      document.data() as Map<String, dynamic>;
-                  var product = ProductModel.fromJson(data);
-                  return ProductCard(product: product);
-                }).toList());
-          } else {
-            return const Text("Something went wrong");
-          }
+      return GetX<ProductsController>(
+        builder: (controller) {
+          var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gridCrossAxisCount,
+              childAspectRatio: gridChildAspectRatio,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10);
+          return GridView.builder(
+            gridDelegate: gridDelegate,
+            physics: kScrollPhysics,
+            shrinkWrap: true,
+            itemCount: controller.featuredProducts.length,
+            itemBuilder: (context, index) {
+              return ProductCard(product: controller.featuredProducts[index]);
+            },
+          );
         },
       );
     } catch (e) {

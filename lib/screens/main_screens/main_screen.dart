@@ -1,4 +1,5 @@
 import 'package:furnday/constants.dart';
+import 'package:furnday/controllers/products_controller.dart';
 
 enum ScreenDeterminer {
   home,
@@ -29,11 +30,13 @@ class _MainScreenState extends State<MainScreen> {
   bool canResendEmail = false;
   Timer timer = Timer(Duration.zero, () {});
   late final cartController;
+  late final productsController;
 
   @override
   void initState() {
     super.initState();
     cartController = Get.put(CartController());
+    productsController = Get.put(ProductsController());
     setState(() {
       isEmailVerified = _auth.currentUser!.emailVerified;
     });

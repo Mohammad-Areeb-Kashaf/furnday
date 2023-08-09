@@ -60,7 +60,8 @@ class _MyCartCardState extends State<MyCartCard> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AutoSizeText(
                                 widget.product.name.toString(),
@@ -71,9 +72,11 @@ class _MyCartCardState extends State<MyCartCard> {
                                 minFontSize: 20,
                                 maxFontSize: 26,
                               ),
-                              const Spacer(),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               AutoSizeText(
-                                widget.product.discountedPrice.toString(),
+                                "₹${widget.product.discountedPrice}",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),

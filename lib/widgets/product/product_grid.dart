@@ -89,11 +89,11 @@ class _ProductGridState extends State<ProductGrid> {
 
   gridChildAspectRatioDeterminer() {
     if (gridCrossAxisCount == 3) {
-      return MediaQuery.of(context).size.width /
-          (MediaQuery.of(context).size.height / 1);
+      return (MediaQuery.of(context).size.width / 2) /
+          ((MediaQuery.of(context).size.height - 56 - 24) / 2);
     } else {
-      return MediaQuery.of(context).size.width /
-          (MediaQuery.of(context).size.height / 1.25);
+      return (MediaQuery.of(context).size.width / 2) /
+          ((MediaQuery.of(context).size.height - 56 - 24) / 2.10);
     }
   }
 }
