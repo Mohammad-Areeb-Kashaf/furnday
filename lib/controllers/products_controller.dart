@@ -31,19 +31,15 @@ class ProductsController extends GetxController {
 
   void getFeaturedProducts() async {
     try {
-      var itemProducts = <ProductModel>[];
       var allProductsResponse = await _firestore
           .collection('all_products')
           .where("featured", isEqualTo: true)
           .get();
-      var data = allProductsResponse.docs.map((DocumentSnapshot document) {
-        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-        var product = ProductModel.fromJson(data);
-        itemProducts.add(product);
-        return itemProducts;
-      });
-      featuredProducts.value = data.toList()[0];
-      print(products);
+      for (var doc in allProductsResponse.docs) {
+        var data = doc.data();
+        var featuredProduct = ProductModel.fromJson(data);
+        featuredProducts.add(featuredProduct);
+      }
     } catch (e) {
       print(e);
     }
