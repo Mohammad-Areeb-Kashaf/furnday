@@ -68,7 +68,9 @@ class UserServices {
         if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Loading');
+          return const CircularProgressIndicator(
+            color: kYellowColor,
+          );
         } else if (snapshot.hasData) {
           try {
             Map<String, dynamic> data =
@@ -114,7 +116,9 @@ class UserServices {
         if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text('Loading');
+          return const CircularProgressIndicator(
+            color: kYellowColor,
+          );
         } else if (snapshot.hasData) {
           try {
             Map<String, dynamic> data =

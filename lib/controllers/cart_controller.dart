@@ -101,4 +101,16 @@ class CartController extends GetxController {
       return false;
     }
   }
+
+  createCart() async {
+    try {
+      var data = {"cart": {}, "billingAddres": {}, "shippingAddress": {}};
+      await _firestore.collection("users").doc(userUid).set(data);
+      await getCartItems();
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }

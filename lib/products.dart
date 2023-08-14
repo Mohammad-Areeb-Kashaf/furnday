@@ -27,6 +27,7 @@ var products = [
     ]
   },
   {
+    "rating": 0.0,
     "category": ["Bed", "Furniture"],
     "description": [
       {
@@ -79,6 +80,7 @@ var products = [
     "productReviews": []
   },
   {
+    "rating": 0.0,
     "category": ["Dining Table", "Furniture"],
     "description": [
       {
@@ -135,6 +137,7 @@ var products = [
     "productReviews": []
   },
   {
+    "rating": 0.0,
     "category": ["Dining Table", "Furniture"],
     "description": [
       {
@@ -187,6 +190,7 @@ var products = [
     "productReviews": []
   },
   {
+    "rating": 0.0,
     "category": ["Dining Table", "Furniture"],
     "description": [
       {
@@ -243,6 +247,7 @@ var products = [
     "productReviews": []
   },
   {
+    "rating": 0.0,
     "category": ["Furniture", "Dining Table"],
     "description": [
       {
@@ -295,6 +300,7 @@ var products = [
     "productReviews": []
   },
   {
+    "rating": 0.0,
     "category": ["Glass"],
     "description": [
       {

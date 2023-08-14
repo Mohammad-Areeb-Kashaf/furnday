@@ -31,6 +31,9 @@ class ProductServices {
         "errors": [e.toString()]
       };
       _firestore.collection("app").doc('errors').update(errorData);
+
+      print("error in products services of all products");
+      print(e);
       return const Text('Something went wrong');
     }
   }
@@ -76,7 +79,9 @@ class ProductServices {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading");
+            return const CircularProgressIndicator(
+              color: kYellowColor,
+            );
           } else if (snapshot.hasData) {
             List data = snapshot.data!.data()!['categories'];
             return ListView(
@@ -93,19 +98,20 @@ class ProductServices {
                         builder: (context) => Scaffold(
                           appBar: myAppBar(context),
                           body: SingleChildScrollView(
-                              physics: kScrollPhysics,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ProductSection(
-                                    headingText: selectedCategory,
-                                    productGridType: ProductGridType
-                                        .selectedCategoryProducts,
-                                    productServicesInstance: this,
-                                  )
-                                ],
-                              )),
+                            physics: kScrollPhysics,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ProductSection(
+                                  headingText: selectedCategory,
+                                  productGridType:
+                                      ProductGridType.selectedCategoryProducts,
+                                  productServicesInstance: this,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     );
@@ -129,39 +135,25 @@ class ProductServices {
   }
 
   Widget getSelectedCategoryProducts(gridChildAspectRatio, gridCrossAxisCount) {
-    var selectedCategoryStream = _firestore
-        .collection('all_products')
-        .where('category', arrayContains: selectedCategory)
-        .snapshots();
-
     try {
-      return StreamBuilder(
-        stream: selectedCategoryStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          } else if (snapshot.hasData) {
-            return snapshot.data!.docs.isNotEmpty
-                ? GridView.count(
-                    crossAxisCount: gridCrossAxisCount,
-                    childAspectRatio: gridChildAspectRatio,
-                    physics: kScrollPhysics,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    shrinkWrap: true,
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
-                      var product = ProductModel.fromJson(data);
-                      return ProductCard(product: product);
-                    }).toList())
-                : const Text('No products found');
-          } else {
-            return const Text("Something went wrong");
-          }
+      return GetX<ProductsController>(
+        builder: (controller) {
+          var selectedCategoryProducts =
+              controller.getSelectedCategoryProducts(selectedCategory);
+          return selectedCategoryProducts!.isNotEmpty
+              ? GridView.count(
+                  crossAxisCount: gridCrossAxisCount,
+                  childAspectRatio: gridChildAspectRatio,
+                  physics: kScrollPhysics,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  shrinkWrap: true,
+                  children: List.generate(
+                      selectedCategoryProducts.length,
+                      (index) => ProductCard(
+                          product: selectedCategoryProducts[index])),
+                )
+              : const Text('There is no product in this category');
         },
       );
     } catch (e) {
@@ -174,39 +166,26 @@ class ProductServices {
   }
 
   Widget getRefurbishedProducts(gridChildAspectRatio, gridCrossAxisCount) {
-    var refurbishedProductsStream = _firestore
-        .collection('all_products')
-        .where('category', arrayContains: 'Refurbished')
-        .snapshots();
-
     try {
-      return StreamBuilder(
-        stream: refurbishedProductsStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          } else if (snapshot.hasData) {
-            return snapshot.data!.docs.isNotEmpty
-                ? GridView.count(
-                    crossAxisCount: gridCrossAxisCount,
-                    childAspectRatio: gridChildAspectRatio,
-                    physics: kScrollPhysics,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    shrinkWrap: true,
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
-                      var product = ProductModel.fromJson(data);
-                      return ProductCard(product: product);
-                    }).toList())
-                : const Text('No products found');
-          } else {
-            return const Text("Something went wrong");
-          }
+      selectedCategory = "Refurbished";
+      return GetX<ProductsController>(
+        builder: (controller) {
+          var selectedCategoryProducts =
+              controller.getSelectedCategoryProducts(selectedCategory);
+          return selectedCategoryProducts!.isNotEmpty
+              ? GridView.count(
+                  crossAxisCount: gridCrossAxisCount,
+                  childAspectRatio: gridChildAspectRatio,
+                  physics: kScrollPhysics,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  shrinkWrap: true,
+                  children: List.generate(
+                      selectedCategoryProducts.length,
+                      (index) => ProductCard(
+                          product: selectedCategoryProducts[index])),
+                )
+              : const Text('There is no product in this category');
         },
       );
     } catch (e) {
@@ -219,39 +198,26 @@ class ProductServices {
   }
 
   Widget getFurnitureProducts(gridChildAspectRatio, gridCrossAxisCount) {
-    var furnitureProductsStream = _firestore
-        .collection('all_products')
-        .where('category', arrayContains: 'Furniture')
-        .snapshots();
-
     try {
-      return StreamBuilder(
-        stream: furnitureProductsStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          } else if (snapshot.hasData) {
-            return snapshot.data!.docs.isNotEmpty
-                ? GridView.count(
-                    crossAxisCount: gridCrossAxisCount,
-                    childAspectRatio: gridChildAspectRatio,
-                    physics: kScrollPhysics,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    shrinkWrap: true,
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
-                      var product = ProductModel.fromJson(data);
-                      return ProductCard(product: product);
-                    }).toList())
-                : const Text('No products found');
-          } else {
-            return const Text("Something went wrong");
-          }
+      selectedCategory = "Furniture";
+      return GetX<ProductsController>(
+        builder: (controller) {
+          var selectedCategoryProducts =
+              controller.getSelectedCategoryProducts(selectedCategory);
+          return selectedCategoryProducts!.isNotEmpty
+              ? GridView.count(
+                  crossAxisCount: gridCrossAxisCount,
+                  childAspectRatio: gridChildAspectRatio,
+                  physics: kScrollPhysics,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  shrinkWrap: true,
+                  children: List.generate(
+                      selectedCategoryProducts.length,
+                      (index) => ProductCard(
+                          product: selectedCategoryProducts[index])),
+                )
+              : const Text('There is no product in this category');
         },
       );
     } catch (e) {
@@ -264,39 +230,26 @@ class ProductServices {
   }
 
   Widget getHardwareProducts(gridChildAspectRatio, gridCrossAxisCount) {
-    var hardwareProductsStream = _firestore
-        .collection('all_products')
-        .where('category', arrayContains: 'Hardware')
-        .snapshots();
-
     try {
-      return StreamBuilder(
-        stream: hardwareProductsStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading');
-          } else if (snapshot.hasData) {
-            return snapshot.data!.docs.isNotEmpty
-                ? GridView.count(
-                    crossAxisCount: gridCrossAxisCount,
-                    childAspectRatio: gridChildAspectRatio,
-                    physics: kScrollPhysics,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    shrinkWrap: true,
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data() as Map<String, dynamic>;
-                      var product = ProductModel.fromJson(data);
-                      return ProductCard(product: product);
-                    }).toList())
-                : const Text('No products found');
-          } else {
-            return const Text("Something went wrong");
-          }
+      selectedCategory = "Hardware";
+      return GetX<ProductsController>(
+        builder: (controller) {
+          var selectedCategoryProducts =
+              controller.getSelectedCategoryProducts(selectedCategory);
+          return selectedCategoryProducts!.isNotEmpty
+              ? GridView.count(
+                  crossAxisCount: gridCrossAxisCount,
+                  childAspectRatio: gridChildAspectRatio,
+                  physics: kScrollPhysics,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  shrinkWrap: true,
+                  children: List.generate(
+                      selectedCategoryProducts.length,
+                      (index) => ProductCard(
+                          product: selectedCategoryProducts[index])),
+                )
+              : const Text('There is no product in this category');
         },
       );
     } catch (e) {

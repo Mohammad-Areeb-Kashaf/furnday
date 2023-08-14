@@ -153,21 +153,22 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   signInWithGoogle() async {
-    final auth = FirebaseAuth.instance;
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: ["email"]).signIn();
-
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    setState(() {
-      isLoading = true;
-    });
     try {
+      final auth = FirebaseAuth.instance;
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn(scopes: ["email"]).signIn();
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      setState(() {
+        isLoading = true;
+      });
+
       await auth.signInWithCredential(credential);
     } catch (e) {
       NetworkStatusService().checkInternet();

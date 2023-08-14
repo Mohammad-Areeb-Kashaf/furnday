@@ -60,6 +60,8 @@ class _MainScreenState extends State<MainScreen> {
       });
 
       if (isEmailVerified) {
+        var controller = Get.find<CartController>();
+        controller.createCart();
         timer.cancel();
       }
     } catch (e) {

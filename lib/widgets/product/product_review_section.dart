@@ -6,8 +6,10 @@ import 'package:furnday/widgets/star_ratings.dart';
 
 class ProductReviewSection extends StatelessWidget {
   final List<ProductReviews> reviews;
+  final String productId;
 
-  const ProductReviewSection({Key? key, required this.reviews})
+  const ProductReviewSection(
+      {Key? key, required this.reviews, required this.productId})
       : super(key: key);
 
   @override
@@ -21,6 +23,7 @@ class ProductReviewSection extends StatelessWidget {
             AutoSizeText(
               'Reviews',
               style: Theme.of(context).textTheme.labelLarge,
+              minFontSize: 18,
               maxFontSize: 24,
             ),
             const SizedBox(height: 8),

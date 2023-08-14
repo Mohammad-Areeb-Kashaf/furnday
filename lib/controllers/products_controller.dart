@@ -14,18 +14,17 @@ class ProductsController extends GetxController {
 
   void getAllProducts() async {
     try {
-      var itemProducts = <ProductModel>[];
       var allProductsResponse =
           await _firestore.collection('all_products').get();
-      var data = allProductsResponse.docs.map((DocumentSnapshot document) {
-        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+      for (var doc in allProductsResponse.docs) {
+        var data = doc.data();
         var product = ProductModel.fromJson(data);
-        itemProducts.add(product);
-        return itemProducts;
-      });
-      products.value = data.toList()[0];
+        products.add(product);
+      }
+
       print(products);
     } catch (e) {
+      print("error in products controller");
       print(e);
     }
   }
@@ -47,6 +46,23 @@ class ProductsController extends GetxController {
       print(products);
     } catch (e) {
       print(e);
+    }
+  }
+
+  List<ProductModel>? getSelectedCategoryProducts(selectedCategory) {
+    try {
+      List<ProductModel> selectedCategoryProducts = products
+          .where((product) => product.category!.contains(selectedCategory))
+          .toList();
+      print('$selectedCategory: $selectedCategoryProducts');
+      return selectedCategoryProducts;
+    } catch (e) {
+      print(e);
+      var errorData = {
+        "errors": [e.toString()]
+      };
+      _firestore.collection("app").doc('errors').update(errorData);
+      return null;
     }
   }
 }

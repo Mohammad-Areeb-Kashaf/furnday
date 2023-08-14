@@ -20,10 +20,6 @@ class MyCartCard extends StatefulWidget {
 class _MyCartCardState extends State<MyCartCard> {
   final cartController = Get.find<CartController>();
 
-  var indexCartItem;
-
-  final int _qty = 1;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
