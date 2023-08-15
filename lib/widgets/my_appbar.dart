@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/user_profile_screens/user_profile_screen.dart';
+import 'package:furnday/services/search_services.dart';
 import 'package:furnday/widgets/cart/cart_item_count_btn.dart';
 import 'package:furnday/widgets/user_profile/user_profile_img.dart';
 
@@ -10,7 +11,9 @@ AppBar myAppBar(BuildContext context) {
     centerTitle: false,
     actions: [
       IconButton(
-        onPressed: () {},
+        onPressed: () {
+          showSearch(context: context, delegate: SearchServices());
+        },
         icon: const Icon(Icons.search),
       ),
       Padding(
