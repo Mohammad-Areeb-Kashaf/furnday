@@ -1,5 +1,5 @@
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/products_controller.dart';
+import 'package:furnday/widgets/product/product_review_form.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductModel product;
@@ -15,15 +15,8 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   int selectedImage = 0;
-  final cartController = Get.find<CartController>();
   int _qty = 1;
   bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    ProductsController().getAllProducts();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -275,16 +268,23 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const SizedBox(height: 10),
+                    (widget.product.productReviews!.toList().any((element) =>
+                                element.email ==
+                                FirebaseAuth.instance.currentUser!.email) ==
+                            false)
+                        ? ProductReviewForm(
+                            productId: widget.product.id.toString(),
+                            submitReview: submitReview,
+                          )
+                        : const SizedBox.shrink(),
                     ProductReviewSection(
-                      reviews: widget.product.productReviews!.toList(),
+                      reviews: widget.product.productReviews,
                       productId: widget.product.id.toString(),
                     ),
                     const SizedBox(height: 10),
-                    ProductSection(
+                    const ProductSection(
                       headingText: "You might also like",
                       productGridType: ProductGridType.allProducts,
-                      productServicesInstance: ProductServices(),
                     ),
                     const SizedBox(height: 10),
                   ]),
@@ -293,6 +293,51 @@ class _ProductScreenState extends State<ProductScreen> {
         ),
       ),
     );
+  }
+
+  submitReview(formKey, comment, rating, name, email) async {
+    if (!formKey.currentState!.validate()) {
+    } else {
+      setState(() {
+        isLoading = true;
+      });
+      formKey.currentState!.save();
+      try {
+        var productReview = ProductReviews(
+            comment: comment,
+            rating: rating,
+            date:
+                "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+            username: name,
+            email: email);
+        await FirebaseFirestore.instance
+            .collection("all_products")
+            .doc(widget.product.id)
+            .update(
+          {
+            "productReviews": [productReview.toJson()]
+          },
+        );
+        setState(() {
+          isLoading = false;
+        });
+        setState(() {});
+      } catch (e) {
+        setState(() {
+          isLoading = true;
+        });
+        var errorData = {
+          "errors": [e.toString()]
+        };
+        await FirebaseFirestore.instance
+            .collection("app")
+            .doc('errors')
+            .update(errorData);
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
   }
 
   valueChanged(int qty) {

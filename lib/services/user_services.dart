@@ -26,7 +26,7 @@ class UserServices {
           UserAddressModel.fromJson(doc.data()!['shippingAddress']);
       return shippingAddress;
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
 
       var errorData = {
         "errors": [e.toString()]
@@ -40,7 +40,7 @@ class UserServices {
     try {
       await doc.update({"billingAddress": userAddress.toJson()});
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       await doc.set({"billingAddress": userAddress.toJson()});
     }
   }

@@ -178,7 +178,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                         isLoading = false;
                                       });
                                     } catch (e) {
-                                      print(e);
+                                      printError(info: e.toString());
                                     }
                                   },
                                   child: const Text(
@@ -305,10 +305,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
             isLoading = true;
           });
           try {
-            controller.cartItems[indexCartItem].qty = qty;
+            controller.cartItems[indexCartItem].qty =
+                double.parse(qty.toString());
             await controller.updateCart();
           } catch (e) {
-            print(e);
+            printError(info: e.toString());
           }
           setState(() {
             isLoading = false;

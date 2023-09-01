@@ -10,10 +10,9 @@ class AllProductsScreen extends StatelessWidget {
       child: Column(
         children: [
           AutoSwipeAds(),
-          ProductSection(
+          const ProductSection(
             headingText: "All Products",
             productGridType: ProductGridType.allProducts,
-            productServicesInstance: ProductServices(),
           )
         ],
       ),

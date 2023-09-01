@@ -4,12 +4,13 @@ import 'package:furnday/controllers/products_controller.dart';
 class ProductServices {
   final _firestore = FirebaseFirestore.instance;
   var selectedCategory = '';
+  var isLoading = false;
 
   Widget getAllProducts(BuildContext context,
       {gridCrossAxisCount, gridChildAspectRatio}) {
-    try {
-      return GetX<ProductsController>(
-        builder: (controller) {
+    return GetX<ProductsController>(
+      builder: (controller) {
+        if (controller.allProductsList.value.isNotEmpty) {
           var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: gridCrossAxisCount,
             childAspectRatio: gridChildAspectRatio,
@@ -20,22 +21,17 @@ class ProductServices {
             gridDelegate: gridDelegate,
             physics: kScrollPhysics,
             shrinkWrap: true,
-            itemCount: controller.products.length,
+            itemCount: controller.allProductsList.value.length,
             itemBuilder: (context, index) =>
-                ProductCard(product: controller.products[index]),
+                ProductCard(product: controller.allProductsList.value[index]),
           );
-        },
-      );
-    } catch (e) {
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      _firestore.collection("app").doc('errors').update(errorData);
-
-      print("error in products services of all products");
-      print(e);
-      return const Text('Something went wrong');
-    }
+        } else {
+          return const CircularProgressIndicator(
+            color: kYellowColor,
+          );
+        }
+      },
+    );
   }
 
   Widget getFeaturedProducts(BuildContext context,
@@ -52,9 +48,10 @@ class ProductServices {
             gridDelegate: gridDelegate,
             physics: kScrollPhysics,
             shrinkWrap: true,
-            itemCount: controller.featuredProducts.length,
+            itemCount: controller.featuredProductsList.length,
             itemBuilder: (context, index) {
-              return ProductCard(product: controller.featuredProducts[index]);
+              return ProductCard(
+                  product: controller.featuredProductsList[index]);
             },
           );
         },
@@ -107,7 +104,6 @@ class ProductServices {
                                   headingText: selectedCategory,
                                   productGridType:
                                       ProductGridType.selectedCategoryProducts,
-                                  productServicesInstance: this,
                                 ),
                               ],
                             ),

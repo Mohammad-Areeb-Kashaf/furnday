@@ -144,7 +144,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                                   isEmailSent = true;
                                                 });
                                               } on FirebaseAuthException catch (e) {
-                                                print(e);
+                                                printError(info: e.toString());
 
                                                 setState(() {
                                                   ResetPasswordScreen

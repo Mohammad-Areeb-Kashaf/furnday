@@ -5,15 +5,14 @@ import 'package:furnday/widgets/product/product_grid_type.dart';
 import 'package:furnday/helpers/grid_determiners.dart';
 
 class ProductGrid extends StatefulWidget {
-  const ProductGrid(
-      {super.key,
-      required this.productGridType,
-      required this.productServicesInstance});
+  const ProductGrid({
+    super.key,
+    required this.productGridType,
+  });
 
   final ProductGridType productGridType;
   @override
   State<ProductGrid> createState() => _ProductGridState();
-  final ProductServices productServicesInstance;
 }
 
 class _ProductGridState extends State<ProductGrid> {
@@ -28,34 +27,34 @@ class _ProductGridState extends State<ProductGrid> {
   productGridTypeDeterminer() {
     switch (widget.productGridType) {
       case ProductGridType.allProducts:
-        return widget.productServicesInstance.getAllProducts(
+        return ProductServices().getAllProducts(
           context,
           gridChildAspectRatio: gridChildAspectRatio,
           gridCrossAxisCount: gridCrossAxisCount,
         );
       case ProductGridType.featuredProducts:
-        return widget.productServicesInstance.getFeaturedProducts(
+        return ProductServices().getFeaturedProducts(
           context,
           gridChildAspectRatio: gridChildAspectRatio,
           gridCrossAxisCount: gridCrossAxisCount,
         );
       case ProductGridType.refurbishedProducts:
-        return widget.productServicesInstance.getRefurbishedProducts(
+        return ProductServices().getRefurbishedProducts(
           gridChildAspectRatio,
           gridCrossAxisCount,
         );
       case ProductGridType.furnitureProducts:
-        return widget.productServicesInstance.getFurnitureProducts(
+        return ProductServices().getFurnitureProducts(
           gridChildAspectRatio,
           gridCrossAxisCount,
         );
       case ProductGridType.hardwareProducts:
-        return widget.productServicesInstance.getHardwareProducts(
+        return ProductServices().getHardwareProducts(
           gridChildAspectRatio,
           gridCrossAxisCount,
         );
       case ProductGridType.selectedCategoryProducts:
-        return widget.productServicesInstance.getSelectedCategoryProducts(
+        return ProductServices().getSelectedCategoryProducts(
           gridChildAspectRatio,
           gridCrossAxisCount,
         );

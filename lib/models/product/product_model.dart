@@ -122,7 +122,7 @@ class ProductReviews {
     comment = json['comment'];
     date = json['date'];
     email = json['email'];
-    rating = json['rating'];
+    rating = double.parse(json['rating'].toString());
     username = json['username'];
   }
 

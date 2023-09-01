@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furnday/models/api/create_order_model.dart';
 import 'package:furnday/models/user/user_address_model.dart';
 import 'package:furnday/services/user_services.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class CashfreeServices {
@@ -34,7 +35,7 @@ class CashfreeServices {
         return null;
       }
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return null;
     }
   }
@@ -60,7 +61,7 @@ class CashfreeServices {
         return false;
       }
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return false;
     }
   }

@@ -140,7 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
         },
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
+      printError(info: e.toString());
 
       setState(() {
         AuthForm.authError = e.toString();

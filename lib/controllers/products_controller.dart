@@ -2,31 +2,23 @@ import 'package:furnday/constants.dart';
 
 class ProductsController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
-  var products = <ProductModel>[].obs;
-  var featuredProducts = <ProductModel>[].obs;
+  final allProductsList = <ProductModel>[].obs;
+  var featuredProductsList = <ProductModel>[].obs;
+
+  List<ProductModel> get products => allProductsList;
 
   @override
   void onInit() async {
-    super.onInit();
-    getAllProducts();
+    allProductsList.bindStream(getAllProducts());
     getFeaturedProducts();
+
+    super.onInit();
   }
 
-  void getAllProducts() async {
-    try {
-      var allProductsResponse =
-          await _firestore.collection('all_products').get();
-      for (var doc in allProductsResponse.docs) {
-        var data = doc.data();
-        var product = ProductModel.fromJson(data);
-        products.add(product);
-      }
-
-      print(products);
-    } catch (e) {
-      print("error in products controller");
-      print(e);
-    }
+  getAllProducts() {
+    var stream = _firestore.collection('all_products').snapshots();
+    return stream.map((qShot) =>
+        qShot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList());
   }
 
   void getFeaturedProducts() async {
@@ -38,10 +30,10 @@ class ProductsController extends GetxController {
       for (var doc in allProductsResponse.docs) {
         var data = doc.data();
         var featuredProduct = ProductModel.fromJson(data);
-        featuredProducts.add(featuredProduct);
+        featuredProductsList.add(featuredProduct);
       }
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
     }
   }
 
@@ -53,7 +45,7 @@ class ProductsController extends GetxController {
       print('$selectedCategory: $selectedCategoryProducts');
       return selectedCategoryProducts;
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       var errorData = {
         "errors": [e.toString()]
       };

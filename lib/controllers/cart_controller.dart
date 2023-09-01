@@ -9,8 +9,8 @@ class CartController extends GetxController {
 
   @override
   void onInit() async {
-    super.onInit();
     await getCartItems();
+    super.onInit();
   }
 
   int get cartItemsCount => cartItems.fold(
@@ -44,7 +44,7 @@ class CartController extends GetxController {
       );
       return true;
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return false;
     }
   }
@@ -65,7 +65,7 @@ class CartController extends GetxController {
       }
       return true;
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return false;
     }
   }
@@ -97,7 +97,7 @@ class CartController extends GetxController {
       await getCartItems();
       return true;
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return false;
     }
   }
@@ -109,7 +109,7 @@ class CartController extends GetxController {
       await getCartItems();
       return true;
     } catch (e) {
-      print(e);
+      printError(info: e.toString());
       return false;
     }
   }

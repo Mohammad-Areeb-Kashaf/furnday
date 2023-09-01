@@ -10,10 +10,9 @@ class RefurbishedScreen extends StatelessWidget {
       child: Column(
         children: [
           AutoSwipeAds(),
-          ProductSection(
+          const ProductSection(
             headingText: "Refurbished",
             productGridType: ProductGridType.refurbishedProducts,
-            productServicesInstance: ProductServices(),
           )
         ],
       ),

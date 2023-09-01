@@ -22,11 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AutoSwipeAds(),
-          ProductSection(
-            headingText: "Featured Products",
-            productGridType: ProductGridType.featuredProducts,
-            productServicesInstance: ProductServices(),
+          const ProductSection(
+            headingText: "All Products",
+            productGridType: ProductGridType.allProducts,
           ),
+          // ProductSection(
+          //   headingText: "Featured Products",
+          //   productGridType: ProductGridType.featuredProducts,
+          //   productServicesInstance: ProductServices(),
+          // ),
         ],
       ),
     );

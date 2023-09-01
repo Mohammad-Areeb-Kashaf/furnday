@@ -3,7 +3,7 @@ import 'package:furnday/controllers/products_controller.dart';
 import 'package:furnday/helpers/grid_determiners.dart';
 
 class SearchServices extends SearchDelegate {
-  final products = Get.find<ProductsController>().products;
+  final products = Get.find<ProductsController>().allProductsList.value;
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [

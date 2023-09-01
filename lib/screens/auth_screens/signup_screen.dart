@@ -148,7 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (context.mounted) Navigator.pop(context);
       });
     } on FirebaseAuthException catch (e) {
-      print(e);
+      printError(info: e.toString());
       setState(() {
         AuthForm.authError = e.toString();
         formKey.currentState!.validate();

@@ -2,8 +2,10 @@ import 'package:furnday/constants.dart';
 import 'package:furnday/controllers/products_controller.dart';
 
 class ProductReviewForm extends StatefulWidget {
-  const ProductReviewForm({super.key, required this.productId});
+  const ProductReviewForm(
+      {super.key, required this.productId, required this.submitReview});
   final String productId;
+  final Function submitReview;
 
   @override
   State<ProductReviewForm> createState() => _ProductReviewFormState();
@@ -36,13 +38,17 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                 minFontSize: 16,
                 maxFontSize: 26,
               ),
-              const Spacer(),
+              const SizedBox(
+                height: 10,
+              ),
               const AutoSizeText(
                 "Your email address will not be published.",
                 minFontSize: 10,
                 maxFontSize: 18,
               ),
-              const Spacer(),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 children: [
                   const AutoSizeText(
@@ -63,7 +69,9 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                   ),
                 ],
               ),
-              const Spacer(),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 children: [
                   Expanded(
@@ -86,11 +94,13 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                         return null;
                       },
                       onSaved: (value) {
-                        name = value.toString().trim();
+                        name = value.toString().capitalize.toString();
                       },
                     ),
                   ),
-                  const Spacer(),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   Expanded(
                     child: TextFormField(
                       controller: emailController,
@@ -120,10 +130,12 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                   ),
                 ],
               ),
-              const Spacer(),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: commentController,
                 keyboardType: TextInputType.name,
+                minLines: 5,
+                maxLines: 50,
                 decoration: InputDecoration(
                   labelText: 'Your Review',
                   enabledBorder: OutlineInputBorder(
@@ -143,8 +155,13 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                   comment = value.toString().trim();
                 },
               ),
-              ElevatedButton(
-                onPressed: () => submitReview(),
+              const SizedBox(height: 10),
+              MaterialButton(
+                height: 48,
+                shape: RoundedRectangleBorder(borderRadius: kBorderRadiusCard),
+                color: Theme.of(context).primaryColor,
+                onPressed: () =>
+                    widget.submitReview(_formKey, comment, rating, name, email),
                 child: AutoSizeText(
                   'Submit',
                   style:
@@ -157,38 +174,5 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
         ),
       ),
     );
-  }
-
-  submitReview() async {
-    if (!_formKey.currentState!.validate()) {
-    } else {
-      _formKey.currentState!.save();
-      try {
-        var productReview = ProductReviews(
-            comment: comment,
-            rating: rating,
-            date:
-                "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
-            username: name,
-            email: email);
-        await FirebaseFirestore.instance
-            .collection("all_products")
-            .doc(widget.productId)
-            .update(
-          {
-            "productReviews": [productReview.toJson()]
-          },
-        );
-        productsController.update();
-      } catch (e) {
-        var errorData = {
-          "errors": [e.toString()]
-        };
-        await FirebaseFirestore.instance
-            .collection("app")
-            .doc('errors')
-            .update(errorData);
-      }
-    }
   }
 }

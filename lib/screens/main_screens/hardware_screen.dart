@@ -10,10 +10,9 @@ class HardwareScreen extends StatelessWidget {
       child: Column(
         children: [
           AutoSwipeAds(),
-          ProductSection(
+          const ProductSection(
             headingText: "Hardware",
             productGridType: ProductGridType.hardwareProducts,
-            productServicesInstance: ProductServices(),
           ),
         ],
       ),

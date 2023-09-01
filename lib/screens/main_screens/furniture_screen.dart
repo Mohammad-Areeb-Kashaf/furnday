@@ -10,10 +10,9 @@ class FurnitureScreen extends StatelessWidget {
       child: Column(
         children: [
           AutoSwipeAds(),
-          ProductSection(
+          const ProductSection(
             headingText: "Furniture",
             productGridType: ProductGridType.furnitureProducts,
-            productServicesInstance: ProductServices(),
           )
         ],
       ),
