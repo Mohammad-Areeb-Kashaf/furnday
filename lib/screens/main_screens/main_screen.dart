@@ -65,13 +65,7 @@ class _MainScreenState extends State<MainScreen> {
         timer.cancel();
       }
     } catch (e) {
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      await FirebaseFirestore.instance
-          .collection("app")
-          .doc('errors')
-          .update(errorData);
+      printError(info: e.toString());
     }
   }
 
@@ -94,13 +88,7 @@ class _MainScreenState extends State<MainScreen> {
         () => canResendEmail = true,
       );
     } catch (e) {
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      await FirebaseFirestore.instance
-          .collection("app")
-          .doc('errors')
-          .update(errorData);
+      printError(info: e.toString());
     }
   }
 

@@ -132,22 +132,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 ElevatedButton(
                                   onPressed: () async {
                                     try {
-                                      if (_auth.currentUser!.providerData
-                                          .contains("google")) {
-                                        await GoogleSignIn().disconnect();
-                                        await _auth.signOut();
-                                      } else {
-                                        await _auth.signOut();
-                                      }
-                                      Navigator.of(context).pop();
+                                      await GoogleSignIn().signOut();
+                                      await _auth.signOut();
+
+                                      (_auth.currentUser == null)
+                                          ? (context.mounted)
+                                              ? Navigator.of(context).pop()
+                                              : null
+                                          : null;
                                     } catch (e) {
-                                      var errorData = {
-                                        "errors": [e.toString()]
-                                      };
-                                      await FirebaseFirestore.instance
-                                          .collection("app")
-                                          .doc('errors')
-                                          .update(errorData);
+                                      printError(info: e.toString());
                                       NetworkStatusService().checkInternet();
                                     }
                                   },

@@ -160,8 +160,12 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                 height: 48,
                 shape: RoundedRectangleBorder(borderRadius: kBorderRadiusCard),
                 color: Theme.of(context).primaryColor,
-                onPressed: () =>
-                    widget.submitReview(_formKey, comment, rating, name, email),
+                onPressed: () {
+                  comment = commentController.text.toString();
+                  name = nameController.text.toString().capitalize.toString();
+                  email = emailController.text.toString().toLowerCase();
+                  widget.submitReview(_formKey, comment, rating, name, email);
+                },
                 child: AutoSizeText(
                   'Submit',
                   style:

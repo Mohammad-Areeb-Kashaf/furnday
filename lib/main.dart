@@ -1,8 +1,18 @@
+import 'package:furnday/services/auth_services.dart';
+
 import 'constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (kIsWeb) {
+    await FacebookAuth.i.webAndDesktopInitialize(
+      appId: "141124165550569",
+      cookie: true,
+      xfbml: true,
+      version: "v15.0",
+    );
+  }
   runApp(const MyApp());
 }
 
@@ -14,8 +24,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _auth = FirebaseAuth.instance;
-
   @override
   void initState() {
     super.initState();
@@ -97,25 +105,9 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         home: Scaffold(
-          body: StreamBuilder<User?>(
-            stream: _auth.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: SpinKitFoldingCube(
-                    color: kYellowColor,
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return const Center(
-                  child: AutoSizeText('Something went wrong, Try again later'),
-                );
-              } else if (snapshot.hasData) {
-                return const MainScreen();
-              } else {
-                return const SignInScreen();
-              }
-            },
+          body: AuthServices(
+            isAuthenticatedChild: const MainScreen(),
+            isNotAuthenticatedChild: const SignInScreen(),
           ),
         ),
       ),

@@ -12,10 +12,7 @@ class UserServices {
           UserAddressModel.fromJson(doc.data()!['billingAddress']);
       return billingAddress;
     } catch (e) {
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      await _firestore.collection("app").doc('errors').update(errorData);
+      printError(info: e.toString());
     }
   }
 
@@ -27,11 +24,6 @@ class UserServices {
       return shippingAddress;
     } catch (e) {
       printError(info: e.toString());
-
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      await _firestore.collection("app").doc('errors').update(errorData);
     }
   }
 
@@ -50,10 +42,7 @@ class UserServices {
     try {
       await doc.update({"shippingAddress": userAddress.toJson()});
     } catch (e) {
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      await _firestore.collection("app").doc('errors').update(errorData);
+      printError(info: e.toString());
       await doc.set({"shippingAddress": userAddress.toJson()});
     }
   }
@@ -90,10 +79,7 @@ class UserServices {
               );
             }
           } catch (e) {
-            var errorData = {
-              "errors": [e.toString()]
-            };
-            _firestore.collection("app").doc('errors').update(errorData);
+            printError(info: e.toString());
             return AddressCard(
               userAddress: UserAddressModel(),
               isAddressNull: true,
@@ -140,10 +126,7 @@ class UserServices {
               );
             }
           } catch (e) {
-            var errorData = {
-              "errors": [e.toString()]
-            };
-            _firestore.collection("app").doc('errors').update(errorData);
+            printError(info: e.toString());
             return AddressCard(
               userAddress: UserAddressModel(),
               isAddressNull: true,

@@ -73,6 +73,8 @@ export 'package:photo_view/photo_view.dart';
 export 'package:intl/intl.dart' hide TextDirection;
 export 'package:furnday/models/product/cart_model.dart';
 export 'package:furnday/widgets/loading_overlay.dart';
+export 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+export 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter/material.dart';
 

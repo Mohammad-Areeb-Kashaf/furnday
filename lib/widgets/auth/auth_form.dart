@@ -6,11 +6,13 @@ class AuthForm extends StatefulWidget {
     required this.isSignIn,
     required this.onPressed,
     required this.signInWithGoogle,
+    required this.signInWithFacebook,
     required this.formkey,
   });
   final bool isSignIn;
   final Function onPressed;
   final Function signInWithGoogle;
+  final Function signInWithFacebook;
   static String? authError = 'null';
   final GlobalKey<FormState> formkey;
 
@@ -101,8 +103,6 @@ class _AuthFormState extends State<AuthForm> {
                   AuthForm.authError = 'null';
                 });
                 if (widget.formkey.currentState!.validate()) {
-                  return;
-                } else {
                   widget.formkey.currentState!.save();
                   final name = nameController.text.trim();
                   final email = emailController.text.trim();
@@ -161,7 +161,7 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 const SizedBox(width: 20),
                 GestureDetector(
-                  onTap: tapSignInWithOther,
+                  onTap: () => widget.signInWithFacebook(),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: Center(

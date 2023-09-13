@@ -4,21 +4,25 @@ class ProductsController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
   final allProductsList = <ProductModel>[].obs;
   var featuredProductsList = <ProductModel>[].obs;
+  final userUid = FirebaseAuth.instance.currentUser!.uid;
 
   List<ProductModel> get products => allProductsList;
 
   @override
   void onInit() async {
-    allProductsList.bindStream(getAllProducts());
+    allProductsList.bindStream(getAllProducts()!);
     getFeaturedProducts();
-
     super.onInit();
   }
 
-  getAllProducts() {
+  Stream<List<ProductModel>>? getAllProducts() {
     var stream = _firestore.collection('all_products').snapshots();
-    return stream.map((qShot) =>
-        qShot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList());
+    return stream
+        .map((qShot) =>
+            qShot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList())
+        .handleError((e) {
+      print("This is the error in stream: ${e.toString()}");
+    });
   }
 
   void getFeaturedProducts() async {
@@ -46,10 +50,6 @@ class ProductsController extends GetxController {
       return selectedCategoryProducts;
     } catch (e) {
       printError(info: e.toString());
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      _firestore.collection("app").doc('errors').update(errorData);
       return null;
     }
   }

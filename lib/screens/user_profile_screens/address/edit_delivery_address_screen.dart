@@ -474,13 +474,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           Navigator.pop(context);
         }
       } catch (e) {
-        var errorData = {
-          "errors": [e.toString()]
-        };
-        await FirebaseFirestore.instance
-            .collection("app")
-            .doc('errors')
-            .update(errorData);
+        printError(info: e.toString());
       }
     }
   }

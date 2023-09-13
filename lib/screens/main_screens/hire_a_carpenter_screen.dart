@@ -8,12 +8,12 @@ class HireACarpenterScreen extends StatefulWidget {
 }
 
 class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
-  String _name = '';
-  String _phoneNumber = '';
-  String _address = '';
-  String _postalCode = '';
-  String _country = '';
-  String _hireFor = '';
+  String name = '';
+  String phoneNumber = '';
+  String address = '';
+  String postalCode = '';
+  String country = '';
+  String hireFor = '';
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -28,7 +28,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onSaved: (value) {
-        _name = value.toString();
+        name = value.toString();
       },
     );
   }
@@ -44,7 +44,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onSaved: (value) {
-        _phoneNumber = value.toString();
+        phoneNumber = value.toString();
       },
     );
   }
@@ -60,7 +60,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onSaved: (value) {
-        _address = value.toString();
+        address = value.toString();
       },
     );
   }
@@ -76,7 +76,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onSaved: (value) {
-        _postalCode = value.toString();
+        postalCode = value.toString();
       },
     );
   }
@@ -97,10 +97,10 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onChanged: (value) {
-        _country = value.toString();
+        country = value.toString();
       },
       onSaved: (value) {
-        _country = value.toString();
+        country = value.toString();
       },
     );
   }
@@ -138,10 +138,10 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onChanged: (value) {
-        _hireFor = value.toString();
+        hireFor = value.toString();
       },
       onSaved: (value) {
-        _hireFor = value.toString();
+        hireFor = value.toString();
       },
     );
   }

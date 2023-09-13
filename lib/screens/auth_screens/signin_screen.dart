@@ -64,15 +64,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             child: AuthForm(
                               formkey: formKey,
                               isSignIn: true,
-                              onPressed: (
-                                      {required String name,
-                                      required String email,
-                                      required String password}) =>
-                                  signIn(
-                                      name: name,
-                                      email: email,
-                                      password: password),
+                              onPressed: signIn,
                               signInWithGoogle: signInWithGoogle,
+                              signInWithFacebook: signInWithFacebook,
                             ),
                           ),
                         ),
@@ -154,9 +148,12 @@ class _SignInScreenState extends State<SignInScreen> {
 
   signInWithGoogle() async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       final auth = FirebaseAuth.instance;
       final GoogleSignInAccount? googleUser =
-          await GoogleSignIn(scopes: ["email"]).signIn();
+          await GoogleSignIn(scopes: ['email']).signIn();
 
       final GoogleSignInAuthentication googleAuth =
           await googleUser!.authentication;
@@ -165,23 +162,48 @@ class _SignInScreenState extends State<SignInScreen> {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+      await auth.signInWithCredential(credential);
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
       setState(() {
         isLoading = true;
       });
-
-      await auth.signInWithCredential(credential);
-    } catch (e) {
       NetworkStatusService().checkInternet();
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      await FirebaseFirestore.instance
-          .collection("app")
-          .doc('errors')
-          .update(errorData);
+      printError(info: e.toString());
+      setState(() {
+        isLoading = false;
+      });
     }
-    setState(() {
-      isLoading = false;
-    });
+  }
+
+  signInWithFacebook() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final AccessToken accessToken = result.accessToken!;
+        if (accessToken.token.isNotEmpty) {
+          setState(() {
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      } else {
+        printInfo(info: result.status.toString());
+        printInfo(info: result.message.toString());
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      printError(info: e.toString());
+    }
   }
 }

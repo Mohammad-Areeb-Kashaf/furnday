@@ -24,27 +24,31 @@ class CartController extends GetxController {
               int.parse(item.qty.toString())));
 
   Future<bool> getCartItems() async {
-    try {
-      cartItems.value = [];
-      productCartItems.value = [];
-      var userCart = await _firestore.collection('users').doc(userUid).get();
-      cart.value = userCart.data()!['cart'];
-      cart.forEach(
-        (key, value) async {
-          var cartItem = CartModel.fromJson(value);
-          var productData = await _firestore
-              .collection('all_products')
-              .doc(key.toString().trim())
-              .get();
-          var data = productData.data() as Map<String, dynamic>;
-          var productItem = ProductModel.fromJson(data);
-          cartItems.add(cartItem);
-          productCartItems.add(productItem);
-        },
-      );
-      return true;
-    } catch (e) {
-      printError(info: e.toString());
+    if (userUid.isNotEmpty) {
+      try {
+        cartItems.value = [];
+        productCartItems.value = [];
+        var userCart = await _firestore.collection('users').doc(userUid).get();
+        cart.value = userCart.data()!['cart'];
+        cart.forEach(
+          (key, value) async {
+            var cartItem = CartModel.fromJson(value);
+            var productData = await _firestore
+                .collection('all_products')
+                .doc(key.toString().trim())
+                .get();
+            var data = productData.data() as Map<String, dynamic>;
+            var productItem = ProductModel.fromJson(data);
+            cartItems.add(cartItem);
+            productCartItems.add(productItem);
+          },
+        );
+        return true;
+      } catch (e) {
+        printError(info: e.toString());
+        return false;
+      }
+    } else {
       return false;
     }
   }

@@ -19,7 +19,7 @@ class _ProductCardState extends State<ProductCard> {
           context,
           CupertinoPageRoute(
             builder: (context) => ProductScreen(
-              product: widget.product,
+              productId: widget.product.id,
             ),
           ),
         );

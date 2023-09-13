@@ -64,16 +64,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: AuthForm(
                               formkey: formKey,
                               isSignIn: false,
-                              onPressed: ({
-                                required String name,
-                                required String email,
-                                required String password,
-                              }) =>
-                                  signUp(
-                                      name: name,
-                                      email: email,
-                                      password: password),
+                              onPressed: signUp,
                               signInWithGoogle: signInWithGoogle,
+                              signInWithFacebook: signInWithFacebook,
                             ),
                           ),
                         ),
@@ -160,36 +153,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   signInWithGoogle() async {
-    final auth = FirebaseAuth.instance;
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: ["email"]).signIn();
-
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    setState(() {
-      isLoading = true;
-    });
     try {
-      await auth.signInWithCredential(credential);
-      if (context.mounted) Navigator.pop(context);
-    } catch (e) {
-      NetworkStatusService().checkInternet();
+      setState(() {
+        isLoading = true;
+      });
+      final auth = FirebaseAuth.instance;
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn(scopes: ['email']).signIn();
 
-      var errorData = {
-        "errors": [e.toString()]
-      };
-      await FirebaseFirestore.instance
-          .collection("app")
-          .doc('errors')
-          .update(errorData);
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await auth.signInWithCredential(credential);
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = true;
+      });
+      NetworkStatusService().checkInternet();
+      printError(info: e.toString());
+      setState(() {
+        isLoading = false;
+      });
     }
-    setState(() {
-      isLoading = false;
-    });
   }
+
+  signInWithFacebook() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final AccessToken accessToken = result.accessToken!;
+        if (accessToken.token.isNotEmpty) {
+          setState(() {
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            isLoading = false;
+          });
+        }
+      } else {
+        printInfo(info: result.status.toString());
+        printInfo(info: result.message.toString());
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      printError(info: e.toString());
+    }
+  }
+
+  signInWithTwitter() async {}
 }

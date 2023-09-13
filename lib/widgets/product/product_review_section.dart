@@ -26,9 +26,6 @@ class ProductReviewSection extends StatelessWidget {
             (reviews!.isNotEmpty)
                 ? Column(
                     children: reviews!.map((review) {
-                      printInfo(
-                          info:
-                              "Is it showing username : ${review.username.toString()}");
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
