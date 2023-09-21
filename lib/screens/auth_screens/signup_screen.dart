@@ -67,6 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onPressed: signUp,
                               signInWithGoogle: signInWithGoogle,
                               signInWithFacebook: signInWithFacebook,
+                              signInWithTwitter: signInWithTwitter,
                             ),
                           ),
                         ),
@@ -192,7 +193,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       final LoginResult result = await FacebookAuth.instance.login();
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
+
         if (accessToken.token.isNotEmpty) {
+          final OAuthCredential credential =
+              FacebookAuthProvider.credential(result.accessToken!.token);
+          await _auth.signInWithCredential(credential);
+          printInfo(info: _auth.currentUser!.email.toString());
           setState(() {
             isLoading = false;
           });
@@ -210,8 +216,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
       }
     } catch (e) {
       printError(info: e.toString());
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
-  signInWithTwitter() async {}
+  signInWithTwitter() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      // https://furnday-15bd6.firebaseapp.com/__/auth/handler
+
+      final twitterLogin = TwitterLogin(
+          apiKey: "3KMXINssukXaAshl5THQbyP8L",
+          apiSecretKey: "Rh7DBgXIzSeUFaOvO6LsQW9jVh2T8pprwZ9BHsPr8Etfq0p5fK",
+          redirectURI: "twitterauth://");
+
+      final authResult = await twitterLogin.loginV2();
+      if (authResult.status == TwitterLoginStatus.loggedIn) {
+        try {
+          final credential = TwitterAuthProvider.credential(
+              accessToken: authResult.authToken!,
+              secret: authResult.authTokenSecret!);
+          await _auth.signInWithCredential(credential);
+          setState(() {
+            isLoading = false;
+          });
+        } catch (e) {
+          setState(() {
+            isLoading = false;
+          });
+          ScaffoldMessenger.of(context)
+            ..clearSnackBars()
+            ..showSnackBar(SnackBar(
+                content: Text(
+              e.toString(),
+              style: const TextStyle(color: Colors.black),
+            )));
+        }
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+        ScaffoldMessenger.of(context)
+          ..clearSnackBars()
+          ..showSnackBar(const SnackBar(
+              content: Text(
+            'Something went wrong',
+            style: TextStyle(color: Colors.black),
+          )));
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
 }

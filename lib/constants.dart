@@ -75,6 +75,7 @@ export 'package:furnday/models/product/cart_model.dart';
 export 'package:furnday/widgets/loading_overlay.dart';
 export 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 export 'package:flutter/foundation.dart' show kIsWeb;
+export 'package:twitter_login/twitter_login.dart';
 
 import 'package:flutter/material.dart';
 

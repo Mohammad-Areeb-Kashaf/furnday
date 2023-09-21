@@ -7,7 +7,7 @@ class CartModel {
   });
 
   String? id;
-  double? qty;
+  int? qty;
   String? mrp;
   String? discountedPrice;
 

@@ -90,7 +90,7 @@ class CartController extends GetxController {
       await getCartItems();
       return true;
     } catch (e) {
-      print("Error occured: $e");
+      printError(info: e.toString());
       return false;
     }
   }

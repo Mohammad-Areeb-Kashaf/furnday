@@ -13,6 +13,7 @@ class UserServices {
       return billingAddress;
     } catch (e) {
       printError(info: e.toString());
+      return;
     }
   }
 
@@ -24,6 +25,7 @@ class UserServices {
       return shippingAddress;
     } catch (e) {
       printError(info: e.toString());
+      return;
     }
   }
 

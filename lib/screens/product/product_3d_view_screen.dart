@@ -38,9 +38,7 @@ class _Product3dViewScreenState extends State<Product3dViewScreen> {
           rotationCount: rotationCount,
           swipeSensitivity: swipeSensitivity,
           allowSwipeToRotate: allowSwipeToRotate,
-          onImageIndexChanged: (currentImageIndex) {
-            print("currentImageIndex: $currentImageIndex");
-          },
+          onImageIndexChanged: (currentImageIndex) {},
         ),
       ),
     );

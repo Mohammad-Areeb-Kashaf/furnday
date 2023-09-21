@@ -165,15 +165,32 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       setState(() {
                                         isLoading = true;
                                       });
-                                      await CashfreeServices()
-                                          .createOrder(controller.totalPrice)
-                                          .then((value) {
-                                        print('Order ID:- ${value.orderId}');
-                                        orderId = value.orderId.toString();
-                                        paymentSessionId =
-                                            value.paymentSessionId.toString();
-                                        pay();
-                                      });
+                                      UserAddressModel? shippingAddressModel =
+                                          await UserServices()
+                                              .getShippingAddressModel();
+                                      if (shippingAddressModel!.firstName !=
+                                          null) {
+                                        await CashfreeServices()
+                                            .createOrder(controller.totalPrice)
+                                            .then((value) async {
+                                          setState(() {
+                                            orderId = value.orderId.toString();
+                                            paymentSessionId = value
+                                                .paymentSessionId
+                                                .toString();
+                                          });
+                                          await pay();
+                                        });
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                          ..clearSnackBars()
+                                          ..showSnackBar(const SnackBar(
+                                              content: Text(
+                                            'Please add shipping address',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          )));
+                                      }
                                       setState(() {
                                         isLoading = false;
                                       });
@@ -246,8 +263,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   }
 
   void onError(CFErrorResponse errorResponse, String orderId) {
-    print(errorResponse.getMessage());
-    print("Error while making payment");
+    printError(info: errorResponse.getMessage().toString());
   }
 
   CFSession? createSession() {
@@ -259,7 +275,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
           .build();
       return session;
     } on CFException catch (e) {
-      print(e.message);
+      printError(info: e.message);
     }
     return null;
   }
@@ -291,7 +307,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
       cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
     } on CFException catch (e) {
-      print(e.message);
+      printError(info: e.message);
     }
   }
 
@@ -305,8 +321,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
             isLoading = true;
           });
           try {
-            controller.cartItems[indexCartItem].qty =
-                double.parse(qty.toString());
+            controller.cartItems[indexCartItem].qty = int.parse(qty.toString());
             await controller.updateCart();
           } catch (e) {
             printError(info: e.toString());

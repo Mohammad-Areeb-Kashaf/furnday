@@ -1,5 +1,5 @@
-import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:furnday/constants.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 enum NetworkStatus { online, offline }
@@ -15,10 +15,12 @@ class NetworkStatusService {
     Timer.periodic(const Duration(seconds: 10), (timer) => checkInternet());
   }
   checkInternet() async {
-    var connection = await InternetConnectionChecker().hasConnection;
-    return connection
-        ? networkStatusController.add(NetworkStatus.online)
-        : networkStatusController.add(NetworkStatus.offline);
+    if (kIsWeb != true) {
+      var connection = await InternetConnectionChecker().hasConnection;
+      return connection
+          ? networkStatusController.add(NetworkStatus.online)
+          : networkStatusController.add(NetworkStatus.offline);
+    }
   }
 
   _getNetworkStatus(ConnectivityResult status) async {

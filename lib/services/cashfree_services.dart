@@ -30,8 +30,8 @@ class CashfreeServices {
         var createOrderModel = CreateOrderModel.fromJson(jsonBody);
         return createOrderModel;
       } else {
-        print(response.body);
-        print(response.statusCode.toString());
+        printInfo(info: response.body);
+        printInfo(info: response.statusCode.toString());
         return null;
       }
     } catch (e) {
@@ -56,8 +56,8 @@ class CashfreeServices {
           return false;
         }
       } else {
-        print(response.body);
-        print(response.statusCode.toString());
+        printInfo(info: response.body);
+        printInfo(info: response.statusCode.toString());
         return false;
       }
     } catch (e) {

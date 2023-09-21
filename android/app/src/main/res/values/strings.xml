@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">FurnDay</string>
     <string name="facebook_app_id">141124165550569</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">fe55e2bdcf571daeff82d0fdc16b6b3d</string>
 </resources>

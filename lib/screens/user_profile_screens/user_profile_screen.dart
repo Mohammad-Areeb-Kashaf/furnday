@@ -133,6 +133,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   onPressed: () async {
                                     try {
                                       await GoogleSignIn().signOut();
+                                      await FacebookAuth.instance.logOut();
                                       await _auth.signOut();
 
                                       (_auth.currentUser == null)

@@ -21,7 +21,7 @@ class ProductsController extends GetxController {
         .map((qShot) =>
             qShot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList())
         .handleError((e) {
-      print("This is the error in stream: ${e.toString()}");
+      printError(info: e.toString());
     });
   }
 
@@ -46,7 +46,6 @@ class ProductsController extends GetxController {
       List<ProductModel> selectedCategoryProducts = products
           .where((product) => product.category!.contains(selectedCategory))
           .toList();
-      print('$selectedCategory: $selectedCategoryProducts');
       return selectedCategoryProducts;
     } catch (e) {
       printError(info: e.toString());
