@@ -167,6 +167,12 @@ class _SignInScreenState extends State<SignInScreen> {
       setState(() {
         isLoading = false;
       });
+      Get.showSnackbar(const GetSnackBar(
+        title: "Sign In Success",
+        message: "Sign in using Google is successfull",
+        borderRadius: 20,
+        duration: Duration(seconds: 4),
+      ));
     } catch (e) {
       setState(() {
         isLoading = true;
@@ -192,6 +198,7 @@ class _SignInScreenState extends State<SignInScreen> {
           final OAuthCredential credential =
               FacebookAuthProvider.credential(result.accessToken!.token);
           await _auth.signInWithCredential(credential);
+          printInfo(info: "photoUrl: ${_auth.currentUser!.photoURL}");
           printInfo(info: _auth.currentUser!.email.toString());
           setState(() {
             isLoading = false;
@@ -221,7 +228,6 @@ class _SignInScreenState extends State<SignInScreen> {
       setState(() {
         isLoading = true;
       });
-      // https://furnday-15bd6.firebaseapp.com/__/auth/handler
 
       final twitterLogin = TwitterLogin(
           apiKey: "3KMXINssukXaAshl5THQbyP8L",
@@ -242,33 +248,35 @@ class _SignInScreenState extends State<SignInScreen> {
           setState(() {
             isLoading = false;
           });
-          ScaffoldMessenger.of(context)
-            ..clearSnackBars()
-            ..showSnackBar(SnackBar(
-                content: Text(
-              e.toString(),
-              style: const TextStyle(color: Colors.black),
-            )));
+          Get.showSnackbar(GetSnackBar(
+            title: e.toString(),
+          ));
         }
       } else {
         setState(() {
           isLoading = false;
         });
-        ScaffoldMessenger.of(context)
-          ..clearSnackBars()
-          ..showSnackBar(const SnackBar(
-              content: Text(
-            'Something went wrong',
-            style: TextStyle(color: Colors.black),
-          )));
+        Get.showSnackbar(
+          const GetSnackBar(
+            title: "Error",
+            message: "Something went wrong",
+            borderRadius: 20,
+            duration: Duration(seconds: 4),
+          ),
+        );
       }
     } catch (e) {
       setState(() {
         isLoading = false;
       });
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(SnackBar(content: Text(e.toString())));
+      Get.showSnackbar(
+        const GetSnackBar(
+          title: "Error",
+          message: "Something went wrong",
+          borderRadius: 20,
+          duration: Duration(seconds: 4),
+        ),
+      );
     }
   }
 }

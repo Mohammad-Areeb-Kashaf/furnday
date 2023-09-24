@@ -248,33 +248,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
           setState(() {
             isLoading = false;
           });
-          ScaffoldMessenger.of(context)
-            ..clearSnackBars()
-            ..showSnackBar(SnackBar(
-                content: Text(
-              e.toString(),
-              style: const TextStyle(color: Colors.black),
-            )));
+          Get.showSnackbar(GetSnackBar(
+            title: e.toString(),
+          ));
         }
       } else {
         setState(() {
           isLoading = false;
         });
-        ScaffoldMessenger.of(context)
-          ..clearSnackBars()
-          ..showSnackBar(const SnackBar(
-              content: Text(
-            'Something went wrong',
-            style: TextStyle(color: Colors.black),
-          )));
+        Get.showSnackbar(const GetSnackBar(
+          title: "Something went wrong",
+        ));
       }
     } catch (e) {
       setState(() {
         isLoading = false;
       });
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(SnackBar(content: Text(e.toString())));
+      Get.showSnackbar(GetSnackBar(
+        title: e.toString(),
+      ));
     }
   }
 }

@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           initialData: NetworkStatus.online,
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         title: "FurnDay",
         theme: ThemeData(
           textTheme: const TextTheme(

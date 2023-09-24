@@ -182,14 +182,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           await pay();
                                         });
                                       } else {
-                                        ScaffoldMessenger.of(context)
-                                          ..clearSnackBars()
-                                          ..showSnackBar(const SnackBar(
-                                              content: Text(
-                                            'Please add shipping address',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          )));
+                                        Get.showSnackbar(const GetSnackBar(
+                                          title: 'Please add shipping address',
+                                        ));
                                       }
                                       setState(() {
                                         isLoading = false;
@@ -227,18 +222,10 @@ class _MyCartScreenState extends State<MyCartScreen> {
   void verifyPayment(String paymentOrderId) async {
     bool paymentVerified = await CashfreeServices().getOrder(orderId);
     if (paymentVerified) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(
-          const SnackBar(
-            content: Center(
-              child: Text(
-                'Payment Successful!!!',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ),
-        );
+      Get.showSnackbar(const GetSnackBar(
+        title: "Payment Successful!!!",
+      ));
+
       setState(() {
         isLoading = true;
       });
@@ -248,16 +235,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
       });
     } else {
       if (context.mounted) {
-        ScaffoldMessenger.of(context)
-          ..clearSnackBars()
-          ..showSnackBar(
-            const SnackBar(
-              content: Center(
-                child: Text('Payment Unsuccessful',
-                    style: TextStyle(color: Colors.black)),
-              ),
-            ),
-          );
+        Get.showSnackbar(const GetSnackBar(
+          title: "Payment unsuccessful",
+        ));
       }
     }
   }

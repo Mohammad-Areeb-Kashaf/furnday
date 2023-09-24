@@ -29,8 +29,8 @@ class _MainScreenState extends State<MainScreen> {
   late bool isEmailVerified;
   bool canResendEmail = false;
   Timer timer = Timer(Duration.zero, () {});
-  late final cartController;
-  late final productsController;
+  late final CartController cartController;
+  late final ProductsController productsController;
 
   @override
   void initState() {

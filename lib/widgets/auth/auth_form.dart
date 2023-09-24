@@ -260,19 +260,6 @@ class _AuthFormState extends State<AuthForm> {
     }
   }
 
-  tapSignInWithOther() {
-    ScaffoldMessenger.of(context)
-      ..clearSnackBars()
-      ..showSnackBar(
-        const SnackBar(
-          content: AutoSizeText(
-            'Not Implemented Yet',
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-      );
-  }
-
   validateName(String value) {
     if (value.isEmpty) {
       return "Name should not be empty";
