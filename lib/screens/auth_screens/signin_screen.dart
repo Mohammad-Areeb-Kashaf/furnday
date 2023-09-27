@@ -67,7 +67,6 @@ class _SignInScreenState extends State<SignInScreen> {
                               onPressed: signIn,
                               signInWithGoogle: signInWithGoogle,
                               signInWithFacebook: signInWithFacebook,
-                              signInWithTwitter: signInWithTwitter,
                             ),
                           ),
                         ),
@@ -220,63 +219,6 @@ class _SignInScreenState extends State<SignInScreen> {
       setState(() {
         isLoading = false;
       });
-    }
-  }
-
-  signInWithTwitter() async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      final twitterLogin = TwitterLogin(
-          apiKey: "3KMXINssukXaAshl5THQbyP8L",
-          apiSecretKey: "Rh7DBgXIzSeUFaOvO6LsQW9jVh2T8pprwZ9BHsPr8Etfq0p5fK",
-          redirectURI: "twitterauth://");
-
-      final authResult = await twitterLogin.loginV2();
-      if (authResult.status == TwitterLoginStatus.loggedIn) {
-        try {
-          final credential = TwitterAuthProvider.credential(
-              accessToken: authResult.authToken!,
-              secret: authResult.authTokenSecret!);
-          await _auth.signInWithCredential(credential);
-          setState(() {
-            isLoading = false;
-          });
-        } catch (e) {
-          setState(() {
-            isLoading = false;
-          });
-          Get.showSnackbar(GetSnackBar(
-            title: e.toString(),
-          ));
-        }
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-        Get.showSnackbar(
-          const GetSnackBar(
-            title: "Error",
-            message: "Something went wrong",
-            borderRadius: 20,
-            duration: Duration(seconds: 4),
-          ),
-        );
-      }
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      Get.showSnackbar(
-        const GetSnackBar(
-          title: "Error",
-          message: "Something went wrong",
-          borderRadius: 20,
-          duration: Duration(seconds: 4),
-        ),
-      );
     }
   }
 }

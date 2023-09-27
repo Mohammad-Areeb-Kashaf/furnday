@@ -67,7 +67,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onPressed: signUp,
                               signInWithGoogle: signInWithGoogle,
                               signInWithFacebook: signInWithFacebook,
-                              signInWithTwitter: signInWithTwitter,
                             ),
                           ),
                         ),
