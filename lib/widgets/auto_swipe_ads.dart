@@ -2,19 +2,17 @@ import 'package:furnday/constants.dart';
 
 class AutoSwipeAds extends StatelessWidget {
   AutoSwipeAds({super.key});
-  final List<String> _listImage = [
-    "",
-    "https://www.furnday.com/wp-content/uploads/2022/11/Carpenter.jpg",
-    "https://cdn.truelancer.com/upload-original/1677430198-Furnday-new-logo-(1).png",
-    "https://cdn.truelancer.com/upload-original/1677430198-Furnday-new-logo-(4).png",
-  ];
+  final List<String> _listImage = [];
 
   @override
   Widget build(BuildContext context) {
+    List<String> listImage = [];
+    listImage.add("");
+    listImage.addAll(_listImage);
     return CarouselSlider(
-      items: _listImage
+      items: listImage
           .map(
-            (e) => ClipRRect(
+            (imageUrl) => ClipRRect(
               borderRadius: kBorderRadiusCard,
               child: Stack(
                 fit: StackFit.expand,
@@ -27,7 +25,7 @@ class AutoSwipeAds extends StatelessWidget {
                       ),
                     ),
                     child: DecoratedCard(
-                      child: e.toString() == ""
+                      child: imageUrl.toString() == ""
                           ? GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -46,11 +44,14 @@ class AutoSwipeAds extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : ClipRRect(
-                              borderRadius: kBorderRadiusCard,
-                              child: CachedNetworkImage(
-                                imageUrl: e,
-                                fit: BoxFit.cover,
+                          : GestureDetector(
+                              onTap: () {},
+                              child: ClipRRect(
+                                borderRadius: kBorderRadiusCard,
+                                child: CachedNetworkImage(
+                                  imageUrl: imageUrl,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                     ),

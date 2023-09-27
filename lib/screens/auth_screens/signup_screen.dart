@@ -248,7 +248,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             isLoading = false;
           });
           Get.showSnackbar(GetSnackBar(
-            title: e.toString(),
+            title: "Error",
+            borderRadius: 20,
+            message: e.toString(),
+            duration: const Duration(seconds: 3),
           ));
         }
       } else {
@@ -256,7 +259,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           isLoading = false;
         });
         Get.showSnackbar(const GetSnackBar(
-          title: "Something went wrong",
+          title: "Error",
+          message: "Something went wrong",
+          borderRadius: 20,
+          duration: Duration(seconds: 3),
         ));
       }
     } catch (e) {
@@ -264,7 +270,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         isLoading = false;
       });
       Get.showSnackbar(GetSnackBar(
-        title: e.toString(),
+        title: "Error",
+        message: e.toString(),
+        borderRadius: 20,
+        duration: const Duration(seconds: 3),
       ));
     }
   }

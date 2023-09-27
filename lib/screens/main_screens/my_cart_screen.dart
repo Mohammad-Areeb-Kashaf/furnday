@@ -183,7 +183,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                         });
                                       } else {
                                         Get.showSnackbar(const GetSnackBar(
-                                          title: 'Please add shipping address',
+                                          title: "Error",
+                                          message:
+                                              'Please add shipping address',
+                                          borderRadius: 20,
+                                          duration: Duration(seconds: 3),
                                         ));
                                       }
                                       setState(() {
@@ -223,7 +227,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
     bool paymentVerified = await CashfreeServices().getOrder(orderId);
     if (paymentVerified) {
       Get.showSnackbar(const GetSnackBar(
-        title: "Payment Successful!!!",
+        message: "Payment Successful!!!",
+        borderRadius: 20,
+        duration: Duration(seconds: 3),
       ));
 
       setState(() {
@@ -234,11 +240,12 @@ class _MyCartScreenState extends State<MyCartScreen> {
         isLoading = false;
       });
     } else {
-      if (context.mounted) {
-        Get.showSnackbar(const GetSnackBar(
-          title: "Payment unsuccessful",
-        ));
-      }
+      Get.showSnackbar(const GetSnackBar(
+        title: "Error",
+        message: "Payment unsuccessful",
+        borderRadius: 20,
+        duration: Duration(seconds: 3),
+      ));
     }
   }
 

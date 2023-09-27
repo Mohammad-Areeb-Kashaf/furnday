@@ -170,7 +170,7 @@ class _SignInScreenState extends State<SignInScreen> {
         title: "Sign In Success",
         message: "Sign in using Google is successfull",
         borderRadius: 20,
-        duration: Duration(seconds: 4),
+        duration: Duration(seconds: 3),
       ));
     } catch (e) {
       setState(() {
