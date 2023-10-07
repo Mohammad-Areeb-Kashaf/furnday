@@ -1,7 +1,7 @@
 import 'package:furnday/constants.dart';
 
 class AuthTextField extends StatelessWidget {
-  AuthTextField({
+  const AuthTextField({
     super.key,
     required this.controller,
     required this.keyboardType,
@@ -12,7 +12,7 @@ class AuthTextField extends StatelessWidget {
 
   final TextEditingController controller;
   final TextInputType keyboardType;
-  bool obscureText = false;
+  final bool obscureText;
   final String labelText;
   final Function validate;
 

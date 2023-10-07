@@ -8,8 +8,10 @@ class ProductGrid extends StatefulWidget {
   const ProductGrid({
     super.key,
     required this.productGridType,
+    this.selectedCategory = '',
   });
 
+  final String selectedCategory;
   final ProductGridType productGridType;
   @override
   State<ProductGrid> createState() => _ProductGridState();
@@ -29,13 +31,11 @@ class _ProductGridState extends State<ProductGrid> {
       case ProductGridType.allProducts:
         return ProductServices().getAllProducts(
           context,
-          gridChildAspectRatio: gridChildAspectRatio,
           gridCrossAxisCount: gridCrossAxisCount,
         );
       case ProductGridType.featuredProducts:
         return ProductServices().getFeaturedProducts(
           context,
-          gridChildAspectRatio: gridChildAspectRatio,
           gridCrossAxisCount: gridCrossAxisCount,
         );
       case ProductGridType.refurbishedProducts:
@@ -55,8 +55,8 @@ class _ProductGridState extends State<ProductGrid> {
         );
       case ProductGridType.selectedCategoryProducts:
         return ProductServices().getSelectedCategoryProducts(
-          gridChildAspectRatio,
           gridCrossAxisCount,
+          widget.selectedCategory,
         );
       default:
         return const Placeholder();
@@ -67,8 +67,6 @@ class _ProductGridState extends State<ProductGrid> {
   Widget build(BuildContext context) {
     setState(() {
       gridCrossAxisCount = gridCrossAxisCountDeterminer(context);
-      gridChildAspectRatio =
-          gridChildAspectRatioDeterminer(context, gridCrossAxisCount);
     });
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

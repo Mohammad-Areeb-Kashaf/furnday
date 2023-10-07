@@ -1,9 +1,13 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:furnday/services/auth_services.dart';
 
 import 'constants.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  Future.delayed(
+      const Duration(seconds: 2), () => FlutterNativeSplash.remove());
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (kIsWeb) {
     await FacebookAuth.i.webAndDesktopInitialize(
@@ -52,7 +56,7 @@ class _MyAppState extends State<MyApp> {
               color: kGreyTextColor,
             ),
             labelLarge: TextStyle(
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w900,
             ),
           ),
           listTileTheme: const ListTileThemeData(

@@ -11,7 +11,7 @@ class ProductsController extends GetxController {
   @override
   void onInit() async {
     allProductsList.bindStream(getAllProducts()!);
-    getFeaturedProducts();
+    featuredProductsList.bindStream(getFeaturedProducts()!);
     super.onInit();
   }
 
@@ -25,27 +25,27 @@ class ProductsController extends GetxController {
     });
   }
 
-  void getFeaturedProducts() async {
-    try {
-      var allProductsResponse = await _firestore
-          .collection('all_products')
-          .where("featured", isEqualTo: true)
-          .get();
-      for (var doc in allProductsResponse.docs) {
-        var data = doc.data();
-        var featuredProduct = ProductModel.fromJson(data);
-        featuredProductsList.add(featuredProduct);
-      }
-    } catch (e) {
+  Stream<List<ProductModel>>? getFeaturedProducts() {
+    var stream = _firestore
+        .collection('all_products')
+        .where("featured", isEqualTo: true)
+        .snapshots();
+    return stream
+        .map((qShot) =>
+            qShot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList())
+        .handleError((e) {
       printError(info: e.toString());
-    }
+    });
   }
 
   List<ProductModel>? getSelectedCategoryProducts(selectedCategory) {
     try {
-      List<ProductModel> selectedCategoryProducts = products
-          .where((product) => product.category!.contains(selectedCategory))
-          .toList();
+      List<ProductModel> selectedCategoryProducts = products.where((product) {
+        print(selectedCategory);
+        print(product.category);
+        return product.category!.contains(selectedCategory.toString());
+      }).toList();
+
       return selectedCategoryProducts;
     } catch (e) {
       printError(info: e.toString());

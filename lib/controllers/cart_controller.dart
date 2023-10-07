@@ -58,7 +58,8 @@ class CartController extends GetxController {
     try {
       if (cartItems.any((element) => element.id == productCartItem.id)) {
         var cartItemIndex =
-            cartItems.indexWhere((element) => element.id == productCartItem.id);
+            cartItems.indexWhere((element) => element.id == productCartItem
+                .id);
         var cartItemQty = cartItems[cartItemIndex].qty! + qty;
         cartItems[cartItemIndex].qty = cartItemQty;
         await updateCart();

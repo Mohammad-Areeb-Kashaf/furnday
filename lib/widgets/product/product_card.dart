@@ -33,48 +33,44 @@ class _ProductCardState extends State<ProductCard> {
                 ProductImg(
                   images: widget.product.productImages!.toList(),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: AutoSizeText(
-                      widget.product.category!
-                          .toList()
-                          .toString()
-                          .replaceAll('[', '')
-                          .replaceAll(
-                            ']',
-                            '',
-                          ),
-                      style: Theme.of(context).textTheme.labelMedium,
-                      maxFontSize: 12,
-                    ),
+                const Spacer(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    widget.product.category!
+                        .toList()
+                        .toString()
+                        .replaceAll('[', '')
+                        .replaceAll(
+                          ']',
+                          '',
+                        ),
+                    style: Theme.of(context).textTheme.labelMedium,
+                    minFontSize: 14,
+                    maxFontSize: 18,
                   ),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: AutoSizeText(
-                      widget.product.name.toString(),
-                      style: Theme.of(context).textTheme.labelLarge,
-                      maxFontSize: 16,
-                    ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: AutoSizeText(
+                    widget.product.name.toString(),
+                    style: Theme.of(context).textTheme.labelLarge,
+                    overflow: TextOverflow.visible,
+                    minFontSize: 16,
+                    maxFontSize: 24,
+                    maxLines: 2,
                   ),
                 ),
-                const Expanded(
-                  child: StarRating(
-                    rating: 4.5,
-                  ),
+                const StarRating(
+                  rating: 4.5,
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: ProductPrice(
-                      mrp: widget.product.mrp.toString(),
-                      mrpStyle: kProductMRPTextStyle,
-                      discountedPrice:
-                          widget.product.discountedPrice.toString(),
-                      discountedPriceStyle: kProductDiscountPriceTextStyle,
-                    ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: ProductPrice(
+                    mrp: widget.product.mrp.toString(),
+                    mrpStyle: kProductMRPTextStyle,
+                    discountedPrice: widget.product.discountedPrice.toString(),
+                    discountedPriceStyle: kProductDiscountPriceTextStyle,
                   ),
                 ),
               ],

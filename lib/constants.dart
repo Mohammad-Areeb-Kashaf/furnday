@@ -76,6 +76,8 @@ export 'package:furnday/widgets/loading_overlay.dart';
 export 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 export 'package:flutter/foundation.dart' show kIsWeb;
 export 'package:twitter_login/twitter_login.dart';
+export 'package:furnday/widgets/heading_section_text.dart';
+export 'package:furnday/widgets/product/product_grid.dart';
 
 import 'package:flutter/material.dart';
 
@@ -87,17 +89,17 @@ const kYellowColor = Color(0xffF6C33C);
 const kLightYellowColor = Color(0xfff5e8c4);
 const kOrangeColor = Color(0xffF39F86);
 final kBorderRadiusCard = BorderRadius.circular(10);
-const kRadius = Radius.circular(10);
+const kRadius = Radius.circular(8);
 const kScrollPhysics = BouncingScrollPhysics();
 const kHighlightColor = Color(0xffF7CC59);
 const kProductMRPTextStyle = TextStyle(
   fontSize: 18,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.w700,
   decoration: TextDecoration.lineThrough,
   color: kGreyMRPColor,
 );
 const kProductDiscountPriceTextStyle = TextStyle(
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.w700,
   fontSize: 20,
   color: kGreyTextColor,
 );

@@ -6,12 +6,14 @@ class MyCartCard extends StatefulWidget {
     required this.product,
     required this.productQuantityWidget,
     required this.removeCartItem,
+    required this.customisations,
     this.cart,
   });
   final ProductModel product;
   final CartModel? cart;
   final Function productQuantityWidget;
   final Function removeCartItem;
+  final List<String>? customisations;
 
   @override
   State<MyCartCard> createState() => _MyCartCardState();

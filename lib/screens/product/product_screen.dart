@@ -1,5 +1,6 @@
 import 'package:furnday/constants.dart';
 import 'package:furnday/controllers/products_controller.dart';
+import 'package:furnday/widgets/product/product_customisation_section.dart';
 import 'package:furnday/widgets/product/product_review_form.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _ProductScreenState extends State<ProductScreen> {
   int selectedImage = 0;
   int _qty = 1;
   bool isLoading = false;
+  late ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class _ProductScreenState extends State<ProductScreen> {
       final productIndex = controller.allProductsList.indexWhere(
         (product) => product.id == widget.productId,
       );
-      final product = controller.allProductsList[productIndex];
+      product = controller.allProductsList[productIndex];
       return InternetChecker(
         child: LoadingOverlay(
           isLoading: isLoading,
@@ -172,6 +174,15 @@ class _ProductScreenState extends State<ProductScreen> {
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: ProductCustomisationSection(
+                                customisations: product.customisations,
+                                onCustomisationChanged: (value, index) =>
+                                    onCustomisationChanged(value, index),
+                              ),
+                            ),
                             const SizedBox(height: 10),
                             Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -182,18 +193,6 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                             const SizedBox(height: 10),
                           ],
-                        ),
-                      ),
-                      Center(
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const AutoSizeText(
-                            'Customize',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                            ),
-                            maxFontSize: 18,
-                          ),
                         ),
                       ),
                       Padding(
@@ -349,5 +348,12 @@ class _ProductScreenState extends State<ProductScreen> {
     setState(() {
       _qty = qty;
     });
+  }
+
+  onCustomisationChanged(value, index) {
+    List<String> customisations = [];
+    if (value == true) {
+      customisations.add(product.customisations![index]);
+    }
   }
 }

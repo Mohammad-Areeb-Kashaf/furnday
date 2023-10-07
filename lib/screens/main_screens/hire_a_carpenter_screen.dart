@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:furnday/constants.dart';
 
 class HireACarpenterScreen extends StatefulWidget {
@@ -16,6 +19,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
   String hireFor = '';
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GMAIL_SCHEMA = 'com.google.android.gm';
 
   Widget _buildName() {
     return TextFormField(
@@ -28,7 +32,9 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onSaved: (value) {
-        name = value.toString();
+        setState(() {
+          name = value.toString().trim();
+        });
       },
     );
   }
@@ -40,11 +46,15 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
       validator: (value) {
         if (value!.isEmpty) {
           return 'Phone Number is Required';
+        } else if (value.length < 10) {
+          return 'Phone Number should be 10 digit number';
         }
         return null;
       },
       onSaved: (value) {
-        phoneNumber = value.toString();
+        setState(() {
+          phoneNumber = value.toString().trim();
+        });
       },
     );
   }
@@ -60,7 +70,9 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onSaved: (value) {
-        address = value.toString();
+        setState(() {
+          address = value.toString().trim();
+        });
       },
     );
   }
@@ -76,7 +88,9 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onSaved: (value) {
-        postalCode = value.toString();
+        setState(() {
+          postalCode = value.toString().trim();
+        });
       },
     );
   }
@@ -84,8 +98,6 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
   Widget _buildCountry() {
     var countryItems = [
       const DropdownMenuItem(value: 'India', child: AutoSizeText('India')),
-      const DropdownMenuItem(
-          value: 'Afghanistan', child: AutoSizeText('Afghanistan'))
     ];
     return DropdownButtonFormField(
       hint: const AutoSizeText('Country'),
@@ -97,10 +109,14 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onChanged: (value) {
-        country = value.toString();
+        setState(() {
+          country = value.toString().trim();
+        });
       },
       onSaved: (value) {
-        country = value.toString();
+        setState(() {
+          country = value.toString().trim();
+        });
       },
     );
   }
@@ -138,10 +154,14 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
         return null;
       },
       onChanged: (value) {
-        hireFor = value.toString();
+        setState(() {
+          hireFor = value.toString().trim();
+        });
       },
       onSaved: (value) {
-        hireFor = value.toString();
+        setState(() {
+          hireFor = value.toString().trim();
+        });
       },
     );
   }
@@ -171,11 +191,123 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                     height: 30,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      if (!_formKey.currentState!.validate()) {
-                        return;
-                      } else {
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
+                        if (Platform.isIOS) {
+                          final bool canSend =
+                              await FlutterMailer.canSendMail();
+                          if (!canSend) {
+                            const GetSnackBar snackbar = GetSnackBar(
+                                titleText: Text('no Email App Available'));
+                            Get.showSnackbar(snackbar);
+                            return;
+                          } else {
+                            try {
+                              final MailOptions mailOptions = MailOptions(
+                                subject: "Hire a Carpenter",
+                                recipients: ['areebkashaf7666@gmail.com'],
+                                body:
+                                    "Name: $name\nPhone Number: $phoneNumber\nAddress: $address\nZip/Postal Code: $postalCode\nCountry:$country\nHiring For:$hireFor",
+                                isHTML: true,
+                              );
+                              final response =
+                                  await FlutterMailer.send(mailOptions);
+                              switch (response) {
+                                case MailerResponse.saved:
+                                  Get.showSnackbar(const GetSnackBar(
+                                    message: "Mail was saved to draft",
+                                  ));
+                                  break;
+                                case MailerResponse.sent:
+                                  Get.showSnackbar(const GetSnackBar(
+                                    message:
+                                        "Mail was sent, we will contact you",
+                                  ));
+                                  break;
+                                case MailerResponse.cancelled:
+                                  Get.showSnackbar(const GetSnackBar(
+                                    title: "Error",
+                                    message: "Mail was cancelled",
+                                  ));
+                                  break;
+                                case MailerResponse.android:
+                                  Get.showSnackbar(const GetSnackBar(
+                                    message:
+                                        "Mail was sent, we will contact you",
+                                  ));
+                                  break;
+                                default:
+                                  Get.showSnackbar(const GetSnackBar(
+                                    title: "Error",
+                                    message: "Something went wrong",
+                                  ));
+                                  break;
+                              }
+                            } catch (e) {
+                              Get.showSnackbar(GetSnackBar(
+                                title: "Error",
+                                message: e.toString(),
+                                duration: const Duration(seconds: 3),
+                              ));
+                            }
+                          }
+                        } else {
+                          final bool gmailinstalled =
+                              await FlutterMailer.isAppInstalled(GMAIL_SCHEMA);
+
+                          if (gmailinstalled) {
+                            try {
+                              final MailOptions mailOptions = MailOptions(
+                                subject: "Hire a Carpenter",
+                                recipients: ['areebkashaf7666@gmail.com'],
+                                body:
+                                    "Name: $name\nPhone Number: $phoneNumber\nAddress: $address\nZip/Postal Code: $postalCode\nCountry:$country\nHiring For:$hireFor",
+                                isHTML: true,
+                              );
+                              final response =
+                                  await FlutterMailer.send(mailOptions);
+                              switch (response) {
+                                case MailerResponse.saved:
+                                  printInfo(info: "Mail was saved to draft");
+                                  Get.showSnackbar(const GetSnackBar(
+                                    message: "Mail was saved to draft",
+                                  ));
+                                  break;
+                                case MailerResponse.sent:printInfo(info: "Mail was sent, we will contact you");
+                                  Get.showSnackbar(const GetSnackBar(
+                                    message:
+                                        "Mail was sent, we will contact you",
+                                  ));
+                                  break;
+                                case MailerResponse.cancelled:printInfo(info: "Mail was cancelled");
+                                  Get.showSnackbar(const GetSnackBar(
+                                    title: "Error",
+                                    message: "Mail was cancelled",
+                                  ));
+                                  break;
+                                case MailerResponse.android:printInfo(info: "Mail was sent, we will contact you");
+                                  Get.showSnackbar(const GetSnackBar(
+                                    message:
+                                        "Mail was sent, we will contact you",
+                                  ));
+                                  break;
+                                default:printInfo(info: "Mail was saved to draft");
+                                  Get.showSnackbar(const GetSnackBar(
+                                    title: "Error",
+                                    message: "Something went wrong",
+                                  ));
+                                  break;
+                              }
+                            } catch (e) {
+                              Get.showSnackbar(GetSnackBar(
+                                title: "Error",
+                                message: e.toString(),
+                                duration: const Duration(seconds: 3),
+                              ));
+                            }
+                          }
+                        }
                       }
                     },
                     child: AutoSizeText(

@@ -10,7 +10,7 @@ class LoadingOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OverlayLoaderWithAppIcon(
-      appIcon: Image.asset("assets/logo.png"),
+      appIcon: ClipOval(child: Image.asset("assets/logo.png")),
       isLoading: isLoading,
       circularProgressColor: kYellowColor,
       overlayBackgroundColor: Colors.black26,

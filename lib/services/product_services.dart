@@ -6,24 +6,23 @@ class ProductServices {
   var selectedCategory = '';
   var isLoading = false;
 
-  Widget getAllProducts(BuildContext context,
-      {gridCrossAxisCount, gridChildAspectRatio}) {
+  Widget getAllProducts(BuildContext context, {gridCrossAxisCount}) {
     return GetX<ProductsController>(
       builder: (controller) {
-        if (controller.allProductsList.value.isNotEmpty) {
+        if (controller.allProductsList.isNotEmpty) {
           var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: gridCrossAxisCount,
-            childAspectRatio: gridChildAspectRatio,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
+            mainAxisExtent: 300,
           );
           return GridView.builder(
             gridDelegate: gridDelegate,
             physics: kScrollPhysics,
             shrinkWrap: true,
-            itemCount: controller.allProductsList.value.length,
+            itemCount: controller.allProductsList.length,
             itemBuilder: (context, index) =>
-                ProductCard(product: controller.allProductsList.value[index]),
+                ProductCard(product: controller.allProductsList[index]),
           );
         } else {
           return const CircularProgressIndicator(
@@ -34,16 +33,19 @@ class ProductServices {
     );
   }
 
-  Widget getFeaturedProducts(BuildContext context,
-      {required gridCrossAxisCount, required gridChildAspectRatio}) {
+  Widget getFeaturedProducts(
+    BuildContext context, {
+    required gridCrossAxisCount,
+  }) {
     try {
       return GetX<ProductsController>(
         builder: (controller) {
           var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: gridCrossAxisCount,
-              childAspectRatio: gridChildAspectRatio,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10);
+            crossAxisCount: gridCrossAxisCount,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            mainAxisExtent: 300,
+          );
           return GridView.builder(
             gridDelegate: gridDelegate,
             physics: kScrollPhysics,
@@ -101,6 +103,7 @@ class ProductServices {
                                   headingText: selectedCategory,
                                   productGridType:
                                       ProductGridType.selectedCategoryProducts,
+                                  selectedCategory: data[index].toString(),
                                 ),
                               ],
                             ),
@@ -124,24 +127,26 @@ class ProductServices {
     }
   }
 
-  Widget getSelectedCategoryProducts(gridChildAspectRatio, gridCrossAxisCount) {
+  Widget getSelectedCategoryProducts(gridCrossAxisCount, selectedCategory) {
     try {
       return GetX<ProductsController>(
         builder: (controller) {
           var selectedCategoryProducts =
               controller.getSelectedCategoryProducts(selectedCategory);
+          var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: gridCrossAxisCount,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            mainAxisExtent: 300,
+          );
           return selectedCategoryProducts!.isNotEmpty
-              ? GridView.count(
-                  crossAxisCount: gridCrossAxisCount,
-                  childAspectRatio: gridChildAspectRatio,
+              ? GridView.builder(
+                  gridDelegate: gridDelegate,
                   physics: kScrollPhysics,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
                   shrinkWrap: true,
-                  children: List.generate(
-                      selectedCategoryProducts.length,
-                      (index) => ProductCard(
-                          product: selectedCategoryProducts[index])),
+                  itemCount: selectedCategoryProducts.length,
+                  itemBuilder: (context, index) =>
+                      ProductCard(product: selectedCategoryProducts[index]),
                 )
               : const Text('There is no product in this category');
         },

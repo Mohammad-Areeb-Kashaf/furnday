@@ -26,11 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
             headingText: "All Products",
             productGridType: ProductGridType.allProducts,
           ),
-          // ProductSection(
-          //   headingText: "Featured Products",
-          //   productGridType: ProductGridType.featuredProducts,
-          //   productServicesInstance: ProductServices(),
-          // ),
         ],
       ),
     );

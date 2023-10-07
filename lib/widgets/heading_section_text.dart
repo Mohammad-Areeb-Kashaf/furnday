@@ -1,13 +1,13 @@
 import 'package:furnday/constants.dart';
 
 class HeadingSectionText extends StatelessWidget {
-  HeadingSectionText(
+  const HeadingSectionText(
       {super.key,
       required this.headingText,
       this.isAddress = false,
       this.onPressed});
   final bool isAddress;
-  var onPressed;
+  final Function? onPressed;
 
   final String headingText;
   @override
@@ -39,7 +39,7 @@ class HeadingSectionText extends StatelessWidget {
               ? Padding(
                   padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                   child: TextButton(
-                    onPressed: isAddress ? onPressed : null,
+                    onPressed: isAddress ? () => onPressed : null,
                     child: const Text(
                       'Edit',
                       style: TextStyle(color: Colors.black),

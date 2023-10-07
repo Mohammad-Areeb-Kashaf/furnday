@@ -9,9 +9,11 @@ class ProductSection extends StatelessWidget {
     super.key,
     required this.headingText,
     required this.productGridType,
+    this.selectedCategory = '',
   });
   final String headingText;
   final ProductGridType productGridType;
+  final String selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class ProductSection extends StatelessWidget {
             ),
             ProductGrid(
               productGridType: productGridType,
+              selectedCategory: selectedCategory,
             ),
           ],
         ),

@@ -3,7 +3,7 @@ import 'package:furnday/controllers/products_controller.dart';
 import 'package:furnday/helpers/grid_determiners.dart';
 
 class SearchServices extends SearchDelegate {
-  final products = Get.find<ProductsController>().allProductsList.value;
+  final products = Get.find<ProductsController>().allProductsList;
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -37,13 +37,11 @@ class SearchServices extends SearchDelegate {
         }
       }
       var gridCrossAxisCount = gridCrossAxisCountDeterminer(context);
-      var gridChildAspectRatio =
-          gridChildAspectRatioDeterminer(context, gridCrossAxisCount);
       var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: gridCrossAxisCount,
-        childAspectRatio: gridChildAspectRatio,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
+        mainAxisExtent: 300,
       );
       return GridView.builder(
         gridDelegate: gridDelegate,

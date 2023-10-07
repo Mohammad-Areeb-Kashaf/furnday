@@ -121,11 +121,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   leading: const Icon(Icons.location_pin),
                                   trailing: const Icon(Icons.chevron_right),
                                 ),
-                                const ListTile(
-                                  title: AutoSizeText('Settings'),
-                                  leading: Icon(Icons.settings),
-                                  trailing: Icon(Icons.chevron_right),
-                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),

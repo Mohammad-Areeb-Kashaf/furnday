@@ -61,6 +61,8 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               productQuantityWidget: _buildProductQuantity,
                               removeCartItem: (cart) => removeCartItem(cart),
                               cart: controller.cartItems[index],
+                              customisations:
+                                  controller.cartItems[index].customisations,
                             );
                           },
                         ),

@@ -155,27 +155,31 @@ class _SignInScreenState extends State<SignInScreen> {
       final GoogleSignInAccount? googleUser =
           await GoogleSignIn(scopes: ['email']).signIn();
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser!.authentication;
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
 
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      await auth.signInWithCredential(credential);
-      setState(() {
-        isLoading = false;
-      });
-      Get.showSnackbar(const GetSnackBar(
-        title: "Sign In Success",
-        message: "Sign in using Google is successfull",
-        borderRadius: 20,
-        duration: Duration(seconds: 3),
-      ));
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await auth.signInWithCredential(credential);
+
+        setState(() {
+          isLoading = false;
+        });
+        Get.showSnackbar(const GetSnackBar(
+          title: "Sign In Success",
+          message: "Sign in using Google is successfull",
+          borderRadius: 20,
+          duration: Duration(seconds: 3),
+        ));
+      }
     } catch (e) {
       setState(() {
         isLoading = true;
       });
+
       NetworkStatusService().checkInternet();
       printError(info: e.toString());
       setState(() {

@@ -14,6 +14,7 @@ class ProductModel {
   List<ProductReviews>? productReviews;
   double? rating;
   int? inStock;
+  List<String>? customisations;
 
   ProductModel({
     this.category,
@@ -29,6 +30,7 @@ class ProductModel {
     this.productReviews,
     this.rating,
     this.inStock,
+    this.customisations,
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
@@ -55,6 +57,9 @@ class ProductModel {
     }
     rating = json['rating'];
     inStock = json['inStock'];
+    if (json['customisations'] != null) {
+      customisations = json['customisations'].cast<String>();
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +81,10 @@ class ProductModel {
     }
     data['rating'] = rating;
     data['inStock'] = inStock;
+    if (customisations != null) {
+      data['customisations'] = customisations;
+    }
+
     return data;
   }
 
@@ -85,6 +94,8 @@ class ProductModel {
     data['qty'] = 0;
     data['mrp'] = mrp;
     data['discountedPrice'] = discountedPrice;
+    data['customisations'] = customisations;
+
     return CartModel.fromJson(data);
   }
 }
