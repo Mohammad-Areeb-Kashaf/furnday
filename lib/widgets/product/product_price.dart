@@ -16,16 +16,22 @@ class ProductPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
+    return AutoSizeText.rich(
+      TextSpan(
         children: [
-          TextSpan(text: '₹$mrp', style: kProductMRPTextStyle.merge(mrpStyle)),
+          TextSpan(
+            text: '₹$mrp',
+            style: kProductMRPTextStyle.merge(mrpStyle),
+          ),
           const TextSpan(text: ' '),
           TextSpan(
               text: '₹$discountedPrice',
               style: kProductDiscountPriceTextStyle.merge(discountedPriceStyle))
         ],
       ),
+      minFontSize: 12,
+      maxFontSize: 24,
+      maxLines: 1,
     );
   }
 }

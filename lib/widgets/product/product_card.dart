@@ -33,7 +33,6 @@ class _ProductCardState extends State<ProductCard> {
                 ProductImg(
                   images: widget.product.productImages!.toList(),
                 ),
-                const Spacer(),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
@@ -46,7 +45,7 @@ class _ProductCardState extends State<ProductCard> {
                           '',
                         ),
                     style: Theme.of(context).textTheme.labelMedium,
-                    minFontSize: 14,
+                    minFontSize: 10,
                     maxFontSize: 18,
                   ),
                 ),
@@ -55,8 +54,7 @@ class _ProductCardState extends State<ProductCard> {
                   child: AutoSizeText(
                     widget.product.name.toString(),
                     style: Theme.of(context).textTheme.labelLarge,
-                    overflow: TextOverflow.visible,
-                    minFontSize: 16,
+                    minFontSize: 12,
                     maxFontSize: 24,
                     maxLines: 2,
                   ),
@@ -70,7 +68,8 @@ class _ProductCardState extends State<ProductCard> {
                     mrp: widget.product.mrp.toString(),
                     mrpStyle: kProductMRPTextStyle,
                     discountedPrice: widget.product.discountedPrice.toString(),
-                    discountedPriceStyle: kProductDiscountPriceTextStyle,
+                    discountedPriceStyle:
+                        kProductDiscountPriceTextStyle,
                   ),
                 ),
               ],

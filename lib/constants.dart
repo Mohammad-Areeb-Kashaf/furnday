@@ -78,6 +78,10 @@ export 'package:flutter/foundation.dart' show kIsWeb;
 export 'package:twitter_login/twitter_login.dart';
 export 'package:furnday/widgets/heading_section_text.dart';
 export 'package:furnday/widgets/product/product_grid.dart';
+export 'package:furnday/controllers/products_controller.dart';
+export 'package:imageview360/imageview360.dart';
+export 'package:furnday/helpers/grid_determiners.dart';
+export 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 
 import 'package:flutter/material.dart';
 
@@ -93,13 +97,11 @@ const kRadius = Radius.circular(8);
 const kScrollPhysics = BouncingScrollPhysics();
 const kHighlightColor = Color(0xffF7CC59);
 const kProductMRPTextStyle = TextStyle(
-  fontSize: 18,
   fontWeight: FontWeight.w700,
   decoration: TextDecoration.lineThrough,
   color: kGreyMRPColor,
 );
 const kProductDiscountPriceTextStyle = TextStyle(
   fontWeight: FontWeight.w700,
-  fontSize: 20,
   color: kGreyTextColor,
 );

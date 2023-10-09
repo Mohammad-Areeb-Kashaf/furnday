@@ -29,20 +29,17 @@ class _ProductImgState extends State<ProductImg> {
     return ClipRRect(
       borderRadius: kBorderRadiusCard,
       child: imageUrl.isNotEmpty
-          ? AspectRatio(
-              aspectRatio: 1 / 1,
-              child: CachedNetworkImage(
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                  child: CircularProgressIndicator(
-                    value: downloadProgress.progress,
-                  ),
+          ? CachedNetworkImage(
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                child: CircularProgressIndicator(
+                  value: downloadProgress.progress,
                 ),
-                fit: BoxFit.fill,
-                height: widget.height,
-                width: widget.width,
-                imageUrl: imageUrl,
               ),
+              fit: BoxFit.fill,
+              height: widget.height,
+              width: widget.width,
+              imageUrl: imageUrl,
             )
           : const SizedBox.shrink(),
     );

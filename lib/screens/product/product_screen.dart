@@ -1,5 +1,4 @@
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/products_controller.dart';
 import 'package:furnday/widgets/product/product_customisation_section.dart';
 import 'package:furnday/widgets/product/product_review_form.dart';
 
@@ -81,13 +80,17 @@ class _ProductScreenState extends State<ProductScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  AutoSizeText(
-                                    product.name.toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge!
-                                        .copyWith(color: Colors.black),
-                                    maxFontSize: 24,
+                                  Expanded(
+                                    child: AutoSizeText(
+                                      product.name.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .copyWith(color: Colors.black),
+                                      minFontSize: 18,
+                                      maxFontSize: 24,
+                                      maxLines: 2,
+                                    ),
                                   ),
                                   const StarRating(
                                     rating: 4.5,
@@ -123,7 +126,10 @@ class _ProductScreenState extends State<ProductScreen> {
                                             context,
                                             CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const Product3dViewScreen(),
+                                                  Product3dViewScreen(
+                                                productId:
+                                                    product.id.toString(),
+                                              ),
                                             ),
                                           ),
                                           child: const Text(

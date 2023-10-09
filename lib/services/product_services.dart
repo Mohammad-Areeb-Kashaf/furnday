@@ -1,5 +1,4 @@
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/products_controller.dart';
 
 class ProductServices {
   final _firestore = FirebaseFirestore.instance;
@@ -10,18 +9,14 @@ class ProductServices {
     return GetX<ProductsController>(
       builder: (controller) {
         if (controller.allProductsList.isNotEmpty) {
-          var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+          return DynamicHeightGridView(
             crossAxisCount: gridCrossAxisCount,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
-            mainAxisExtent: 300,
-          );
-          return GridView.builder(
-            gridDelegate: gridDelegate,
             physics: kScrollPhysics,
             shrinkWrap: true,
             itemCount: controller.allProductsList.length,
-            itemBuilder: (context, index) =>
+            builder: (context, index) =>
                 ProductCard(product: controller.allProductsList[index]),
           );
         } else {
@@ -40,21 +35,15 @@ class ProductServices {
     try {
       return GetX<ProductsController>(
         builder: (controller) {
-          var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+          return DynamicHeightGridView(
             crossAxisCount: gridCrossAxisCount,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
-            mainAxisExtent: 300,
-          );
-          return GridView.builder(
-            gridDelegate: gridDelegate,
             physics: kScrollPhysics,
             shrinkWrap: true,
             itemCount: controller.featuredProductsList.length,
-            itemBuilder: (context, index) {
-              return ProductCard(
-                  product: controller.featuredProductsList[index]);
-            },
+            builder: (context, index) =>
+                ProductCard(product: controller.featuredProductsList[index]),
           );
         },
       );
@@ -133,19 +122,15 @@ class ProductServices {
         builder: (controller) {
           var selectedCategoryProducts =
               controller.getSelectedCategoryProducts(selectedCategory);
-          var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: gridCrossAxisCount,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            mainAxisExtent: 300,
-          );
           return selectedCategoryProducts!.isNotEmpty
-              ? GridView.builder(
-                  gridDelegate: gridDelegate,
+              ? DynamicHeightGridView(
+                  crossAxisCount: gridCrossAxisCount,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
                   physics: kScrollPhysics,
                   shrinkWrap: true,
                   itemCount: selectedCategoryProducts.length,
-                  itemBuilder: (context, index) =>
+                  builder: (context, index) =>
                       ProductCard(product: selectedCategoryProducts[index]),
                 )
               : const Text('There is no product in this category');
@@ -165,17 +150,15 @@ class ProductServices {
           var selectedCategoryProducts =
               controller.getSelectedCategoryProducts(selectedCategory);
           return selectedCategoryProducts!.isNotEmpty
-              ? GridView.count(
+              ? DynamicHeightGridView(
                   crossAxisCount: gridCrossAxisCount,
-                  childAspectRatio: gridChildAspectRatio,
-                  physics: kScrollPhysics,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
+                  physics: kScrollPhysics,
                   shrinkWrap: true,
-                  children: List.generate(
-                      selectedCategoryProducts.length,
-                      (index) => ProductCard(
-                          product: selectedCategoryProducts[index])),
+                  itemCount: selectedCategoryProducts.length,
+                  builder: (context, index) =>
+                      ProductCard(product: selectedCategoryProducts[index]),
                 )
               : const Text('There is no product in this category');
         },
@@ -194,17 +177,15 @@ class ProductServices {
           var selectedCategoryProducts =
               controller.getSelectedCategoryProducts(selectedCategory);
           return selectedCategoryProducts!.isNotEmpty
-              ? GridView.count(
+              ? DynamicHeightGridView(
                   crossAxisCount: gridCrossAxisCount,
-                  childAspectRatio: gridChildAspectRatio,
-                  physics: kScrollPhysics,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
+                  physics: kScrollPhysics,
                   shrinkWrap: true,
-                  children: List.generate(
-                      selectedCategoryProducts.length,
-                      (index) => ProductCard(
-                          product: selectedCategoryProducts[index])),
+                  itemCount: selectedCategoryProducts.length,
+                  builder: (context, index) =>
+                      ProductCard(product: selectedCategoryProducts[index]),
                 )
               : const Text('There is no product in this category');
         },
@@ -223,17 +204,15 @@ class ProductServices {
           var selectedCategoryProducts =
               controller.getSelectedCategoryProducts(selectedCategory);
           return selectedCategoryProducts!.isNotEmpty
-              ? GridView.count(
+              ? DynamicHeightGridView(
                   crossAxisCount: gridCrossAxisCount,
-                  childAspectRatio: gridChildAspectRatio,
-                  physics: kScrollPhysics,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
+                  physics: kScrollPhysics,
                   shrinkWrap: true,
-                  children: List.generate(
-                      selectedCategoryProducts.length,
-                      (index) => ProductCard(
-                          product: selectedCategoryProducts[index])),
+                  itemCount: selectedCategoryProducts.length,
+                  builder: (context, index) =>
+                      ProductCard(product: selectedCategoryProducts[index]),
                 )
               : const Text('There is no product in this category');
         },

@@ -1,5 +1,4 @@
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/products_controller.dart';
 
 enum ScreenDeterminer {
   home,

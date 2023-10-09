@@ -1,6 +1,4 @@
 import 'package:furnday/constants.dart';
-import 'package:furnday/controllers/products_controller.dart';
-import 'package:furnday/helpers/grid_determiners.dart';
 
 class SearchServices extends SearchDelegate {
   final products = Get.find<ProductsController>().allProductsList;
@@ -37,19 +35,15 @@ class SearchServices extends SearchDelegate {
         }
       }
       var gridCrossAxisCount = gridCrossAxisCountDeterminer(context);
-      var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+
+      return DynamicHeightGridView(
         crossAxisCount: gridCrossAxisCount,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
-        mainAxisExtent: 300,
-      );
-      return GridView.builder(
-        gridDelegate: gridDelegate,
         physics: kScrollPhysics,
         shrinkWrap: true,
         itemCount: matchQuery.length,
-        itemBuilder: (context, index) =>
-            ProductCard(product: matchQuery[index]),
+        builder: (context, index) => ProductCard(product: matchQuery[index]),
       );
     } catch (e) {
       return const Text('There is something wrong, Please try again later');

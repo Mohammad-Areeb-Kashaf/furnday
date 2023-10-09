@@ -1,6 +1,5 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:furnday/services/auth_services.dart';
-
 import 'constants.dart';
 
 void main() async {
