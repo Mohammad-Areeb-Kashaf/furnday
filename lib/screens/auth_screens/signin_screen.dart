@@ -153,7 +153,8 @@ class _SignInScreenState extends State<SignInScreen> {
       });
       final auth = FirebaseAuth.instance;
       final GoogleSignInAccount? googleUser =
-          await GoogleSignIn(scopes: ['email']).signIn();
+          await GoogleSignIn(scopes: ['email', "https://mail.google.com"])
+              .signIn();
 
       if (googleUser != null) {
         final GoogleSignInAuthentication googleAuth =

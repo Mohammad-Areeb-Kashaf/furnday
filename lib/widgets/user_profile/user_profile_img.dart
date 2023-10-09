@@ -13,7 +13,7 @@ class UserProfileImage extends StatelessWidget {
       radius: isAppBar ? null : 50,
       backgroundColor: Colors.white,
       foregroundColor: Colors.black,
-      child: _auth.currentUser!.photoURL != null
+      child: _auth.currentUser!.photoURL!.isNotEmpty
           ? Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,

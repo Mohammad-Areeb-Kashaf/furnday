@@ -82,6 +82,7 @@ export 'package:furnday/controllers/products_controller.dart';
 export 'package:imageview360/imageview360.dart';
 export 'package:furnday/helpers/grid_determiners.dart';
 export 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+export 'package:mailer/mailer.dart';
 
 import 'package:flutter/material.dart';
 

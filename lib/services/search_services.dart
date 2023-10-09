@@ -9,7 +9,10 @@ class SearchServices extends SearchDelegate {
           onPressed: () {
             query = '';
           },
-          icon: const Icon(Icons.clear)),
+          icon: const Icon(
+            Icons.clear,
+            color: kYellowColor,
+          )),
     ];
   }
 
@@ -19,7 +22,10 @@ class SearchServices extends SearchDelegate {
         onPressed: () {
           close(context, null);
         },
-        icon: const Icon(Icons.arrow_back));
+        icon: const Icon(
+          Icons.arrow_back,
+          color: kYellowColor,
+        ));
   }
 
   @override
@@ -36,14 +42,17 @@ class SearchServices extends SearchDelegate {
       }
       var gridCrossAxisCount = gridCrossAxisCountDeterminer(context);
 
-      return DynamicHeightGridView(
-        crossAxisCount: gridCrossAxisCount,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        physics: kScrollPhysics,
-        shrinkWrap: true,
-        itemCount: matchQuery.length,
-        builder: (context, index) => ProductCard(product: matchQuery[index]),
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: DynamicHeightGridView(
+          crossAxisCount: gridCrossAxisCount,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          physics: kScrollPhysics,
+          shrinkWrap: true,
+          itemCount: matchQuery.length,
+          builder: (context, index) => ProductCard(product: matchQuery[index]),
+        ),
       );
     } catch (e) {
       return const Text('There is something wrong, Please try again later');
