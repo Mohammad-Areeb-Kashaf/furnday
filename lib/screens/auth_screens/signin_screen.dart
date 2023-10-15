@@ -47,6 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                           minFontSize: 24,
                           maxFontSize: 32,
+                          maxLines: 1,
                         ),
                         AutoSizeText(
                           'Login to your account',
@@ -56,6 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                           minFontSize: 16,
                           maxFontSize: 22,
+                          maxLines: 1,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -102,6 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             textAlign: TextAlign.center,
                             minFontSize: 16,
                             maxFontSize: 20,
+                            maxLines: 1,
                           ),
                         )
                       ],

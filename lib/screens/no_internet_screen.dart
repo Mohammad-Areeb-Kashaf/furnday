@@ -15,17 +15,25 @@ class NoInternetScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const AutoSizeText('No Internet!'),
+            const AutoSizeText(
+              'No Internet!',
+              minFontSize: 14,
+              maxFontSize: 24,
+              maxLines: 1,
+            ),
             const AutoSizeText(
               'Please check your internet connection and Try again',
               textAlign: TextAlign.center,
+              minFontSize: 12,
+              maxFontSize: 22,
+              maxLines: 2,
             ),
             MaterialButton(
               color: Theme.of(context).primaryColor,
               onPressed: () {
                 NetworkStatusService().checkInternet();
               },
-              child: const AutoSizeText('Retry'),
+              child: const Text('Retry'),
             )
           ],
         ),

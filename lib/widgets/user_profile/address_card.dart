@@ -52,7 +52,9 @@ class _AddressCardState extends State<AddressCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const AutoSizeText("No Address Found"),
+                        Text(widget.isShipping
+                            ? "No Shipping Address Found"
+                            : "No Billing Address Found"),
                         TextButton(
                           onPressed: () => Navigator.push(
                               context,
@@ -77,6 +79,7 @@ class _AddressCardState extends State<AddressCard> {
                               widget.userAddress.companyName.toString(),
                               minFontSize: 18,
                               maxFontSize: 20,
+                              maxLines: 1,
                             )
                           : const SizedBox.shrink(),
                       widget.userAddress.companyName!.isNotEmpty
@@ -88,6 +91,7 @@ class _AddressCardState extends State<AddressCard> {
                         "${widget.userAddress.firstName.toString()} ${widget.userAddress.lastName.toString()}",
                         minFontSize: 18,
                         maxFontSize: 20,
+                        maxLines: 2,
                       ),
                       const SizedBox(
                         height: 4,
@@ -96,6 +100,7 @@ class _AddressCardState extends State<AddressCard> {
                         widget.userAddress.streetAddress.toString(),
                         minFontSize: 18,
                         maxFontSize: 20,
+                        maxLines: 5,
                       ),
                       const SizedBox(
                         height: 4,
@@ -105,6 +110,7 @@ class _AddressCardState extends State<AddressCard> {
                               widget.userAddress.apartmentSuite.toString(),
                               minFontSize: 18,
                               maxFontSize: 20,
+                              maxLines: 2,
                             )
                           : const SizedBox.shrink(),
                       widget.userAddress.apartmentSuite!.isNotEmpty
@@ -116,6 +122,7 @@ class _AddressCardState extends State<AddressCard> {
                         "${widget.userAddress.townCityName.toString()} ${widget.userAddress.pincode.toString()}",
                         minFontSize: 18,
                         maxFontSize: 20,
+                        maxLines: 1,
                       ),
                       const SizedBox(
                         height: 4,
@@ -124,6 +131,7 @@ class _AddressCardState extends State<AddressCard> {
                         widget.userAddress.state.toString(),
                         minFontSize: 18,
                         maxFontSize: 20,
+                        maxLines: 1,
                       ),
                     ],
                   ),

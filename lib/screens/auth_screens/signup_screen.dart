@@ -47,6 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                           minFontSize: 24,
                           maxFontSize: 32,
+                          maxLines: 1,
                         ),
                         AutoSizeText(
                           'Create a new account',
@@ -56,6 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                           minFontSize: 16,
                           maxFontSize: 22,
+                          maxLines: 1,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -77,11 +79,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
+                          child: AutoSizeText.rich(
+                            TextSpan(
                               text: "Already have an account? ",
-                              style: const TextStyle(fontSize: 16),
+                              style: const TextStyle(color: Colors.white),
                               children: [
                                 TextSpan(
                                   text: "Sign in Now!",
@@ -90,11 +91,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       .labelLarge!
                                       .copyWith(
                                         color: Colors.black87,
-                                        fontSize: 18,
                                       ),
-                                )
+                                ),
                               ],
                             ),
+                            textAlign: TextAlign.center,
+                            minFontSize: 16,
+                            maxFontSize: 20,
+                            maxLines: 1,
                           ),
                         )
                       ],

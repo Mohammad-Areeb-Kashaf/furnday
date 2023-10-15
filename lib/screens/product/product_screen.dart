@@ -19,6 +19,8 @@ class _ProductScreenState extends State<ProductScreen> {
   int _qty = 1;
   bool isLoading = false;
   late ProductModel product;
+  late CartModel cartProduct;
+  List<String> customisations = [];
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class _ProductScreenState extends State<ProductScreen> {
         (product) => product.id == widget.productId,
       );
       product = controller.allProductsList[productIndex];
+      cartProduct = product.toCartModel();
       return InternetChecker(
         child: LoadingOverlay(
           isLoading: isLoading,
@@ -70,7 +73,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                     .replaceAll("[", '')
                                     .replaceAll(']', ''),
                                 style: Theme.of(context).textTheme.labelMedium,
+                                minFontSize: 14,
                                 maxFontSize: 16,
+                                maxLines: 2,
                               ),
                             ),
                             Padding(
@@ -166,7 +171,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelLarge,
+                                              minFontSize: 14,
                                               maxFontSize: 24,
+                                              maxLines: 1,
                                             ),
                                             AutoSizeText(
                                               product.description![index].desc
@@ -207,7 +214,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             ElevatedButton.icon(
-                              label: const AutoSizeText(
+                              label: const Text(
                                 'Add to Cart',
                               ),
                               onPressed: () async {
@@ -215,9 +222,10 @@ class _ProductScreenState extends State<ProductScreen> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                await cartController.addToCart(
-                                  productCartItem: product.toCartModel(),
-                                  qty: _qty,
+                                cartProduct.customisations = customisations;
+                                cartProduct.qty = _qty.toInt();
+                                cartController.addToCart(
+                                  cartProduct,
                                 );
                                 setState(() {
                                   isLoading = false;
@@ -256,10 +264,8 @@ class _ProductScreenState extends State<ProductScreen> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                await cartController.addToCart(
-                                  productCartItem: product.toCartModel(),
-                                  qty: _qty,
-                                );
+                                cartProduct.customisations = customisations;
+                                cartController.addToCart(product.toCartModel());
                                 setState(() {
                                   isLoading = false;
                                 });
@@ -271,13 +277,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                               const MyCartScreen()));
                                 }
                               },
-                              child: AutoSizeText(
+                              child: Text(
                                 'Buy Now',
                                 style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.secondary,
                                 ),
-                                maxFontSize: 24,
                               ),
                             ),
                           ],
@@ -357,9 +362,10 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   onCustomisationChanged(value, index) {
-    List<String> customisations = [];
     if (value == true) {
       customisations.add(product.customisations![index]);
+    } else if (value == false) {
+      customisations.remove(product.customisations![index]);
     }
   }
 }

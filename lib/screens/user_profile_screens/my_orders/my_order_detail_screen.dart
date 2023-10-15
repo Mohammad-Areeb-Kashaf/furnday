@@ -23,7 +23,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
     return InternetChecker(
       child: Scaffold(
         appBar: AppBar(
-          title: const AutoSizeText(
+          title: const Text(
             'My Order Detail',
             style: TextStyle(
               color: Colors.black,
@@ -60,6 +60,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                       ),
                                       minFontSize: 16,
                                       maxFontSize: 20,
+                                      maxLines: 1,
                                     ),
                                   ),
                                   const SizedBox(
@@ -76,6 +77,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                       ),
                                       minFontSize: 16,
                                       maxFontSize: 20,
+                                      maxLines: 1,
                                     ),
                                   ),
                                   const SizedBox(
@@ -94,6 +96,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                           ),
                                           minFontSize: 14,
                                           maxFontSize: 20,
+                                          maxLines: 1,
                                         ),
                                         AutoSizeText(
                                           '16/04/2023',
@@ -102,6 +105,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                           ),
                                           minFontSize: 16,
                                           maxFontSize: 22,
+                                          maxLines: 1,
                                         ),
                                       ],
                                     ),
@@ -124,6 +128,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                           ),
                                           minFontSize: 14,
                                           maxFontSize: 20,
+                                          maxLines: 1,
                                         ),
                                         AutoSizeText(
                                           '4',
@@ -132,6 +137,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                           ),
                                           minFontSize: 14,
                                           maxFontSize: 20,
+                                          maxLines: 1,
                                         ),
                                       ],
                                     ),
@@ -153,6 +159,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                           ),
                                           minFontSize: 16,
                                           maxFontSize: 19,
+                                          maxLines: 1,
                                         ),
                                         SizedBox(
                                           height: 2,
@@ -161,6 +168,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                           "UPI",
                                           minFontSize: 13,
                                           maxFontSize: 16,
+                                          maxLines: 1,
                                         ),
                                       ],
                                     ),
@@ -185,6 +193,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                             ),
                                             minFontSize: 16,
                                             maxFontSize: 19,
+                                            maxLines: 1,
                                           ),
                                           SizedBox(
                                             height: 2,
@@ -193,6 +202,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                             "516 Lotus House, B Sv Road, Bandra (west), Mumbai, Maharashtra, 400050",
                                             minFontSize: 13,
                                             maxFontSize: 16,
+                                            maxLines: 1,
                                           ),
                                         ],
                                       ),
@@ -302,6 +312,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   "Subtotal",
                                   minFontSize: 16,
                                   maxFontSize: 19,
+                                  maxLines: 1,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                                 Spacer(),
@@ -309,6 +320,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   "₹14000",
                                   minFontSize: 16,
                                   maxFontSize: 19,
+                                  maxLines: 1,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
@@ -325,6 +337,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   "Delivery Charges",
                                   minFontSize: 16,
                                   maxFontSize: 19,
+                                  maxLines: 1,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                                 Spacer(),
@@ -332,6 +345,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   "Free",
                                   minFontSize: 16,
                                   maxFontSize: 19,
+                                  maxLines: 1,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],
@@ -348,6 +362,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   "Total",
                                   minFontSize: 16,
                                   maxFontSize: 19,
+                                  maxLines: 1,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                                 Spacer(),
@@ -355,6 +370,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   "₹14000",
                                   minFontSize: 16,
                                   maxFontSize: 19,
+                                  maxLines: 1,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ],

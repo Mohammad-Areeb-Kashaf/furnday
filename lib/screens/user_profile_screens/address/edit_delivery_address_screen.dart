@@ -519,11 +519,10 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () => saveAddress(),
-                        child: AutoSizeText(
+                        child: Text(
                           'Save Address',
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.secondary),
-                          maxFontSize: 16,
                         ),
                       ),
                     )

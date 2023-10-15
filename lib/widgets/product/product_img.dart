@@ -5,10 +5,10 @@ class ProductImg extends StatefulWidget {
     super.key,
     this.height,
     this.width,
-    this.images,
+    this.image,
   });
   final double? height, width;
-  final List<String>? images;
+  final String? image;
 
   @override
   State<ProductImg> createState() => _ProductImgState();
@@ -21,7 +21,7 @@ class _ProductImgState extends State<ProductImg> {
   @override
   void initState() {
     super.initState();
-    imageUrl = widget.images![0].toString();
+    imageUrl = widget.image.toString();
   }
 
   @override

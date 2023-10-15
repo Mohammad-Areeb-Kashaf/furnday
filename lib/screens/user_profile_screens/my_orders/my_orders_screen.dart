@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/my_order/my_order_card.dart';
@@ -11,7 +10,7 @@ class MyOrdersScreen extends StatelessWidget {
     return InternetChecker(
       child: Scaffold(
         appBar: AppBar(
-          title: const AutoSizeText(
+          title: const Text(
             'My Orders',
             style: TextStyle(
               color: Colors.black,
@@ -20,7 +19,7 @@ class MyOrdersScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: ListView(
-            children: const [
+            children: [
               MyOrderCard(),
             ],
           ),

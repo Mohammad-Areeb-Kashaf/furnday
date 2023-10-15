@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:furnday/constants.dart';
 import 'package:furnday/screens/user_profile_screens/my_orders/my_order_detail_screen.dart';
-import 'package:furnday/widgets/decorated_card.dart';
 
 class MyOrderCard extends StatelessWidget {
-  const MyOrderCard({
+  MyOrderCard({
     super.key,
   });
-
+  final productController = Get.find<ProductsController>();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -18,33 +15,36 @@ class MyOrderCard extends StatelessWidget {
           builder: (context) => const MyOrderDetailScreen(),
         ),
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(10.0),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: DecoratedCard(
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
-                SizedBox(
+                ProductImg(
+                  image: productController.allProductsList[0].productImages![0],
                   height: 100,
                   width: 100,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           AutoSizeText(
-                            'Bed',
+                            'Comfortable Bed',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
+                            minFontSize: 14,
                             maxFontSize: 20,
+                            maxLines: 2,
                           ),
                           Spacer(),
                           AutoSizeText(
@@ -53,7 +53,9 @@ class MyOrderCard extends StatelessWidget {
                               color: Colors.green,
                               fontWeight: FontWeight.bold,
                             ),
-                            maxFontSize: 24,
+                            minFontSize: 14,
+                            maxFontSize: 20,
+                            maxLines: 1,
                           ),
                         ],
                       ),
@@ -63,7 +65,9 @@ class MyOrderCard extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
+                        minFontSize: 14,
                         maxFontSize: 20,
+                        maxLines: 1,
                       ),
                       Row(
                         children: [
@@ -73,14 +77,18 @@ class MyOrderCard extends StatelessWidget {
                               color: Colors.black38,
                               fontWeight: FontWeight.bold,
                             ),
+                            minFontSize: 14,
                             maxFontSize: 20,
+                            maxLines: 1,
                           ),
                           AutoSizeText(
                             '16/04/2023',
                             style: TextStyle(
                               color: Colors.black,
                             ),
-                            maxFontSize: 22,
+                            minFontSize: 14,
+                            maxFontSize: 20,
+                            maxLines: 1,
                           ),
                         ],
                       ),
@@ -93,6 +101,8 @@ class MyOrderCard extends StatelessWidget {
                               color: Colors.black38,
                               fontWeight: FontWeight.bold,
                             ),
+                            maxLines: 1,
+                            minFontSize: 14,
                             maxFontSize: 20,
                           ),
                           AutoSizeText(
@@ -100,6 +110,8 @@ class MyOrderCard extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.black,
                             ),
+                            maxLines: 1,
+                            minFontSize: 14,
                             maxFontSize: 20,
                           ),
                           Spacer(),
@@ -109,7 +121,9 @@ class MyOrderCard extends StatelessWidget {
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
-                            maxFontSize: 24,
+                            minFontSize: 14,
+                            maxFontSize: 20,
+                            maxLines: 1,
                           ),
                         ],
                       ),

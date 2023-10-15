@@ -21,6 +21,7 @@ class ProductReviewSection extends StatelessWidget {
               style: Theme.of(context).textTheme.labelLarge,
               minFontSize: 18,
               maxFontSize: 24,
+              maxLines: 1,
             ),
             const SizedBox(height: 8),
             (reviews!.isNotEmpty)
@@ -37,7 +38,9 @@ class ProductReviewSection extends StatelessWidget {
                                 review.username.toString(),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.bold),
+                                minFontSize: 16,
                                 maxFontSize: 20,
+                                maxLines: 1,
                               ),
                               const SizedBox(width: 8),
                               AutoSizeText(
@@ -59,7 +62,7 @@ class ProductReviewSection extends StatelessWidget {
                       );
                     }).toList(),
                   )
-                : const AutoSizeText('No reviews yet.'),
+                : const Text('No reviews yet.'),
           ],
         ),
       ),

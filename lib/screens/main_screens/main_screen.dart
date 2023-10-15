@@ -34,8 +34,8 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    cartController = Get.put(CartController());
     productsController = Get.put(ProductsController());
+    cartController = Get.put(CartController());
     setState(() {
       isEmailVerified = _auth.currentUser!.emailVerified;
     });
@@ -258,6 +258,7 @@ class _MainScreenState extends State<MainScreen> {
                                             ),
                                         minFontSize: 24,
                                         maxFontSize: 32,
+                                        maxLines: 1,
                                       ),
                                       const SizedBox(height: 8),
                                       AutoSizeText.rich(
@@ -274,6 +275,9 @@ class _MainScreenState extends State<MainScreen> {
                                           ],
                                         ),
                                         textAlign: TextAlign.center,
+                                        minFontSize: 14,
+                                        maxFontSize: 22,
+                                        maxLines: 3,
                                       ),
                                       const SizedBox(height: 24),
                                       ElevatedButton.icon(
@@ -289,13 +293,11 @@ class _MainScreenState extends State<MainScreen> {
                                           size: 32,
                                           color: Colors.black,
                                         ),
-                                        label: const AutoSizeText(
+                                        label: const Text(
                                           'Resent Email',
                                           style: TextStyle(
                                             color: Colors.black,
                                           ),
-                                          minFontSize: 16,
-                                          maxFontSize: 24,
                                         ),
                                       ),
                                       const SizedBox(height: 8),
@@ -314,9 +316,8 @@ class _MainScreenState extends State<MainScreen> {
                                             ),
                                           );
                                         },
-                                        child: const AutoSizeText(
+                                        child: const Text(
                                           'Cancel',
-                                          maxFontSize: 24,
                                         ),
                                       ),
                                     ],

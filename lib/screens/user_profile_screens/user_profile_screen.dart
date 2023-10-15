@@ -16,7 +16,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       child: Scaffold(
         appBar: AppBar(
           shape: const ContinuousRectangleBorder(),
-          title: const AutoSizeText(
+          title: const Text(
             'Profile',
             style: TextStyle(
               color: Colors.black,
@@ -85,7 +85,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               style: const TextStyle(
                                 color: Colors.black38,
                               ),
+                              minFontSize: 14,
                               maxFontSize: 16,
+                              maxLines: 1,
                             ),
                           )
                         ],
@@ -105,7 +107,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       CupertinoPageRoute(
                                           builder: (context) =>
                                               const MyOrdersScreen())),
-                                  title: const AutoSizeText('My Orders'),
+                                  title: const Text('My Orders'),
                                   leading: const Icon(Icons.shopping_bag),
                                   trailing: const Icon(Icons.chevron_right),
                                 ),
@@ -117,7 +119,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                           const MyAddressesScreen(),
                                     ),
                                   ),
-                                  title: const AutoSizeText('My Addresses'),
+                                  title: const Text('My Addresses'),
                                   leading: const Icon(Icons.location_pin),
                                   trailing: const Icon(Icons.chevron_right),
                                 ),
@@ -141,7 +143,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       NetworkStatusService().checkInternet();
                                     }
                                   },
-                                  child: const AutoSizeText(
+                                  child: const Text(
                                     'Logout',
                                     style: TextStyle(color: Colors.white),
                                   ),

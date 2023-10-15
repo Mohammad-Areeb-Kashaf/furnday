@@ -89,7 +89,9 @@ class _AuthFormState extends State<AuthForm> {
                       style: TextStyle(
                         color: Colors.black38,
                       ),
+                      minFontSize: 15,
                       maxFontSize: 18,
+                      maxLines: 1,
                     ),
                   )
                 : const SizedBox.shrink(),
@@ -114,14 +116,12 @@ class _AuthFormState extends State<AuthForm> {
                   );
                 }
               },
-              child: AutoSizeText(
+              child: Text(
                 widget.isSignIn ? 'Sign In' : 'Sign Up',
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
                     .copyWith(color: Colors.white),
-                minFontSize: 16,
-                maxFontSize: 24,
               ),
             ),
             const SizedBox(height: 20),
@@ -135,8 +135,8 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 3.0),
-                  child: const AutoSizeText("OR",
-                      style: TextStyle(color: Colors.black38)),
+                  child:
+                      const Text("OR", style: TextStyle(color: Colors.black38)),
                 ),
                 Expanded(
                   child: Container(

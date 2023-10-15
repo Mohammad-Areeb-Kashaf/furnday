@@ -8,7 +8,7 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
-  var shippingAddress;
+  Widget? shippingAddress;
   var cfPaymentGatewayService = CFPaymentGatewayService();
   late Future<CreateOrderModel> createOrderModel;
   String orderId = '';
@@ -34,6 +34,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
         child: GetX<CartController>(
           builder: (controller) {
             cartController = controller;
+
             return Scaffold(
               appBar: AppBar(
                 title: const Text(
@@ -52,18 +53,16 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       children: [
                         ListView.builder(
                           shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(vertical: 8),
                           physics: kScrollPhysics,
                           itemCount: controller.cartItems.length,
                           itemBuilder: (context, index) {
+                            final cartItem = controller.cartItems[index];
                             return MyCartCard(
-                              product: controller.productCartItems[index],
                               productQuantityWidget: _buildProductQuantity,
                               removeCartItem: (cart) => removeCartItem(cart),
-                              cart: controller.cartItems[index],
-                              customisations:
-                                  controller.cartItems[index].customisations,
-                            );
+                              cartItem: cartItem,
+                              customisations: cartItem.customisations,
+                            ); // Use your custom cart item widget
                           },
                         ),
                         DecoratedCard(
@@ -79,6 +78,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   ),
                                   minFontSize: 20,
                                   maxFontSize: 24,
+                                  maxLines: 1,
                                 ),
                                 const Divider(thickness: 2.0),
                                 const SizedBox(
@@ -92,11 +92,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       "Subtotal:",
                                       minFontSize: 18,
                                       maxFontSize: 22,
+                                      maxLines: 1,
                                     ),
                                     AutoSizeText(
                                       "₹${controller.totalPrice.toString()}",
                                       minFontSize: 18,
                                       maxFontSize: 22,
+                                      maxLines: 1,
                                     ),
                                   ],
                                 ),
@@ -116,11 +118,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       "Shipping:",
                                       minFontSize: 18,
                                       maxFontSize: 22,
+                                      maxLines: 1,
                                     ),
                                     AutoSizeText(
                                       "Free shipping",
                                       minFontSize: 18,
                                       maxFontSize: 22,
+                                      maxLines: 1,
                                     ),
                                   ],
                                 ),
@@ -146,11 +150,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       ),
                                       minFontSize: 18,
                                       maxFontSize: 22,
+                                      maxLines: 1,
                                     ),
                                     AutoSizeText(
                                       "₹${controller.totalPrice}",
                                       minFontSize: 18,
                                       maxFontSize: 22,
+                                      maxLines: 1,
                                     ),
                                   ],
                                 ),
@@ -310,8 +316,8 @@ class _MyCartScreenState extends State<MyCartScreen> {
             isLoading = true;
           });
           try {
-            controller.cartItems[indexCartItem].qty = int.parse(qty.toString());
-            await controller.updateCart();
+            controller.updateCartItemQuantity(
+                controller.cartItems[indexCartItem], qty);
           } catch (e) {
             printError(info: e.toString());
           }
@@ -322,7 +328,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
         indexCartItem = controller.cartItems.indexOf(cart);
         _qty = cart!.qty!.toInt();
-
         return ProductQuantity(
           qty: _qty,
           valueChanged: valueChanged,
@@ -331,12 +336,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
     );
   }
 
-  void removeCartItem(cart) async {
+  void removeCartItem(CartModel cartItem) async {
     setState(() {
       isLoading = true;
     });
-    cartController.cartItems.removeWhere((element) => element == cart);
-    await cartController.updateCart();
+    cartController.removeCartItem(cartItem);
     setState(() {
       isLoading = false;
     });

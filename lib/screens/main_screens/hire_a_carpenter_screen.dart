@@ -233,7 +233,8 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                           color: Theme.of(context).colorScheme.secondary),
                       maxFontSize: 16,
                     ),
-                  )
+                  ),
+
                 ],
               ),
             ),

@@ -55,12 +55,12 @@ class _ProductQuantityState extends State<ProductQuantity> {
               color: Theme.of(context).primaryColorDark,
             ),
           ),
-          AutoSizeText(
+          Text(
             formatter.format(_qty),
             style: TextStyle(
               color: Theme.of(context).primaryColorDark,
+              fontSize: 18,
             ),
-            maxFontSize: 18,
           ),
           GestureDetector(
             onTap: () {

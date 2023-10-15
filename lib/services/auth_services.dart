@@ -21,7 +21,7 @@ class AuthServices extends StatelessWidget {
           );
         } else if (snapshot.hasError) {
           return const Center(
-            child: AutoSizeText('Something went wrong, Try again later'),
+            child: Text('Something went wrong, Try again later'),
           );
         } else if (snapshot.hasData) {
           return isAuthenticatedChild;

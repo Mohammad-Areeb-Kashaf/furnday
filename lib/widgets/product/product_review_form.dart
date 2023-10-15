@@ -36,6 +36,7 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                 ),
                 minFontSize: 16,
                 maxFontSize: 26,
+                maxLines: 1,
               ),
               const SizedBox(
                 height: 10,
@@ -44,6 +45,7 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                 "Your email address will not be published.",
                 minFontSize: 10,
                 maxFontSize: 18,
+                maxLines: 2,
               ),
               const SizedBox(
                 height: 10,
@@ -57,6 +59,7 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                     ),
                     minFontSize: 14,
                     maxFontSize: 24,
+                    maxLines: 1,
                   ),
                   StarRating(
                     rating: rating,
@@ -165,11 +168,12 @@ class _ProductReviewFormState extends State<ProductReviewForm> {
                   email = emailController.text.toString().toLowerCase();
                   widget.submitReview(_formKey, comment, rating, name, email);
                 },
-                child: AutoSizeText(
+                child: Text(
                   'Submit',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                  maxFontSize: 16,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ],

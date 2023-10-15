@@ -12,6 +12,7 @@ class ProductsController extends GetxController {
   void onInit() async {
     allProductsList.bindStream(getAllProducts()!);
     featuredProductsList.bindStream(getFeaturedProducts()!);
+
     super.onInit();
   }
 

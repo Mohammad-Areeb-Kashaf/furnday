@@ -1,16 +1,16 @@
 import 'package:furnday/constants.dart';
+import 'package:furnday/widgets/cart/cart_product_customisation_section.dart';
 
 class MyCartCard extends StatefulWidget {
   const MyCartCard({
     super.key,
-    required this.product,
     required this.productQuantityWidget,
     required this.removeCartItem,
     required this.customisations,
-    this.cart,
+    required this.cartItem,
   });
-  final ProductModel product;
-  final CartModel? cart;
+
+  final CartModel cartItem;
   final Function productQuantityWidget;
   final Function removeCartItem;
   final List<String>? customisations;
@@ -21,6 +21,15 @@ class MyCartCard extends StatefulWidget {
 
 class _MyCartCardState extends State<MyCartCard> {
   final cartController = Get.find<CartController>();
+  final productsController = Get.find<ProductsController>();
+  late final ProductModel product;
+
+  @override
+  void initState() {
+    super.initState();
+    product = productsController.allProductsList
+        .firstWhere((productItem) => productItem.id == widget.cartItem.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +43,7 @@ class _MyCartCardState extends State<MyCartCard> {
                 Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
-                    onPressed: () => widget.removeCartItem(widget.cart),
+                    onPressed: () => widget.removeCartItem(widget.cartItem),
                     icon: const Icon(Icons.close),
                   ),
                 ),
@@ -48,7 +57,7 @@ class _MyCartCardState extends State<MyCartCard> {
                   ProductImg(
                     height: 100,
                     width: 100,
-                    images: widget.product.productImages,
+                    image: product.productImages![0],
                   ),
                   const SizedBox(
                     width: 10,
@@ -58,38 +67,40 @@ class _MyCartCardState extends State<MyCartCard> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              Expanded(
+                                child: AutoSizeText(
+                                  product.name.toString(),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  minFontSize: 12,
+                                  maxFontSize: 20,
+                                  maxLines: 2,
+                                ),
+                              ),
                               AutoSizeText(
-                                widget.product.name.toString(),
+                                "₹${product.discountedPrice}",
                                 style: const TextStyle(
-                                  color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
-                                minFontSize: 20,
-                                maxFontSize: 26,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              AutoSizeText(
-                                "₹${widget.product.discountedPrice}",
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                minFontSize: 20,
-                                maxFontSize: 26,
+                                minFontSize: 12,
+                                maxFontSize: 20,
+                                maxLines: 1,
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           Align(
                             alignment: Alignment.bottomRight,
-                            child: widget.productQuantityWidget(widget.cart),
+                            child:
+                                widget.productQuantityWidget(widget.cartItem),
                           ),
+                          CartProductCustomisationSection(
+                            customisations: widget.cartItem.customisations,
+                          )
                         ],
                       ),
                     ),

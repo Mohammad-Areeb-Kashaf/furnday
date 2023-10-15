@@ -19,6 +19,7 @@ class CartItemCountBtn extends StatelessWidget {
             controller.cartItemsCount.toString(),
             minFontSize: 8,
             maxFontSize: 9,
+            maxLines: 1
           )),
           child: child,
         );

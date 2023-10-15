@@ -31,7 +31,7 @@ class _ProductCardState extends State<ProductCard> {
             child: Column(
               children: [
                 ProductImg(
-                  images: widget.product.productImages!.toList(),
+                  image: widget.product.productImages![0],
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -47,6 +47,7 @@ class _ProductCardState extends State<ProductCard> {
                     style: Theme.of(context).textTheme.labelMedium,
                     minFontSize: 10,
                     maxFontSize: 18,
+                    maxLines: 2,
                   ),
                 ),
                 Align(
@@ -68,8 +69,7 @@ class _ProductCardState extends State<ProductCard> {
                     mrp: widget.product.mrp.toString(),
                     mrpStyle: kProductMRPTextStyle,
                     discountedPrice: widget.product.discountedPrice.toString(),
-                    discountedPriceStyle:
-                        kProductDiscountPriceTextStyle,
+                    discountedPriceStyle: kProductDiscountPriceTextStyle,
                   ),
                 ),
               ],

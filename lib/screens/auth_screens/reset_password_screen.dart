@@ -50,6 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   ),
                               minFontSize: 24,
                               maxFontSize: 32,
+                              maxLines: 1,
                             ),
                             AutoSizeText(
                               'We have sent a reset password link to your email.',
@@ -62,6 +63,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   ),
                               minFontSize: 16,
                               maxFontSize: 22,
+                              maxLines: 2,
                             ),
                           ],
                         )
@@ -78,6 +80,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   ),
                               minFontSize: 24,
                               maxFontSize: 32,
+                              maxLines: 1,
                             ),
                             AutoSizeText(
                               'Enter the email associated with your account and we\'ll send an email with a link to reset your password.',
@@ -90,6 +93,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   ),
                               minFontSize: 14,
                               maxFontSize: 22,
+                              maxLines: 3,
                             ),
                             const SizedBox(height: 30),
                             Padding(
@@ -155,14 +159,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                               }
                                             }
                                           },
-                                          child: AutoSizeText(
+                                          child: Text(
                                             'Reset Password',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .labelLarge!
                                                 .copyWith(color: Colors.white),
-                                            minFontSize: 16,
-                                            maxFontSize: 24,
                                           ),
                                         )
                                       ],

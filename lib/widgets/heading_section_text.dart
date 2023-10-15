@@ -32,6 +32,7 @@ class HeadingSectionText extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold),
                 minFontSize: 18,
                 maxFontSize: 26,
+                maxLines: 1,
               ),
             ),
           ),
