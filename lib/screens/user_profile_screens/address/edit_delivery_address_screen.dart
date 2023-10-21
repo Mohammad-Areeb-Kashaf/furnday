@@ -16,7 +16,7 @@ class EditDeliveryAddressScreen extends StatefulWidget {
 }
 
 class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
-  final _userServices = UserServices();
+  final userAddressController = Get.find<UserAddressController>();
   String firstName = '',
       lastName = '',
       companyName = '',
@@ -457,7 +457,8 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
             email: emailAddress,
             phoneNumber: int.parse(phoneNumber),
           );
-          await _userServices.setShippingAddress(userAddress: userAddress);
+          await userAddressController.setShippingAddress(
+              userAddress: userAddress);
           Navigator.pop(context);
         } else {
           UserAddressModel userAddress = UserAddressModel(
@@ -470,7 +471,8 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
             pincode: int.parse(pinCode),
             state: state,
           );
-          await _userServices.setBillingAddress(userAddress: userAddress);
+          await userAddressController.setBillingAddress(
+              userAddress: userAddress);
           Navigator.pop(context);
         }
       } catch (e) {

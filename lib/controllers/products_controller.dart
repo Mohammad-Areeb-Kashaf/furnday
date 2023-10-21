@@ -4,7 +4,6 @@ class ProductsController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
   final allProductsList = <ProductModel>[].obs;
   var featuredProductsList = <ProductModel>[].obs;
-  final userUid = FirebaseAuth.instance.currentUser!.uid;
 
   List<ProductModel> get products => allProductsList;
 

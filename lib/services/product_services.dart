@@ -142,7 +142,7 @@ class ProductServices {
     }
   }
 
-  Widget getRefurbishedProducts(gridChildAspectRatio, gridCrossAxisCount) {
+  Widget getRefurbishedProducts(gridCrossAxisCount) {
     try {
       selectedCategory = "Refurbished";
       return GetX<ProductsController>(
@@ -169,7 +169,7 @@ class ProductServices {
     }
   }
 
-  Widget getFurnitureProducts(gridChildAspectRatio, gridCrossAxisCount) {
+  Widget getFurnitureProducts(gridCrossAxisCount) {
     try {
       selectedCategory = "Furniture";
       return GetX<ProductsController>(
@@ -196,7 +196,7 @@ class ProductServices {
     }
   }
 
-  Widget getHardwareProducts(gridChildAspectRatio, gridCrossAxisCount) {
+  Widget getHardwareProducts(gridCrossAxisCount) {
     try {
       selectedCategory = "Hardware";
       return GetX<ProductsController>(

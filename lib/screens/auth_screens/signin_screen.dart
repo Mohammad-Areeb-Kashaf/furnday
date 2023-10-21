@@ -136,6 +136,10 @@ class _SignInScreenState extends State<SignInScreen> {
           formKey.currentState!.reset();
         },
       );
+      context.mounted
+          ? Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => const MainScreen()))
+          : null;
     } on FirebaseAuthException catch (e) {
       printError(info: e.toString());
 
@@ -143,6 +147,10 @@ class _SignInScreenState extends State<SignInScreen> {
         AuthForm.authError = e.toString();
         formKey.currentState!.validate();
       });
+      context.mounted
+          ? Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => const MainScreen()))
+          : null;
     }
     setState(() {
       isLoading = false;
@@ -168,6 +176,10 @@ class _SignInScreenState extends State<SignInScreen> {
           idToken: googleAuth.idToken,
         );
         await auth.signInWithCredential(credential);
+        context.mounted
+            ? Navigator.pushReplacement(context,
+                CupertinoPageRoute(builder: (context) => const MainScreen()))
+            : null;
 
         setState(() {
           isLoading = false;
@@ -186,6 +198,10 @@ class _SignInScreenState extends State<SignInScreen> {
 
       NetworkStatusService().checkInternet();
       printError(info: e.toString());
+      context.mounted
+          ? Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => const MainScreen()))
+          : null;
       setState(() {
         isLoading = false;
       });
@@ -205,8 +221,10 @@ class _SignInScreenState extends State<SignInScreen> {
           final OAuthCredential credential =
               FacebookAuthProvider.credential(result.accessToken!.token);
           await _auth.signInWithCredential(credential);
-          printInfo(info: "photoUrl: ${_auth.currentUser!.photoURL}");
-          printInfo(info: _auth.currentUser!.email.toString());
+          context.mounted
+              ? Navigator.pushReplacement(context,
+                  CupertinoPageRoute(builder: (context) => const MainScreen()))
+              : null;
           setState(() {
             isLoading = false;
           });

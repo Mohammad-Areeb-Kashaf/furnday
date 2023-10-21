@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:furnday/models/api/create_order_model.dart';
 import 'package:furnday/models/user/user_address_model.dart';
-import 'package:furnday/services/user_services.dart';
+import 'package:furnday/controllers/user_address_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +13,7 @@ class CashfreeServices {
   createOrder(orderAmount) async {
     try {
       UserAddressModel shippingAddressModel =
-          await UserServices().getShippingAddressModel();
+          Get.find<UserAddressController>().shippingAddresModel.value;
       Map<String, dynamic>? queryParameters = {
         "order_amount": orderAmount.toString(),
         "customer_id": _auth.currentUser!.uid,

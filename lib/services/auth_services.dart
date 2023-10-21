@@ -1,34 +1,37 @@
 import 'package:furnday/constants.dart';
 
-class AuthServices extends StatelessWidget {
+class AuthServices extends StatefulWidget {
   final Widget isAuthenticatedChild, isNotAuthenticatedChild;
-  AuthServices(
+
+  const AuthServices(
       {super.key,
       required this.isAuthenticatedChild,
       required this.isNotAuthenticatedChild});
+
+  @override
+  State<AuthServices> createState() => _AuthServicesState();
+}
+
+class _AuthServicesState extends State<AuthServices> {
   final _auth = FirebaseAuth.instance;
+  late final user;
+  bool isUserSignedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    user = _auth.currentUser;
+    if (user != null) {
+      isUserSignedIn = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: _auth.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: SpinKitFoldingCube(
-              color: kYellowColor,
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return const Center(
-            child: Text('Something went wrong, Try again later'),
-          );
-        } else if (snapshot.hasData) {
-          return isAuthenticatedChild;
-        } else {
-          return isNotAuthenticatedChild;
-        }
-      },
-    );
+    if (!isUserSignedIn) {
+      return widget.isNotAuthenticatedChild;
+    } else {
+      return widget.isAuthenticatedChild;
+    }
   }
 }

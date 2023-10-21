@@ -142,7 +142,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         formKey.currentState!.validate();
         formKey.currentState!.reset();
         await _auth.currentUser!.reload();
-        if (context.mounted) Navigator.pop(context);
+        context.mounted
+            ? Navigator.pushReplacement(context,
+                CupertinoPageRoute(builder: (context) => const MainScreen()))
+            : null;
       });
     } on FirebaseAuthException catch (e) {
       printError(info: e.toString());
@@ -150,6 +153,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         AuthForm.authError = e.toString();
         formKey.currentState!.validate();
       });
+      context.mounted
+          ? Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => const MainScreen()))
+          : null;
     }
     setState(() {
       isLoading = false;
@@ -173,6 +180,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         idToken: googleAuth.idToken,
       );
       await auth.signInWithCredential(credential);
+      context.mounted
+          ? Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => const MainScreen()))
+          : null;
       setState(() {
         isLoading = false;
       });
@@ -182,6 +193,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
       NetworkStatusService().checkInternet();
       printError(info: e.toString());
+      context.mounted
+          ? Navigator.pushReplacement(context,
+              CupertinoPageRoute(builder: (context) => const MainScreen()))
+          : null;
       setState(() {
         isLoading = false;
       });
@@ -201,7 +216,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           final OAuthCredential credential =
               FacebookAuthProvider.credential(result.accessToken!.token);
           await _auth.signInWithCredential(credential);
-          printInfo(info: _auth.currentUser!.email.toString());
+          context.mounted
+              ? Navigator.pushReplacement(context,
+                  CupertinoPageRoute(builder: (context) => const MainScreen()))
+              : null;
           setState(() {
             isLoading = false;
           });
@@ -213,6 +231,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       } else {
         printInfo(info: result.status.toString());
         printInfo(info: result.message.toString());
+        context.mounted
+            ? Navigator.pushReplacement(context,
+                CupertinoPageRoute(builder: (context) => const MainScreen()))
+            : null;
         setState(() {
           isLoading = false;
         });
@@ -222,63 +244,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         isLoading = false;
       });
-    }
-  }
-
-  signInWithTwitter() async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-      // https://furnday-15bd6.firebaseapp.com/__/auth/handler
-
-      final twitterLogin = TwitterLogin(
-          apiKey: "3KMXINssukXaAshl5THQbyP8L",
-          apiSecretKey: "Rh7DBgXIzSeUFaOvO6LsQW9jVh2T8pprwZ9BHsPr8Etfq0p5fK",
-          redirectURI: "twitterauth://");
-
-      final authResult = await twitterLogin.loginV2();
-      if (authResult.status == TwitterLoginStatus.loggedIn) {
-        try {
-          final credential = TwitterAuthProvider.credential(
-              accessToken: authResult.authToken!,
-              secret: authResult.authTokenSecret!);
-          await _auth.signInWithCredential(credential);
-          setState(() {
-            isLoading = false;
-          });
-        } catch (e) {
-          setState(() {
-            isLoading = false;
-          });
-          Get.showSnackbar(GetSnackBar(
-            title: "Error",
-            borderRadius: 20,
-            message: e.toString(),
-            duration: const Duration(seconds: 3),
-          ));
-        }
-      } else {
-        setState(() {
-          isLoading = false;
-        });
-        Get.showSnackbar(const GetSnackBar(
-          title: "Error",
-          message: "Something went wrong",
-          borderRadius: 20,
-          duration: Duration(seconds: 3),
-        ));
-      }
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      Get.showSnackbar(GetSnackBar(
-        title: "Error",
-        message: e.toString(),
-        borderRadius: 20,
-        duration: const Duration(seconds: 3),
-      ));
     }
   }
 }

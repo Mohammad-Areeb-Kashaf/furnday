@@ -1,4 +1,5 @@
 import 'package:furnday/constants.dart';
+import 'package:furnday/controllers/shiprocket_services_controller.dart';
 
 enum ScreenDeterminer {
   home,
@@ -25,28 +26,44 @@ class _MainScreenState extends State<MainScreen> {
   bool hardwareSelected = false;
   bool refurbishedSelected = false;
   final _auth = FirebaseAuth.instance;
+  late final user;
   late bool isEmailVerified;
   bool canResendEmail = false;
   Timer timer = Timer(Duration.zero, () {});
   late final CartController cartController;
   late final ProductsController productsController;
+  late final ShiprocketServicesController shiprocketServicesController;
+  late final userAddressController;
+  bool isUserSignedIn = false;
 
   @override
   void initState() {
     super.initState();
     productsController = Get.put(ProductsController());
+    shiprocketServicesController = Get.put(ShiprocketServicesController());
     cartController = Get.put(CartController());
-    setState(() {
-      isEmailVerified = _auth.currentUser!.emailVerified;
-    });
+    userAddressController = Get.put(UserAddressController());
+    user = _auth.currentUser;
+    if (user != null) {
+      isUserSignedIn = true;
+    }
+    if (isUserSignedIn) {
+      setState(() {
+        isEmailVerified = _auth.currentUser!.emailVerified;
+      });
 
-    if (!isEmailVerified) {
-      sendVerificationEmail();
+      if (!isEmailVerified) {
+        sendVerificationEmail();
 
-      timer = Timer.periodic(
-        const Duration(seconds: 3),
-        (_) => checkEmailVerified(),
-      );
+        timer = Timer.periodic(
+          const Duration(seconds: 3),
+          (_) => checkEmailVerified(),
+        );
+      }
+    } else {
+      setState(() {
+        isEmailVerified = true;
+      });
     }
   }
 
@@ -59,8 +76,7 @@ class _MainScreenState extends State<MainScreen> {
       });
 
       if (isEmailVerified) {
-        var controller = Get.find<CartController>();
-        controller.createCart();
+        await cartController.createCart();
         timer.cancel();
       }
     } catch (e) {
@@ -71,6 +87,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void dispose() {
     timer.cancel();
+
+    Get.delete<ProductsController>();
+    Get.delete<CartController>();
+    Get.delete<ShiprocketServicesController>();
     super.dispose();
   }
 

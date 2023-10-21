@@ -5,6 +5,7 @@ class MyAddressesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<UserAddressController>();
     return InternetChecker(
       child: Scaffold(
         appBar: AppBar(
@@ -20,9 +21,9 @@ class MyAddressesScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  UserServices().getBillingAddressCard(),
+                  controller.getBillingAddressCard(),
                   const SizedBox(height: 8),
-                  UserServices().getShippingAddressCard(),
+                  controller.getShippingAddressCard(),
                 ],
               ),
             ),

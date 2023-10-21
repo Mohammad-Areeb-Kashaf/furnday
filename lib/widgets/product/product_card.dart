@@ -2,6 +2,7 @@ import 'package:furnday/constants.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard({super.key, required this.product});
+
   final ProductModel product;
 
   @override
@@ -30,8 +31,11 @@ class _ProductCardState extends State<ProductCard> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                ProductImg(
-                  image: widget.product.productImages![0],
+                AspectRatio(
+                  aspectRatio: 1 / 1,
+                  child: ProductImg(
+                    image: widget.product.productImages![0],
+                  ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,

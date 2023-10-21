@@ -1,4 +1,5 @@
 import 'package:furnday/constants.dart';
+import 'package:furnday/services/auth_services.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:mailer/smtp_server/gmail.dart';
 
@@ -193,49 +194,94 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
   @override
   Widget build(BuildContext context) {
     return InternetChecker(
-      child: Scaffold(
-        appBar: myAppBar(context),
-        body: SingleChildScrollView(
-          physics: kScrollPhysics,
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildName(),
-                  _buildPhoneNumber(),
-                  _buildAddress(),
-                  _buildPostalCode(),
-                  _buildCountry(),
-                  _buildHireFor(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        await sendMail(
-                            name: name,
-                            phoneNumber: phoneNumber,
-                            address: address,
-                            postalCode: postalCode,
-                            country: country,
-                            hiringFor: hireFor);
-                      }
-                    },
-                    child: AutoSizeText(
-                      'Submit',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary),
-                      maxFontSize: 16,
+      child: AuthServices(
+        isNotAuthenticatedChild: Scaffold(
+          appBar: myAppBar(context),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('You are not Signed in, please sign in'),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => const SignInScreen()));
+                      },
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
-                  ),
-
-                ],
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => const SignUpScreen()));
+                      },
+                      child: const Text(
+                        'Sign Up',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        isAuthenticatedChild: Scaffold(
+          appBar: myAppBar(context),
+          body: SingleChildScrollView(
+            physics: kScrollPhysics,
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildName(),
+                    _buildPhoneNumber(),
+                    _buildAddress(),
+                    _buildPostalCode(),
+                    _buildCountry(),
+                    _buildHireFor(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          await sendMail(
+                              name: name,
+                              phoneNumber: phoneNumber,
+                              address: address,
+                              postalCode: postalCode,
+                              country: country,
+                              hiringFor: hireFor);
+                        }
+                      },
+                      child: AutoSizeText(
+                        'Submit',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary),
+                        maxFontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

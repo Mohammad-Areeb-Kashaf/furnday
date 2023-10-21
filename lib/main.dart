@@ -1,5 +1,5 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:furnday/services/auth_services.dart';
+
 import 'constants.dart';
 
 void main() async {
@@ -16,6 +16,7 @@ void main() async {
       version: "v15.0",
     );
   }
+
   runApp(const MyApp());
 }
 
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    
   }
 
   @override
@@ -107,11 +109,8 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-        home: Scaffold(
-          body: AuthServices(
-            isAuthenticatedChild: const MainScreen(),
-            isNotAuthenticatedChild: const SignInScreen(),
-          ),
+        home: const Scaffold(
+          body: MainScreen(),
         ),
       ),
     );

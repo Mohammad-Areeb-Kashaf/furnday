@@ -26,7 +26,7 @@ class _ProductImgState extends State<ProductImg> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+    return  ClipRRect(
       borderRadius: kBorderRadiusCard,
       child: imageUrl.isNotEmpty
           ? CachedNetworkImage(

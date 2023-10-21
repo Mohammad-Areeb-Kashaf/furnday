@@ -19,7 +19,6 @@ class ProductGrid extends StatefulWidget {
 
 class _ProductGridState extends State<ProductGrid> {
   var gridCrossAxisCount = 2;
-  var gridChildAspectRatio = 16 / 9;
 
   @override
   void initState() {
@@ -40,17 +39,14 @@ class _ProductGridState extends State<ProductGrid> {
         );
       case ProductGridType.refurbishedProducts:
         return ProductServices().getRefurbishedProducts(
-          gridChildAspectRatio,
           gridCrossAxisCount,
         );
       case ProductGridType.furnitureProducts:
         return ProductServices().getFurnitureProducts(
-          gridChildAspectRatio,
           gridCrossAxisCount,
         );
       case ProductGridType.hardwareProducts:
         return ProductServices().getHardwareProducts(
-          gridChildAspectRatio,
           gridCrossAxisCount,
         );
       case ProductGridType.selectedCategoryProducts:
