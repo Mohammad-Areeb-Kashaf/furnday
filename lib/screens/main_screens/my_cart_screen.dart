@@ -23,7 +23,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
   var indexCartItem;
   var _qty;
   final userAddressController = Get.find<UserAddressController>();
-  var shippingAddressModel;
 
   @override
   void initState() {
@@ -31,6 +30,8 @@ class _MyCartScreenState extends State<MyCartScreen> {
     user = _auth.currentUser;
     if (user != null) {
       isUserSignedIn = true;
+    } else {
+      isUserSignedIn = false;
     }
 
     shippingAddress = userAddressController.getShippingAddressCard();
@@ -238,7 +239,10 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           isLoading = true;
                                         });
 
-                                        if (shippingAddressModel.firstName !=
+                                        if (userAddressController
+                                                    .shippingAddressModel
+                                                    .value
+                                                    .firstName !=
                                                 null &&
                                             cartController
                                                 .cartItems.isNotEmpty) {
@@ -267,8 +271,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                               }
                                             });
                                           });
-                                        } else if (shippingAddressModel
-                                            .firstName!.isEmpty) {
+                                        } else if (userAddressController
+                                                .shippingAddressModel
+                                                .value
+                                                .firstName ==
+                                            null) {
                                           Get.showSnackbar(const GetSnackBar(
                                             title: "Error",
                                             message:

@@ -13,7 +13,7 @@ class CashfreeServices {
   createOrder(orderAmount) async {
     try {
       UserAddressModel shippingAddressModel =
-          Get.find<UserAddressController>().shippingAddresModel.value;
+          Get.find<UserAddressController>().shippingAddressModel.value;
       Map<String, dynamic>? queryParameters = {
         "order_amount": orderAmount.toString(),
         "customer_id": _auth.currentUser!.uid,

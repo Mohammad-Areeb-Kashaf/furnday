@@ -6,7 +6,7 @@ class UserAddressController extends GetxController {
   late final user;
   String userUid = '';
   bool isUserSignedIn = false;
-  Rx<UserAddressModel> shippingAddresModel = UserAddressModel().obs;
+  Rx<UserAddressModel> shippingAddressModel = UserAddressModel().obs;
   Rx<UserAddressModel> billingAddressModel = UserAddressModel().obs;
 
   @override
@@ -17,7 +17,7 @@ class UserAddressController extends GetxController {
       isUserSignedIn = true;
       userUid = user.uid;
     }
-    shippingAddresModel.value = await getShippingAddressModel();
+    shippingAddressModel.value = await getShippingAddressModel();
     billingAddressModel.value = await getBillingAddressModel();
   }
 
@@ -28,12 +28,13 @@ class UserAddressController extends GetxController {
         UserAddressModel billingAddress =
             UserAddressModel.fromJson(doc.data()!['billingAddress']);
         return billingAddress;
+      } else {
+        return UserAddressModel();
       }
     } catch (e) {
       printError(info: e.toString());
-      return;
+      return UserAddressModel();
     }
-    return;
   }
 
   getShippingAddressModel() async {
@@ -43,12 +44,13 @@ class UserAddressController extends GetxController {
         UserAddressModel shippingAddress =
             UserAddressModel.fromJson(doc.data()!['shippingAddress']);
         return shippingAddress;
+      } else {
+        return UserAddressModel();
       }
     } catch (e) {
       printError(info: e.toString());
-      return;
+      return UserAddressModel();
     }
-    return;
   }
 
   setBillingAddress({required UserAddressModel userAddress}) async {
@@ -76,112 +78,22 @@ class UserAddressController extends GetxController {
   }
 
   Widget getBillingAddressCard() {
-    if (isUserSignedIn) {
-      final billingAddressStream =
-          _firestore.collection("users").doc(userUid).snapshots();
-
-      return StreamBuilder(
-        stream: billingAddressStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator(
-              color: kYellowColor,
-            );
-          } else if (snapshot.hasData) {
-            try {
-              Map<String, dynamic> data =
-                  snapshot.data!.data()!['billingAddress'];
-
-              if (data.isNotEmpty) {
-                var userAddress = UserAddressModel.fromJson(
-                    snapshot.data!.data()!['billingAddress']);
-
-                return AddressCard(
-                  userAddress: userAddress,
-                );
-              } else {
-                return AddressCard(
-                  userAddress: UserAddressModel(),
-                  isAddressNull: true,
-                );
-              }
-            } catch (e) {
-              printError(info: e.toString());
-              return AddressCard(
-                userAddress: UserAddressModel(),
-                isAddressNull: true,
-              );
-            }
-          } else {
-            return const Text("Something went wrong");
-          }
-        },
-      );
-    } else {
-      return AddressCard(
-        userAddress: UserAddressModel(),
-        isAddressNull: true,
-      );
-    }
+    return AddressCard(
+      userAddress: billingAddressModel.value.firstName != null
+          ? billingAddressModel.value
+          : UserAddressModel(),
+      isAddressNull: billingAddressModel.value.firstName != null ? false : true,
+    );
   }
 
   Widget getShippingAddressCard() {
-    if (isUserSignedIn) {
-      final shippingAddressStream =
-          _firestore.collection('users').doc(userUid).snapshots();
-
-      return StreamBuilder(
-        stream: shippingAddressStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: kYellowColor,
-              ),
-            );
-          } else if (snapshot.hasData) {
-            try {
-              Map<String, dynamic> data =
-                  snapshot.data!.data()!['shippingAddress'];
-
-              if (data.isNotEmpty) {
-                var userAddress = UserAddressModel.fromJson(
-                    snapshot.data!.data()!['shippingAddress']);
-
-                return AddressCard(
-                  userAddress: userAddress,
-                  isShipping: true,
-                );
-              } else {
-                return AddressCard(
-                  userAddress: UserAddressModel(),
-                  isAddressNull: true,
-                  isShipping: true,
-                );
-              }
-            } catch (e) {
-              printError(info: e.toString());
-              return AddressCard(
-                userAddress: UserAddressModel(),
-                isAddressNull: true,
-                isShipping: true,
-              );
-            }
-          } else {
-            return const Text("Something went wrong");
-          }
-        },
-      );
-    } else {
-      return AddressCard(
-        userAddress: UserAddressModel(),
-        isAddressNull: true,
-        isShipping: true,
-      );
-    }
+    return AddressCard(
+      userAddress: shippingAddressModel.value.firstName != null
+          ? shippingAddressModel.value
+          : UserAddressModel(),
+      isAddressNull:
+          shippingAddressModel.value.firstName != null ? false : true,
+      isShipping: true,
+    );
   }
 }
