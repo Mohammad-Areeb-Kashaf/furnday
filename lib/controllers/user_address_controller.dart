@@ -19,6 +19,7 @@ class UserAddressController extends GetxController {
     }
     shippingAddressModel.value = await getShippingAddressModel();
     billingAddressModel.value = await getBillingAddressModel();
+    print(shippingAddressModel.value.firstName);
   }
 
   getBillingAddressModel() async {
@@ -40,14 +41,18 @@ class UserAddressController extends GetxController {
   getShippingAddressModel() async {
     try {
       if (isUserSignedIn) {
+        print("fetching shipping address");
         var doc = await _firestore.collection("users").doc(userUid).get();
         UserAddressModel shippingAddress =
             UserAddressModel.fromJson(doc.data()!['shippingAddress']);
+        print("shipping Address first name:${shippingAddress.firstName}");
         return shippingAddress;
       } else {
+        print('else implementing');
         return UserAddressModel();
       }
     } catch (e) {
+      print(e.toString());
       printError(info: e.toString());
       return UserAddressModel();
     }
@@ -57,10 +62,11 @@ class UserAddressController extends GetxController {
     if (isUserSignedIn) {
       var doc = _firestore.collection('users').doc(userUid);
       try {
-        await doc.update({"billingAddress": userAddress.toJson()});
+        await doc.set(
+            {"billingAddress": userAddress.toJson()}, SetOptions(merge: true));
+        billingAddressModel.value = userAddress;
       } catch (e) {
         printError(info: e.toString());
-        await doc.set({"billingAddress": userAddress.toJson()});
       }
     }
   }
@@ -69,10 +75,11 @@ class UserAddressController extends GetxController {
     if (isUserSignedIn) {
       var doc = _firestore.collection('users').doc(userUid);
       try {
-        await doc.update({"shippingAddress": userAddress.toJson()});
+        await doc.set(
+            {"shippingAddress": userAddress.toJson()}, SetOptions(merge: true));
+        shippingAddressModel.value = userAddress;
       } catch (e) {
         printError(info: e.toString());
-        await doc.set({"shippingAddress": userAddress.toJson()});
       }
     }
   }
@@ -88,9 +95,7 @@ class UserAddressController extends GetxController {
 
   Widget getShippingAddressCard() {
     return AddressCard(
-      userAddress: shippingAddressModel.value.firstName != null
-          ? shippingAddressModel.value
-          : UserAddressModel(),
+      userAddress: shippingAddressModel.value,
       isAddressNull:
           shippingAddressModel.value.firstName != null ? false : true,
       isShipping: true,

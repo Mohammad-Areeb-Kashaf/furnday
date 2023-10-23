@@ -39,10 +39,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    userAddressController = Get.put(UserAddressController());
     productsController = Get.put(ProductsController());
     shiprocketServicesController = Get.put(ShiprocketServicesController());
     cartController = Get.put(CartController());
-    userAddressController = Get.put(UserAddressController());
     user = _auth.currentUser;
     if (user != null) {
       isUserSignedIn = true;

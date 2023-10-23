@@ -459,7 +459,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           );
           await userAddressController.setShippingAddress(
               userAddress: userAddress);
-          Navigator.pop(context);
+          context.mounted ? Navigator.pop(context) : null;
         } else {
           UserAddressModel userAddress = UserAddressModel(
             firstName: firstName,
@@ -473,7 +473,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
           );
           await userAddressController.setBillingAddress(
               userAddress: userAddress);
-          Navigator.pop(context);
+          context.mounted ? Navigator.pop(context) : null;
         }
       } catch (e) {
         printError(info: e.toString());

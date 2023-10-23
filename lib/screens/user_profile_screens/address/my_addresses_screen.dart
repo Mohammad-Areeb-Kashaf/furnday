@@ -19,12 +19,14 @@ class MyAddressesScreen extends StatelessWidget {
             physics: kScrollPhysics,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  controller.getBillingAddressCard(),
-                  const SizedBox(height: 8),
-                  controller.getShippingAddressCard(),
-                ],
+              child: Obx(
+                () => Column(
+                  children: [
+                    controller.getBillingAddressCard(),
+                    const SizedBox(height: 8),
+                    controller.getShippingAddressCard(),
+                  ],
+                ),
               ),
             ),
           ),

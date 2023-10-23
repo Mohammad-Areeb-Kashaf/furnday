@@ -23,6 +23,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   var indexCartItem;
   var _qty;
   final userAddressController = Get.find<UserAddressController>();
+  var shippingAddressModel = UserAddressModel();
 
   @override
   void initState() {
@@ -196,7 +197,12 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   const SizedBox(
                                     height: 2,
                                   ),
-                                  shippingAddress!,
+                                  Obx(() {
+                                    shippingAddressModel = userAddressController
+                                        .shippingAddressModel.value;
+                                    return userAddressController
+                                        .getShippingAddressCard();
+                                  }),
                                   const SizedBox(
                                     height: 2,
                                   ),
@@ -239,10 +245,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           isLoading = true;
                                         });
 
-                                        if (userAddressController
-                                                    .shippingAddressModel
-                                                    .value
-                                                    .firstName !=
+                                        if (shippingAddressModel.firstName !=
                                                 null &&
                                             cartController
                                                 .cartItems.isNotEmpty) {
@@ -271,9 +274,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                               }
                                             });
                                           });
-                                        } else if (userAddressController
-                                                .shippingAddressModel
-                                                .value
+                                        } else if (shippingAddressModel
                                                 .firstName ==
                                             null) {
                                           Get.showSnackbar(const GetSnackBar(

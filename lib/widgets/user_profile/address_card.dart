@@ -32,8 +32,7 @@ class _AddressCardState extends State<AddressCard> {
             headingText:
                 widget.isShipping ? "Shipping Address" : "Billing Address",
             isAddress: widget.isAddressNull ? false : true,
-            onPressed: () => Navigator.push(
-              context,
+            onPressed: () => Navigator.of(context).push(
               CupertinoPageRoute(
                 builder: (context) => EditDeliveryAddressScreen(
                   addressType: widget.isShipping ? "Shipping" : "Billing",

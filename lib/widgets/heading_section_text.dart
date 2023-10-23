@@ -7,7 +7,7 @@ class HeadingSectionText extends StatelessWidget {
       this.isAddress = false,
       this.onPressed});
   final bool isAddress;
-  final Function? onPressed;
+  final VoidCallback? onPressed;
 
   final String headingText;
   @override
@@ -40,7 +40,7 @@ class HeadingSectionText extends StatelessWidget {
               ? Padding(
                   padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                   child: TextButton(
-                    onPressed: isAddress ? () => onPressed : null,
+                    onPressed: isAddress ? onPressed : null,
                     child: const Text(
                       'Edit',
                       style: TextStyle(color: Colors.black),
