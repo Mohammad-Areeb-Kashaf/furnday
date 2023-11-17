@@ -14,14 +14,15 @@ class AuthServices extends StatefulWidget {
 
 class _AuthServicesState extends State<AuthServices> {
   final _auth = FirebaseAuth.instance;
-  late final user;
+  late final User? user;
   bool isUserSignedIn = false;
+  late final Timer timer;
 
   @override
   void initState() {
     super.initState();
     user = _auth.currentUser;
-    Timer.periodic(
+    timer = Timer.periodic(
         const Duration(microseconds: 0), (timer) => checkUserSignedIn());
   }
 
@@ -33,6 +34,12 @@ class _AuthServicesState extends State<AuthServices> {
         isUserSignedIn = false;
       }
     });
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override
