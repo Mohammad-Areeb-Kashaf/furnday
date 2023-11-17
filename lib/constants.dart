@@ -86,7 +86,6 @@ export 'package:intl/intl.dart' hide TextDirection;
 export 'package:mailer/mailer.dart';
 export 'package:photo_view/photo_view.dart';
 export 'package:provider/provider.dart';
-export 'package:twitter_login/twitter_login.dart';
 export 'package:furnday/controllers/shiprocket_services_controller.dart';
 
 final kGreyDiscountedPriceColor = Colors.grey.shade600;

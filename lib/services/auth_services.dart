@@ -21,9 +21,18 @@ class _AuthServicesState extends State<AuthServices> {
   void initState() {
     super.initState();
     user = _auth.currentUser;
-    if (user != null) {
-      isUserSignedIn = true;
-    }
+    Timer.periodic(
+        const Duration(microseconds: 0), (timer) => checkUserSignedIn());
+  }
+
+  checkUserSignedIn() {
+    setState(() {
+      if (user != null) {
+        isUserSignedIn = true;
+      } else {
+        isUserSignedIn = false;
+      }
+    });
   }
 
   @override

@@ -291,7 +291,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       const SizedBox(height: 10),
                       (product.productReviews!.toList().any((element) =>
                                   element.email ==
-                                  FirebaseAuth.instance.currentUser!.email) ==
+                                  FirebaseAuth.instance.currentUser?.email) ==
                               false)
                           ? ProductReviewForm(
                               productId: product.id.toString(),

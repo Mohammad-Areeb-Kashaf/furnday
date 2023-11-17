@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/user_profile_screens/user_profile_screen.dart';
 import 'package:furnday/services/search_services.dart';
 import 'package:furnday/widgets/cart/cart_item_count_btn.dart';
 import 'package:furnday/widgets/user_profile/user_profile_img.dart';
 
-AppBar myAppBar(BuildContext context) {
+AppBar myAppBar(BuildContext context, {bool isNotAuthenticated = false}) {
   return AppBar(
     centerTitle: false,
     actions: [
       IconButton(
         onPressed: () {
-          showSearch(context: context, delegate: SearchServices());
+          if (!isNotAuthenticated) {
+            showSearch(context: context, delegate: SearchServices());
+          }
         },
         icon: const Icon(Icons.search),
       ),
@@ -20,12 +22,16 @@ AppBar myAppBar(BuildContext context) {
         padding: const EdgeInsets.only(top: 4.0),
         child: CartItemCountBtn(
           child: IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (context) => const MyCartScreen(),
-              ),
-            ),
+            onPressed: () {
+              if (!isNotAuthenticated) {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => const MyCartScreen(),
+                  ),
+                );
+              }
+            },
             icon: const Icon(Icons.shopping_cart),
           ),
         ),
@@ -39,7 +45,7 @@ AppBar myAppBar(BuildContext context) {
             ),
           );
         },
-        child: Hero(
+        child: const Hero(
           tag: "profile_img",
           transitionOnUserGestures: true,
           child: UserProfileImage(

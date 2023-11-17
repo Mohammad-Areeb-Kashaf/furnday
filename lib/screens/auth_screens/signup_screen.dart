@@ -153,10 +153,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         AuthForm.authError = e.toString();
         formKey.currentState!.validate();
       });
-      context.mounted
-          ? Navigator.pushReplacement(context,
-              CupertinoPageRoute(builder: (context) => const MainScreen()))
-          : null;
     }
     setState(() {
       isLoading = false;

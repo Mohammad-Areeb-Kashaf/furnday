@@ -50,7 +50,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
             return AuthServices(
               isNotAuthenticatedChild: Scaffold(
-                appBar: myAppBar(context),
+                appBar: myAppBar(context, isNotAuthenticated: true),
                 body: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
