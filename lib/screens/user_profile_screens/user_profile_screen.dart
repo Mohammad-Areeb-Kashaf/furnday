@@ -21,7 +21,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('You are not Signed in, please sign in'),
+                Text('You are not Signed in, please sign in', style: Theme.of(context).textTheme.labelSmall,),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,9 +35,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             CupertinoPageRoute(
                                 builder: (context) => const SignInScreen()));
                       },
-                      child: const Text(
+                      child: Text(
                         'Sign In',
-                        style: TextStyle(color: Colors.black),
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
                     ElevatedButton(
@@ -49,11 +49,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             CupertinoPageRoute(
                                 builder: (context) => const SignUpScreen()));
                       },
-                      child: const Text(
+                      
+                      child:  Text(
                         'Sign Up',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),),
                   ],
                 ),
               ],
@@ -105,7 +105,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   ),
                                 );
                               },
-                              child: Hero(
+                              child: const Hero(
                                 tag: "profile_img",
                                 transitionOnUserGestures: true,
                                 child: UserProfileImage(

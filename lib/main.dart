@@ -35,7 +35,6 @@ class _MyAppState extends State<MyApp> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    
   }
 
   @override
@@ -51,19 +50,38 @@ class _MyAppState extends State<MyApp> {
       child: GetMaterialApp(
         title: "FurnDay",
         theme: ThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(kYellowColor),
+            ),
+          ),
           textTheme: const TextTheme(
-            labelMedium: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: kGreyTextColor,
-            ),
-            labelLarge: TextStyle(
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          listTileTheme: const ListTileThemeData(
-            selectedTileColor: kHighlightColor,
-            selectedColor: Colors.black,
-          ),
+              displayLarge: TextStyle(color: Colors.black),
+              displayMedium: TextStyle(color: Colors.black),
+              displaySmall: TextStyle(color: Colors.black),
+              headlineLarge: TextStyle(color: Colors.black),
+              headlineMedium: TextStyle(color: Colors.black),
+              headlineSmall: TextStyle(color: Colors.black),
+              titleLarge: TextStyle(color: Colors.black),
+              titleMedium: TextStyle(color: Colors.black),
+              titleSmall: TextStyle(color: Colors.black),
+              bodyLarge: TextStyle(color: Colors.black),
+              bodyMedium: TextStyle(color: Colors.black),
+              bodySmall: TextStyle(color: Colors.black),
+              labelMedium: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: kGreyTextColor,
+              ),
+              labelLarge: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              labelSmall: TextStyle(color: Colors.black)),
+          listTileTheme: ListTileThemeData(
+              selectedTileColor: kHighlightColor,
+              selectedColor: Colors.black,
+              style: ListTileStyle.drawer,
+              titleTextStyle: Theme.of(context).textTheme.labelSmall),
           highlightColor: kHighlightColor,
           colorScheme: const ColorScheme(
               brightness: Brightness.light,

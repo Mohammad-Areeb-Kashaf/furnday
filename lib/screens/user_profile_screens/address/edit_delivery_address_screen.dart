@@ -490,7 +490,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
             widget.isAddressNull
                 ? 'Add ${widget.addressType} Address'
                 : 'Edit ${widget.addressType} Address',
-            style: const TextStyle(color: Colors.black),
+            style: Theme.of(context).textTheme.labelSmall,
           ),
         ),
         body: SafeArea(

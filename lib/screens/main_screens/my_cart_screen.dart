@@ -69,9 +69,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       builder: (context) =>
                                           const SignInScreen()));
                             },
-                            child: const Text(
+                            child: Text(
                               'Sign In',
-                              style: TextStyle(color: Colors.black),
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ),
                           ElevatedButton(
@@ -84,9 +84,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       builder: (context) =>
                                           const SignUpScreen()));
                             },
-                            child: const Text(
+                            child: Text(
                               'Sign Up',
-                              style: TextStyle(color: Colors.black),
+                              style: Theme.of(context).textTheme.labelSmall,
                             ),
                           ),
                         ],
@@ -97,9 +97,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
               ),
               isAuthenticatedChild: Scaffold(
                 appBar: AppBar(
-                  title: const Text(
+                  title: Text(
                     'My Cart',
-                    style: TextStyle(color: Colors.black),
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
                 body: SafeArea(

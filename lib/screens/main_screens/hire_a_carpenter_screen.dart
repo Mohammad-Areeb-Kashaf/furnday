@@ -214,9 +214,9 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                             CupertinoPageRoute(
                                 builder: (context) => const SignInScreen()));
                       },
-                      child: const Text(
+                      child: Text(
                         'Sign In',
-                        style: TextStyle(color: Colors.black),
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
                     ElevatedButton(
@@ -228,9 +228,9 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                             CupertinoPageRoute(
                                 builder: (context) => const SignUpScreen()));
                       },
-                      child: const Text(
+                      child: Text(
                         'Sign Up',
-                        style: TextStyle(color: Colors.black),
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
                   ],

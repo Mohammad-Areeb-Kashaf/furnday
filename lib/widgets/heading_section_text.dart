@@ -29,7 +29,7 @@ class HeadingSectionText extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
                 headingText,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.labelLarge,
                 minFontSize: 18,
                 maxFontSize: 26,
                 maxLines: 1,
@@ -41,9 +41,9 @@ class HeadingSectionText extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                   child: TextButton(
                     onPressed: isAddress ? onPressed : null,
-                    child: const Text(
+                    child: Text(
                       'Edit',
-                      style: TextStyle(color: Colors.black),
+                      style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
                 )

@@ -232,6 +232,8 @@ class _AuthFormState extends State<AuthForm> {
       } else if (AuthForm.authError ==
           '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
         return 'Internet unavailable. Please connect your mobile to a internet connection';
+      } else if (AuthForm.authError == '[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.') {
+        return 'Account has been disabled temporarily due to many failed login attempts';
       }
     } else {
       return null;

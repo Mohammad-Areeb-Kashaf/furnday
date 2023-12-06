@@ -34,7 +34,7 @@ class ProductModel {
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    category = json['category'].cast<String>();
+    category = json['category']?.cast<String>();
     if (json['description'] != null) {
       description = [];
       json['description'].forEach((v) {
@@ -44,10 +44,10 @@ class ProductModel {
     discountedPrice = json['discountedPrice'];
     featured = json['featured'];
     id = json['id'];
-    productImages = json['productImages'].cast<String>();
+    productImages = json['productImages']?.cast<String>();
     mrp = json['mrp'];
     name = json['name'];
-    product3dImages = json['product3dImages'].cast<String>();
+    product3dImages = json['product3dImages']?.cast<String>();
     product3dView = json['product3dView'];
     if (json['productReviews'] != null) {
       productReviews = <ProductReviews>[];
@@ -58,7 +58,7 @@ class ProductModel {
     rating = json['rating'];
     inStock = json['inStock'];
     if (json['customisations'] != null) {
-      customisations = json['customisations'].cast<String>();
+      customisations = json['customisations']?.cast<String>();
     }
   }
 

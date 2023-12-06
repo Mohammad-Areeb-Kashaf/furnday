@@ -38,12 +38,15 @@ AppBar myAppBar(BuildContext context, {bool isNotAuthenticated = false}) {
       ),
       GestureDetector(
         onTap: () {
+          if (!isNotAuthenticated) {
+
           Navigator.push(
             context,
             CupertinoPageRoute(
               builder: (context) => const UserProfileScreen(),
             ),
           );
+          }
         },
         child: const Hero(
           tag: "profile_img",

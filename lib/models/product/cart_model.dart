@@ -10,15 +10,14 @@ class CartModel {
   int? qty;
   String? mrp;
   String? discountedPrice;
-  List<String>? customisations;
+  String? customisations;
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     qty = json['qty'];
     mrp = json['mrp'];
     discountedPrice = json['discountedPrice'];
-
-    customisations = json['customisations'].cast<String>();
+    customisations = json['customisations'];
   }
 
   Map<String, dynamic> toJson() {

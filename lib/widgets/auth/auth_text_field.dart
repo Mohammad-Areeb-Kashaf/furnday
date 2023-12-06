@@ -1,7 +1,7 @@
 import 'package:furnday/constants.dart';
 
 class AuthTextField extends StatelessWidget {
-  const AuthTextField({
+  AuthTextField({
     super.key,
     required this.controller,
     required this.keyboardType,
@@ -15,11 +15,13 @@ class AuthTextField extends StatelessWidget {
   final bool obscureText;
   final String labelText;
   final Function validate;
+  final FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(fontSize: 24),
+      focusNode: focusNode,
+      style: const TextStyle(fontSize: 24, color: Colors.black),
       cursorHeight: 24,
       controller: controller,
       keyboardType: keyboardType,
@@ -35,10 +37,16 @@ class AuthTextField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: kBorderRadiusCard,
-          borderSide: const BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: Colors.black),
         ),
         labelText: labelText,
-        labelStyle: const TextStyle(fontSize: 24),
+        labelStyle: const TextStyle(fontSize: 24, color: Colors.black),
+        floatingLabelStyle: TextStyle(
+            fontSize: 24,
+            color: focusNode.hasPrimaryFocus ? kYellowColor : null),
+        focusColor: kYellowColor,
+        errorMaxLines: 5,
+        errorStyle: const TextStyle(color: Colors.red),
       ),
       validator: (value) => validate(value),
     );

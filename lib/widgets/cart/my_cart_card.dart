@@ -13,7 +13,7 @@ class MyCartCard extends StatefulWidget {
   final CartModel cartItem;
   final Function productQuantityWidget;
   final Function removeCartItem;
-  final List<String>? customisations;
+  final String? customisations;
 
   @override
   State<MyCartCard> createState() => _MyCartCardState();

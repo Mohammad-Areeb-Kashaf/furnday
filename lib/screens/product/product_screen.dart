@@ -6,9 +6,9 @@ class ProductScreen extends StatefulWidget {
   final String? productId;
 
   const ProductScreen({
-    Key? key,
+    super.key,
     required this.productId,
-  }) : super(key: key);
+  });
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -20,7 +20,7 @@ class _ProductScreenState extends State<ProductScreen> {
   bool isLoading = false;
   late ProductModel product;
   late CartModel cartProduct;
-  List<String> customisations = [];
+  String? customisations;
 
   @override
   Widget build(BuildContext context) {
@@ -192,8 +192,6 @@ class _ProductScreenState extends State<ProductScreen> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: ProductCustomisationSection(
                                 customisations: product.customisations,
-                                onCustomisationChanged: (value, index) =>
-                                    onCustomisationChanged(value, index),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -359,13 +357,5 @@ class _ProductScreenState extends State<ProductScreen> {
     setState(() {
       _qty = qty;
     });
-  }
-
-  onCustomisationChanged(value, index) {
-    if (value == true) {
-      customisations.add(product.customisations![index]);
-    } else if (value == false) {
-      customisations.remove(product.customisations![index]);
-    }
   }
 }
