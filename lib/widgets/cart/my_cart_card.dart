@@ -44,7 +44,10 @@ class _MyCartCardState extends State<MyCartCard> {
                   alignment: Alignment.topRight,
                   child: IconButton(
                     onPressed: () => widget.removeCartItem(widget.cartItem),
-                    icon: const Icon(Icons.close),
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],

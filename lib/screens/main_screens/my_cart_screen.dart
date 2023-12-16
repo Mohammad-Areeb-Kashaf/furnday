@@ -97,9 +97,8 @@ class _MyCartScreenState extends State<MyCartScreen> {
               ),
               isAuthenticatedChild: Scaffold(
                 appBar: AppBar(
-                  title: Text(
+                  title: const Text(
                     'My Cart',
-                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
                 body: SafeArea(
@@ -126,7 +125,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                           removeCartItem(cart),
                                       cartItem: cartItem,
                                       customisations: cartItem.customisations,
-                                    ); // Use your custom cart item widget
+                                    );
                                   },
                                 )
                               : const SizedBox.shrink(),

@@ -41,8 +41,6 @@ class ProductsController extends GetxController {
   List<ProductModel>? getSelectedCategoryProducts(selectedCategory) {
     try {
       List<ProductModel> selectedCategoryProducts = products.where((product) {
-        print(selectedCategory);
-        print(product.category);
         return product.category!.contains(selectedCategory.toString());
       }).toList();
 

@@ -27,6 +27,7 @@ class AuthTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       decoration: InputDecoration(
+        
         focusedBorder: OutlineInputBorder(
           borderRadius: kBorderRadiusCard,
           borderSide: const BorderSide(color: kYellowColor),
@@ -43,8 +44,8 @@ class AuthTextField extends StatelessWidget {
         labelStyle: const TextStyle(fontSize: 24, color: Colors.black),
         floatingLabelStyle: TextStyle(
             fontSize: 24,
-            color: focusNode.hasPrimaryFocus ? kYellowColor : null),
-        focusColor: kYellowColor,
+            color: focusNode.hasPrimaryFocus ? kYellowColor : Colors.black),
+        focusColor: Colors.black,
         errorMaxLines: 5,
         errorStyle: const TextStyle(color: Colors.red),
       ),

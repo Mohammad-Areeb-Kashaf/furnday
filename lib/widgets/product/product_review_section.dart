@@ -5,8 +5,7 @@ class ProductReviewSection extends StatelessWidget {
   final String productId;
 
   const ProductReviewSection(
-      {Key? key, required this.reviews, required this.productId})
-      : super(key: key);
+      {super.key, required this.reviews, required this.productId});
 
   @override
   Widget build(BuildContext context) {

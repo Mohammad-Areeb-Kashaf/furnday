@@ -7,12 +7,12 @@ class ProductPrice extends StatelessWidget {
   final TextStyle? discountedPriceStyle;
 
   const ProductPrice({
-    Key? key,
+    super.key,
     required this.mrp,
     required this.discountedPrice,
     this.mrpStyle,
     this.discountedPriceStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

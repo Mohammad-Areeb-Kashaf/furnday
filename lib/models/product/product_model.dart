@@ -14,7 +14,7 @@ class ProductModel {
   List<ProductReviews>? productReviews;
   double? rating;
   int? inStock;
-  List<String>? customisations;
+  String? customisations;
 
   ProductModel({
     this.category,

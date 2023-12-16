@@ -4,34 +4,10 @@ import 'package:http/http.dart' as http;
 class ShiprocketServicesController extends GetxController {
   String token = '';
 
-  @override
-  onInit() {
-    super.onInit();
-    // generateToken();
-  }
-
-  // generateToken() async {
-  //   var headers = {'Content-Type': 'application/json'};
-  //   var request = http.Request('POST',
-  //       Uri.parse('https://apiv2.shiprocket.in/v1/external/auth/login'));
-  //   request.body = json.encode(
-  //       {"email": "akgamer7666@gmail.com", "password": "areebakgamer786"});
-  //   request.headers.addAll(headers);
-  //
-  //   http.StreamedResponse response = await request.send();
-  //
-  //   if (response.statusCode == 200) {
-  //     token = json.decode(await response.stream.bytesToString())['token'];
-  //     printInfo(info: "This is the Token: $token");
-  //   } else {
-  //     printError(info: response.reasonPhrase.toString());
-  //   }
-  // }
-
   createCustomOrder() async {
     var headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer {{token}}'
+      'Authorization': 'Bearer ${{token}}'
     };
     var request = http.Request(
         'POST',
@@ -91,9 +67,8 @@ class ShiprocketServicesController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+      await response.stream.bytesToString();
     } else {
-      print(response.reasonPhrase);
     }
   }
 }

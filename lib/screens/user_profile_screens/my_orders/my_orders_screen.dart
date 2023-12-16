@@ -12,9 +12,6 @@ class MyOrdersScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text(
             'My Orders',
-            style: TextStyle(
-              color: Colors.black,
-            ),
           ),
         ),
         body: SafeArea(

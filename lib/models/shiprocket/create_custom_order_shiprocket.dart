@@ -30,15 +30,15 @@ class CreateCustomOrderShiprocketModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['order_id'] = this.orderId;
-    data['shipment_id'] = this.shipmentId;
-    data['status'] = this.status;
-    data['status_code'] = this.statusCode;
-    data['onboarding_completed_now'] = this.onboardingCompletedNow;
-    data['awb_code'] = this.awbCode;
-    data['courier_company_id'] = this.courierCompanyId;
-    data['courier_name'] = this.courierName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['order_id'] = orderId;
+    data['shipment_id'] = shipmentId;
+    data['status'] = status;
+    data['status_code'] = statusCode;
+    data['onboarding_completed_now'] = onboardingCompletedNow;
+    data['awb_code'] = awbCode;
+    data['courier_company_id'] = courierCompanyId;
+    data['courier_name'] = courierName;
     return data;
   }
 }

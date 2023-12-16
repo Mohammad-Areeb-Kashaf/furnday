@@ -55,7 +55,9 @@ class _MyAppState extends State<MyApp> {
               backgroundColor: MaterialStateProperty.all(kYellowColor),
             ),
           ),
+          
           textTheme: const TextTheme(
+            
               displayLarge: TextStyle(color: Colors.black),
               displayMedium: TextStyle(color: Colors.black),
               displaySmall: TextStyle(color: Colors.black),
@@ -117,6 +119,8 @@ class _MyAppState extends State<MyApp> {
           scaffoldBackgroundColor: kWhiteBackground,
           appBarTheme: const AppBarTheme(
             backgroundColor: kYellowColor,
+            titleTextStyle: TextStyle(color: Colors.black, fontSize: 16),
+            toolbarTextStyle: TextStyle(color: Colors.black, fontSize: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
                 bottom: kRadius,

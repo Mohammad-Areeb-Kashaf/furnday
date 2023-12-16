@@ -3,7 +3,7 @@ import 'package:furnday/constants.dart';
 class CartController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
-  late final user;
+  late final User? user;
   var cartItems = <CartModel>[].obs;
   bool isUserSignedIn = false;
   String userUid = '';
@@ -24,7 +24,7 @@ class CartController extends GetxController {
     user = _auth.currentUser;
     if (user != null) {
       isUserSignedIn = true;
-      userUid = user.uid;
+      userUid = user!.uid;
     }
 
     await getCartItems();
@@ -33,27 +33,21 @@ class CartController extends GetxController {
   getCartItems() async {
     printInfo(info: "User is signedIN = $isUserSignedIn");
     if (isUserSignedIn) {
-      print('waiting to fetch data');
       await Future.delayed(const Duration(seconds: 1));
       if (isUserSignedIn && userUid.isNotEmpty) {
-        print('fetching data');
         _firestore
             .collection('users')
             .doc(userUid)
             .snapshots()
             .listen((DocumentSnapshot documentSnapshot) async {
           if (documentSnapshot.exists) {
-            print("document exists");
             var cartResponseData =
                 documentSnapshot.data() as Map<String, dynamic>;
             final cartData = cartResponseData['cart'] as List<dynamic>;
-
-            // Process the list of cart items.
             cartItems.assignAll(
               cartData.map((item) => CartModel.fromJson(item)).toList(),
             );
 
-            // Step 3: Group Cart Items
             groupCartItems();
           } else if (!documentSnapshot.exists) {
             await createCart();
@@ -65,65 +59,65 @@ class CartController extends GetxController {
     }
   }
 
-  // Step 3: Grouping Cart Items
   void groupCartItems() {
-    if (isUserSignedIn) {
-      final Map<String, List<CartModel>> groupedItems = {};
+    final Map<String, List<CartModel>> groupedItems = {};
 
-      for (final cartItem in cartItems) {
-        final key = '${cartItem.id}-${cartItem.customisations!.join(',')}';
+    for (final cartItem in cartItems) {
+      final key = '${cartItem.id}-${cartItem.customisations}';
 
-        if (groupedItems.containsKey(key)) {
+      if (groupedItems.containsKey(key)) {
           groupedItems[key]!.first.qty =
               groupedItems[key]!.first.qty!.toInt() + cartItem.qty!.toInt();
         } else {
           groupedItems[key] = [cartItem];
         }
-      }
-
-      cartItems.clear();
-      cartItems.assignAll(groupedItems.values.expand((items) => items));
     }
+
+    cartItems.clear();
+    cartItems.assignAll(groupedItems.values.expand((items) => items));
   }
 
-  // Step 5: Create a Method to Update Cart Item Quantity in Firestore
-  Future<void> updateCartItemQuantityInFirestore(
-      CartModel cartItem, int newQuantity) async {
-    if (isUserSignedIn) {
-      final index = cartItems.indexWhere((item) =>
-          item.id == cartItem.id &&
-          const ListEquality()
-              .equals(item.customisations, cartItem.customisations));
-      if (index != -1) {
-        cartItems[index].qty = newQuantity;
-        final cartData = cartItems.map((item) => item.toJson()).toList();
-        await _firestore.collection('users').doc(userUid).update({
-          'cart': cartData,
-        });
-        // After updating the cart item in Firestore, re-group the cart items.
-        groupCartItems();
-      }
-    }
-  }
-
-  void updateCartItemQuantity(CartModel cartItem, int newQuantity) async {
+  void addToCart(CartModel newItem) {
     final existingIndex = cartItems.indexWhere((item) =>
-        item.id == cartItem.id &&
-        const ListEquality()
-            .equals(item.customisations, cartItem.customisations));
+        item.id == newItem.id && item.customisations == newItem.customisations);
 
     if (existingIndex != -1) {
-      cartItems[existingIndex].qty = newQuantity;
+      cartItems[existingIndex].qty =
+          cartItems[existingIndex].qty!.toInt() + newItem.qty!.toInt();
+    } else {
+      cartItems.add(newItem);
+    }
 
-      // Update the cart data in Firestore.
-      await updateCartInFirestore();
+    updateCartInFirestore();
+  }
+
+  void updateCartModelqty(CartModel CartModel, int newqty) {
+    final existingIndex = cartItems.indexWhere((item) =>
+        item.id == CartModel.id &&
+        item.customisations == CartModel.customisations);
+
+    if (existingIndex != -1) {
+      cartItems[existingIndex].qty = newqty;
+
+      updateCartInFirestore();
     }
   }
 
-  @override
-  void onClose() {
-    // Dispose of Firestore subscription and perform any necessary cleanup.
-    super.onClose();
+  void removeCartModel(CartModel CartModel) {
+    cartItems.removeWhere((item) =>
+        item.id == CartModel.id &&
+        item.customisations == CartModel.customisations);
+
+    updateCartInFirestore();
+  }
+
+  Future<void> updateCartInFirestore() async {
+    final cartData = cartItems.map((item) => item.toJson()).toList();
+    await _firestore.collection('users').doc(userUid).update({
+      'cart': cartData,
+    });
+
+    groupCartItems();
   }
 
   orderedAllCart() async {
@@ -150,49 +144,22 @@ class CartController extends GetxController {
     }
   }
 
-  void addToCart(CartModel newItem) async {
-    final existingIndex = cartItems.indexWhere((item) =>
-        item.id == newItem.id &&
-        const ListEquality()
-            .equals(item.customisations, newItem.customisations));
-
-    if (existingIndex != -1) {
-      // If the item already exists, update its quantity.
-      cartItems[existingIndex].qty =
-          cartItems[existingIndex].qty!.toInt() + newItem.qty!.toInt();
-    } else {
-      // If it's a new item, add it to the cart.
-      cartItems.add(newItem);
-    }
-
-    // Update the cart data in Firestore.
-    await updateCartInFirestore();
-  }
-
-  // Update the cart data in Firestore after modifying the cart.
-  Future<void> updateCartInFirestore() async {
-    if (isUserSignedIn) {
-      printInfo(info: "Updating to cart");
-      final cartData = cartItems.map((item) => item.toJson()).toList();
-      await _firestore.collection('users').doc(userUid).update({
-        'cart': cartData,
-      }).onError((error, stackTrace) async {
-        await _firestore.collection('users').doc(userUid).set({
-          'cart': cartData,
-        });
-      });
-      // After updating the cart in Firestore, re-group the cart items.
-      groupCartItems();
-    }
-  }
-
-  void removeCartItem(CartModel cartItem) async {
+  void removeCartItem(CartModel cartItem) {
     cartItems.removeWhere((item) =>
         item.id == cartItem.id &&
-        const ListEquality()
-            .equals(item.customisations, cartItem.customisations));
+        item.customisations == cartItem.customisations);
+    updateCartInFirestore();
+  }
 
-    // Update the cart data in Firestore to reflect the removal.
-    await updateCartInFirestore();
+  void updateCartItemQuantity(CartModel cartItem, int newQuantity) {
+    final existingIndex = cartItems.indexWhere((item) =>
+        item.id == cartItem.id &&
+        item.customisations == cartItem.customisations);
+
+    if (existingIndex != -1) {
+      cartItems[existingIndex].qty = newQuantity;
+
+      updateCartInFirestore();
+    }
   }
 }

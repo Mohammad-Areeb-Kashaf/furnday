@@ -1,7 +1,7 @@
 import 'package:furnday/constants.dart';
 
 class MyOrderDetailScreen extends StatefulWidget {
-  const MyOrderDetailScreen({Key? key}) : super(key: key);
+  const MyOrderDetailScreen({super.key});
 
   @override
   _MyOrderDetailScreenState createState() => _MyOrderDetailScreenState();
@@ -25,9 +25,6 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
         appBar: AppBar(
           title: const Text(
             'My Order Detail',
-            style: TextStyle(
-              color: Colors.black,
-            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -210,11 +207,6 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
                                   ),
                                 ],
                               ),
-                              // const Expanded(
-                              //   child: ProductImg(
-                              //     images: [],
-                              //   ),
-                              // ),
                             ],
                           ),
                           const SizedBox(

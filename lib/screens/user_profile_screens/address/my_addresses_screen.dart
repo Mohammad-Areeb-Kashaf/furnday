@@ -9,9 +9,8 @@ class MyAddressesScreen extends StatelessWidget {
     return InternetChecker(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'My Addresses',
-            style: Theme.of(context).textTheme.labelSmall,
           ),
         ),
         body: SafeArea(

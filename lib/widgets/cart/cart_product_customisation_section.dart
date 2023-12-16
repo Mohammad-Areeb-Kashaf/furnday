@@ -16,11 +16,17 @@ class _CartProductCustomisationSectionState
   List<bool> checkBoxTileValue = [];
   @override
   Widget build(BuildContext context) {
-    return widget.customisations!.isNotEmpty
+    return widget.customisations != null 
         ? RichText(
             text: TextSpan(
                 text: "Customisations:",
-                children: [TextSpan(text: widget.customisations)]),
+                style: const TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold),
+                children: [
+                  TextSpan(
+                      text: widget.customisations,
+                      style: const TextStyle(color: Colors.black)),
+                ]),
           )
         : const Padding(
             padding: EdgeInsets.all(10.0),

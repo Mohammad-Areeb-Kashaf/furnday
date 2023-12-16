@@ -192,6 +192,11 @@ class _ProductScreenState extends State<ProductScreen> {
                                   const EdgeInsets.symmetric(horizontal: 10),
                               child: ProductCustomisationSection(
                                 customisations: product.customisations,
+                                onValueChanged: (String? value) {
+                                  setState(() {
+                                    customisations = value;
+                                  });
+                                },
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -264,6 +269,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                 });
                                 cartProduct.customisations = customisations;
                                 cartController.addToCart(product.toCartModel());
+                                
                                 setState(() {
                                   isLoading = false;
                                 });

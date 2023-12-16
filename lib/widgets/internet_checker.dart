@@ -5,7 +5,7 @@ import 'package:furnday/widgets/network_aware_widget.dart';
 class InternetChecker extends StatelessWidget {
   final Widget child;
 
-  const InternetChecker({Key? key, required this.child}) : super(key: key);
+  const InternetChecker({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,7 @@
 import 'package:furnday/constants.dart';
 
 class Product3dViewScreen extends StatefulWidget {
-  const Product3dViewScreen({Key? key, required this.productId})
-      : super(key: key);
+  const Product3dViewScreen({super.key, required this.productId});
   final String productId;
 
   @override

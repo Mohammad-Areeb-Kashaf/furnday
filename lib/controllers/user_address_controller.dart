@@ -19,7 +19,6 @@ class UserAddressController extends GetxController {
     }
     shippingAddressModel.value = await getShippingAddressModel();
     billingAddressModel.value = await getBillingAddressModel();
-    print(shippingAddressModel.value.firstName);
   }
 
   getBillingAddressModel() async {
@@ -41,18 +40,14 @@ class UserAddressController extends GetxController {
   getShippingAddressModel() async {
     try {
       if (isUserSignedIn) {
-        print("fetching shipping address");
         var doc = await _firestore.collection("users").doc(userUid).get();
         UserAddressModel shippingAddress =
             UserAddressModel.fromJson(doc.data()!['shippingAddress']);
-        print("shipping Address first name:${shippingAddress.firstName}");
         return shippingAddress;
       } else {
-        print('else implementing');
         return UserAddressModel();
       }
     } catch (e) {
-      print(e.toString());
       printError(info: e.toString());
       return UserAddressModel();
     }

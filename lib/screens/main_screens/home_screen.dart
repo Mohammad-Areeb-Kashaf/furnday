@@ -23,8 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           AutoSwipeAds(),
           const ProductSection(
-            headingText: "All Products",
-            productGridType: ProductGridType.allProducts,
+            headingText: "Featured Products",
+            productGridType: ProductGridType.featuredProducts,
           ),
         ],
       ),

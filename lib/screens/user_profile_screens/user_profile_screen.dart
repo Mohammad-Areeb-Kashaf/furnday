@@ -2,7 +2,7 @@ import 'package:furnday/constants.dart';
 import 'package:furnday/services/auth_services.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({Key? key}) : super(key: key);
+  const UserProfileScreen({super.key});
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -159,8 +159,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             builder: (context) =>
                                                 const MyOrdersScreen())),
                                     title: const Text('My Orders'),
-                                    leading: const Icon(Icons.shopping_bag),
-                                    trailing: const Icon(Icons.chevron_right),
+                                    leading: const Icon(
+                                      Icons.shopping_bag,
+                                      color: Colors.black,
+                                    ),
+                                    trailing: const Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                   ListTile(
                                     onTap: () => Navigator.push(
@@ -171,8 +177,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       ),
                                     ),
                                     title: const Text('My Addresses'),
-                                    leading: const Icon(Icons.location_pin),
-                                    trailing: const Icon(Icons.chevron_right),
+                                    leading: const Icon(
+                                      Icons.location_pin,
+                                      color: Colors.black,
+                                    ),
+                                    trailing: const Icon(
+                                      Icons.chevron_right,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 10,

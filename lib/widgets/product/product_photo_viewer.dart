@@ -10,7 +10,7 @@ class ProductPhotoViewer extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 400, // adjust the height according to your requirement
+          height: 400, 
           child: Swiper(
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
