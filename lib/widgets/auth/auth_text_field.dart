@@ -6,6 +6,7 @@ class AuthTextField extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     required this.labelText,
+    required this.hintText,
     required this.validate,
     this.obscureText = false,
   });
@@ -14,6 +15,7 @@ class AuthTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final String labelText;
+  final String hintText;
   final Function validate;
   final FocusNode focusNode = FocusNode();
 
@@ -27,7 +29,6 @@ class AuthTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       decoration: InputDecoration(
-        
         focusedBorder: OutlineInputBorder(
           borderRadius: kBorderRadiusCard,
           borderSide: const BorderSide(color: kYellowColor),
@@ -41,6 +42,7 @@ class AuthTextField extends StatelessWidget {
           borderSide: const BorderSide(color: Colors.black),
         ),
         labelText: labelText,
+        hintText: hintText,
         labelStyle: const TextStyle(fontSize: 24, color: Colors.black),
         floatingLabelStyle: TextStyle(
             fontSize: 24,

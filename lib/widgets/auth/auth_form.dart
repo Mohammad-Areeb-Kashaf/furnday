@@ -44,6 +44,7 @@ class _AuthFormState extends State<AuthForm> {
                 : AuthTextField(
                     controller: nameController,
                     labelText: 'Name',
+                    hintText: 'Enter your Name',
                     validate: validateName,
                     keyboardType: TextInputType.text,
                   ),
@@ -51,6 +52,7 @@ class _AuthFormState extends State<AuthForm> {
             AuthTextField(
               controller: emailController,
               labelText: 'Email',
+              hintText: 'Enter your Email',
               keyboardType: TextInputType.emailAddress,
               validate: validateEmail,
             ),
@@ -58,6 +60,7 @@ class _AuthFormState extends State<AuthForm> {
             AuthTextField(
                 controller: passwordController,
                 labelText: widget.isSignIn ? 'Password' : 'Create Password',
+                hintText: "Enter your Password",
                 validate: validatePassword,
                 keyboardType: TextInputType.text,
                 obscureText: true),
@@ -69,6 +72,7 @@ class _AuthFormState extends State<AuthForm> {
                 : AuthTextField(
                     controller: confirmPasswordController,
                     labelText: 'Confirm password',
+                    hintText: 'Enter your Password',
                     validate: validateConfirmPassword,
                     keyboardType: TextInputType.text,
                     obscureText: true,
@@ -232,7 +236,8 @@ class _AuthFormState extends State<AuthForm> {
       } else if (AuthForm.authError ==
           '[firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.') {
         return 'Internet unavailable. Please connect your mobile to a internet connection';
-      } else if (AuthForm.authError == '[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.') {
+      } else if (AuthForm.authError ==
+          '[firebase_auth/too-many-requests] Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.') {
         return 'Account has been disabled temporarily due to many failed login attempts';
       }
     } else {

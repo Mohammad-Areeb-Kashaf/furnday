@@ -114,6 +114,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           labelText: 'Email',
+                                          hintText: 'Enter your Email',
                                           validate: validateEmail,
                                         ),
                                         const SizedBox(height: 20),
