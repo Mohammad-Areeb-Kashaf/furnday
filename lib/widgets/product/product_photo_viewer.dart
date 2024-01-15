@@ -10,14 +10,14 @@ class ProductPhotoViewer extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 400, 
+          height: 400,
           child: Swiper(
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    CupertinoPageRoute(
+                    MaterialPageRoute(
                       builder: (_) => ProductPhotoView(
                         photoUrl: photos[index],
                       ),

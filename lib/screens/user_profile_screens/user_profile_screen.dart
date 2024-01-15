@@ -21,7 +21,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('You are not Signed in, please sign in', style: Theme.of(context).textTheme.labelSmall,),
+                Text(
+                  'You are not Signed in, please sign in',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,7 +35,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         Navigator.pop(context);
                         Navigator.push(
                             context,
-                            CupertinoPageRoute(
+                            MaterialPageRoute(
                                 builder: (context) => const SignInScreen()));
                       },
                       child: Text(
@@ -46,14 +49,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         Navigator.pop(context);
                         Navigator.push(
                             context,
-                            CupertinoPageRoute(
+                            MaterialPageRoute(
                                 builder: (context) => const SignUpScreen()));
                       },
-                      
-                      child:  Text(
+                      child: Text(
                         'Sign Up',
                         style: Theme.of(context).textTheme.labelSmall,
-                      ),),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -99,7 +102,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  CupertinoPageRoute(
+                                  MaterialPageRoute(
                                     builder: (context) =>
                                         const UserProfileScreen(),
                                   ),
@@ -155,7 +158,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   ListTile(
                                     onTap: () => Navigator.push(
                                         context,
-                                        CupertinoPageRoute(
+                                        MaterialPageRoute(
                                             builder: (context) =>
                                                 const MyOrdersScreen())),
                                     title: const Text('My Orders'),
@@ -171,7 +174,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   ListTile(
                                     onTap: () => Navigator.push(
                                       context,
-                                      CupertinoPageRoute(
+                                      MaterialPageRoute(
                                         builder: (context) =>
                                             const MyAddressesScreen(),
                                       ),

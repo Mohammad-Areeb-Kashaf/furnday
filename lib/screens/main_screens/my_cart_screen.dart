@@ -65,7 +65,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               Navigator.pop(context);
                               Navigator.pushReplacement(
                                   context,
-                                  CupertinoPageRoute(
+                                  MaterialPageRoute(
                                       builder: (context) =>
                                           const SignInScreen()));
                             },
@@ -80,7 +80,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               Navigator.pop(context);
                               Navigator.push(
                                   context,
-                                  CupertinoPageRoute(
+                                  MaterialPageRoute(
                                       builder: (context) =>
                                           const SignUpScreen()));
                             },

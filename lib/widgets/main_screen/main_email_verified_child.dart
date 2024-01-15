@@ -125,7 +125,7 @@ class _MainEmailVerifiedChildState extends State<MainEmailVerifiedChild> {
                   Navigator.pop(context);
                   Navigator.push(
                       context,
-                      CupertinoPageRoute(
+                      MaterialPageRoute(
                           builder: (context) => const HireACarpenterScreen()));
                 },
                 title: const AutoSizeText(

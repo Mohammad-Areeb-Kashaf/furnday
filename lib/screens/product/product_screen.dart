@@ -39,7 +39,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 backgroundColor: Theme.of(context).primaryColor,
                 onPressed: () => Navigator.push(
                   context,
-                  CupertinoPageRoute(
+                  MaterialPageRoute(
                     builder: (context) => const MyCartScreen(),
                   ),
                 ),
@@ -129,7 +129,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         child: ElevatedButton(
                                           onPressed: () => Navigator.push(
                                             context,
-                                            CupertinoPageRoute(
+                                            MaterialPageRoute(
                                               builder: (context) =>
                                                   Product3dViewScreen(
                                                 productId:
@@ -269,14 +269,14 @@ class _ProductScreenState extends State<ProductScreen> {
                                 });
                                 cartProduct.customisations = customisations;
                                 cartController.addToCart(product.toCartModel());
-                                
+
                                 setState(() {
                                   isLoading = false;
                                 });
                                 if (context.mounted) {
                                   Navigator.push(
                                       context,
-                                      CupertinoPageRoute(
+                                      MaterialPageRoute(
                                           builder: (context) =>
                                               const MyCartScreen()));
                                 }

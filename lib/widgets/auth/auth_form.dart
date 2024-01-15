@@ -7,14 +7,14 @@ class AuthForm extends StatefulWidget {
     required this.onPressed,
     required this.signInWithGoogle,
     required this.signInWithFacebook,
-    required this.formkey,
+    required this.formKey,
   });
   final bool isSignIn;
   final Function onPressed;
   final Function signInWithGoogle;
   final Function signInWithFacebook;
   static String? authError = 'null';
-  final GlobalKey<FormState> formkey;
+  final GlobalKey<FormState> formKey;
 
   @override
   State<AuthForm> createState() => _AuthFormState();
@@ -32,7 +32,7 @@ class _AuthFormState extends State<AuthForm> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Form(
-        key: widget.formkey,
+        key: widget.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -84,7 +84,7 @@ class _AuthFormState extends State<AuthForm> {
                 ? GestureDetector(
                     onTap: () => Navigator.push(
                       context,
-                      CupertinoPageRoute(
+                      MaterialPageRoute(
                         builder: (context) => const ResetPasswordScreen(),
                       ),
                     ),
@@ -108,8 +108,8 @@ class _AuthFormState extends State<AuthForm> {
                 setState(() {
                   AuthForm.authError = 'null';
                 });
-                if (widget.formkey.currentState!.validate()) {
-                  widget.formkey.currentState!.save();
+                if (widget.formKey.currentState!.validate()) {
+                  widget.formKey.currentState!.save();
                   final name = nameController.text.trim();
                   final email = emailController.text.trim();
                   final password = passwordController.text.trim();

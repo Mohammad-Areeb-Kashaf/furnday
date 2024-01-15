@@ -79,7 +79,7 @@ class ProductServices {
                     selectedCategory = data[index].toString();
                     Navigator.push(
                       context,
-                      CupertinoPageRoute(
+                      MaterialPageRoute(
                         builder: (context) => Scaffold(
                           appBar: myAppBar(context),
                           body: SingleChildScrollView(

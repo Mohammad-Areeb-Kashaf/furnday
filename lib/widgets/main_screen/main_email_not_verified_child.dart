@@ -109,7 +109,7 @@ class _MainEmailNotVerifiedChildState extends State<MainEmailNotVerifiedChild> {
                                     _auth.signOut();
                                     Navigator.pushReplacement(
                                       context,
-                                      CupertinoPageRoute(
+                                      MaterialPageRoute(
                                         builder: (context) =>
                                             const SignInScreen(),
                                       ),

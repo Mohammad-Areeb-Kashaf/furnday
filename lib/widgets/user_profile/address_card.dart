@@ -33,7 +33,7 @@ class _AddressCardState extends State<AddressCard> {
                 widget.isShipping ? "Shipping Address" : "Billing Address",
             isAddress: widget.isAddressNull ? false : true,
             onPressed: () => Navigator.of(context).push(
-              CupertinoPageRoute(
+              MaterialPageRoute(
                 builder: (context) => EditDeliveryAddressScreen(
                   addressType: widget.isShipping ? "Shipping" : "Billing",
                   userAddress: widget.userAddress,
@@ -57,7 +57,7 @@ class _AddressCardState extends State<AddressCard> {
                         TextButton(
                           onPressed: () => Navigator.push(
                               context,
-                              CupertinoPageRoute(
+                              MaterialPageRoute(
                                   builder: (context) =>
                                       EditDeliveryAddressScreen(
                                           isAddressNull: true,

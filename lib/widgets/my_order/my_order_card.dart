@@ -11,7 +11,7 @@ class MyOrderCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        CupertinoPageRoute(
+        MaterialPageRoute(
           builder: (context) => const MyOrderDetailScreen(),
         ),
       ),

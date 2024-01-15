@@ -18,7 +18,7 @@ class _ProductCardState extends State<ProductCard> {
       onTap: () {
         Navigator.push(
           context,
-          CupertinoPageRoute(
+          MaterialPageRoute(
             builder: (context) => ProductScreen(
               productId: widget.product.id,
             ),

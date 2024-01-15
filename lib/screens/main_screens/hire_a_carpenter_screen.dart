@@ -211,7 +211,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                         Navigator.pop(context);
                         Navigator.pushReplacement(
                             context,
-                            CupertinoPageRoute(
+                            MaterialPageRoute(
                                 builder: (context) => const SignInScreen()));
                       },
                       child: Text(
@@ -225,7 +225,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
                         Navigator.pop(context);
                         Navigator.push(
                             context,
-                            CupertinoPageRoute(
+                            MaterialPageRoute(
                                 builder: (context) => const SignUpScreen()));
                       },
                       child: Text(

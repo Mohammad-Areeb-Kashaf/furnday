@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furnday/screens/main_screens/my_cart_screen.dart';
 import 'package:furnday/screens/user_profile_screens/user_profile_screen.dart';
@@ -26,7 +25,7 @@ AppBar myAppBar(BuildContext context, {bool isNotAuthenticated = false}) {
               if (!isNotAuthenticated) {
                 Navigator.push(
                   context,
-                  CupertinoPageRoute(
+                  MaterialPageRoute(
                     builder: (context) => const MyCartScreen(),
                   ),
                 );
@@ -39,13 +38,12 @@ AppBar myAppBar(BuildContext context, {bool isNotAuthenticated = false}) {
       GestureDetector(
         onTap: () {
           if (!isNotAuthenticated) {
-
-          Navigator.push(
-            context,
-            CupertinoPageRoute(
-              builder: (context) => const UserProfileScreen(),
-            ),
-          );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const UserProfileScreen(),
+              ),
+            );
           }
         },
         child: const Hero(
