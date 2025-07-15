@@ -12,11 +12,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
   final _auth = FirebaseAuth.instance;
   late final user;
   Widget? shippingAddress;
-  var cfPaymentGatewayService = CFPaymentGatewayService();
+  // var cfPaymentGatewayService = CFPaymentGatewayService();
   late Future<CreateOrderModel> createOrderModel;
   String orderId = '';
   String paymentSessionId = '';
-  CFEnvironment environment = CFEnvironment.SANDBOX;
+  // CFEnvironment environment = CFEnvironment.SANDBOX;
   late CartController cartController;
   late bool isUserSignedIn;
   bool isLoading = false;
@@ -36,7 +36,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
     }
 
     shippingAddress = userAddressController.getShippingAddressCard();
-    cfPaymentGatewayService.setCallback(verifyPayment, onError);
+    // cfPaymentGatewayService.setCallback(verifyPayment, onError);
   }
 
   @override
@@ -238,67 +238,68 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                     height: 2,
                                   ),
                                   ElevatedButton(
-                                    onPressed: () async {
-                                      try {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
+                                    // onPressed: () async {
+                                    //   try {
+                                    //     setState(() {
+                                    //       isLoading = true;
+                                    //     });
 
-                                        if (shippingAddressModel.firstName !=
-                                                null &&
-                                            cartController
-                                                .cartItems.isNotEmpty) {
-                                          await CashfreeServices()
-                                              .createOrder(
-                                                  cartController.totalPrice)
-                                              .then((value) async {
-                                            setState(() {
-                                              orderId =
-                                                  value.orderId.toString();
-                                              paymentSessionId = value
-                                                  .paymentSessionId
-                                                  .toString();
-                                            });
-                                            await pay().catchError((error) {
-                                              if (error ==
-                                                  "phone : should be"
-                                                      " a valid 10 digit indian phone number. example 9090407368. Value received: 1234567890") {
-                                                Get.showSnackbar(
-                                                    const GetSnackBar(
-                                                  title: "Error",
-                                                  message: "Pho"
-                                                      "ne "
-                                                      "number should be a valid 10 digit Indian phone number",
-                                                ));
-                                              }
-                                            });
-                                          });
-                                        } else if (shippingAddressModel
-                                                .firstName ==
-                                            null) {
-                                          Get.showSnackbar(const GetSnackBar(
-                                            title: "Error",
-                                            message:
-                                                'Please add shipping address',
-                                            borderRadius: 20,
-                                            duration: Duration(seconds: 3),
-                                          ));
-                                        } else {
-                                          Get.showSnackbar(const GetSnackBar(
-                                            title: "Error",
-                                            message:
-                                                'There is nothing in your cart',
-                                            borderRadius: 20,
-                                            duration: Duration(seconds: 10),
-                                          ));
-                                        }
-                                        setState(() {
-                                          isLoading = false;
-                                        });
-                                      } catch (e) {
-                                        printError(info: e.toString());
-                                      }
-                                    },
+                                    //     if (shippingAddressModel.firstName !=
+                                    //             null &&
+                                    //         cartController
+                                    //             .cartItems.isNotEmpty) {
+                                    //       await CashfreeServices()
+                                    //           .createOrder(
+                                    //               cartController.totalPrice)
+                                    //           .then((value) async {
+                                    //         setState(() {
+                                    //           orderId =
+                                    //               value.orderId.toString();
+                                    //           paymentSessionId = value
+                                    //               .paymentSessionId
+                                    //               .toString();
+                                    //         });
+                                    //         await pay().catchError((error) {
+                                    //           if (error ==
+                                    //               "phone : should be"
+                                    //                   " a valid 10 digit indian phone number. example 9090407368. Value received: 1234567890") {
+                                    //             Get.showSnackbar(
+                                    //                 const GetSnackBar(
+                                    //               title: "Error",
+                                    //               message: "Pho"
+                                    //                   "ne "
+                                    //                   "number should be a valid 10 digit Indian phone number",
+                                    //             ));
+                                    //           }
+                                    //         });
+                                    //       });
+                                    //     } else if (shippingAddressModel
+                                    //             .firstName ==
+                                    //         null) {
+                                    //       Get.showSnackbar(const GetSnackBar(
+                                    //         title: "Error",
+                                    //         message:
+                                    //             'Please add shipping address',
+                                    //         borderRadius: 20,
+                                    //         duration: Duration(seconds: 3),
+                                    //       ));
+                                    //     } else {
+                                    //       Get.showSnackbar(const GetSnackBar(
+                                    //         title: "Error",
+                                    //         message:
+                                    //             'There is nothing in your cart',
+                                    //         borderRadius: 20,
+                                    //         duration: Duration(seconds: 10),
+                                    //       ));
+                                    //     }
+                                    //     setState(() {
+                                    //       isLoading = false;
+                                    //     });
+                                    //   } catch (e) {
+                                    //     printError(info: e.toString());
+                                    //   }
+                                    // },
+                                    onPressed: () {  },
                                     child: const Text(
                                       'Proceed to Pay',
                                       style: TextStyle(
@@ -353,54 +354,54 @@ class _MyCartScreenState extends State<MyCartScreen> {
     }
   }
 
-  void onError(CFErrorResponse errorResponse, String orderId) {
-    printError(info: errorResponse.getMessage().toString());
-  }
+  // void onError(CFErrorResponse errorResponse, String orderId) {
+  //   printError(info: errorResponse.getMessage().toString());
+  // }
 
-  CFSession? createSession() {
-    try {
-      var session = CFSessionBuilder()
-          .setEnvironment(environment)
-          .setOrderId(orderId)
-          .setPaymentSessionId(paymentSessionId)
-          .build();
-      return session;
-    } on CFException catch (e) {
-      printError(info: e.message);
-    }
-    return null;
-  }
+  // CFSession? createSession() {
+  //   try {
+  //     var session = CFSessionBuilder()
+  //         .setEnvironment(environment)
+  //         .setOrderId(orderId)
+  //         .setPaymentSessionId(paymentSessionId)
+  //         .build();
+  //     return session;
+  //   } on CFException catch (e) {
+  //     printError(info: e.message);
+  //   }
+  //   return null;
+  // }
 
-  Future pay() async {
-    try {
-      var session = createSession();
-      List<CFPaymentModes> components = <CFPaymentModes>[];
-      var paymentComponent =
-          CFPaymentComponentBuilder().setComponents(components).build();
+  // Future pay() async {
+  //   try {
+  //     var session = createSession();
+  //     List<CFPaymentModes> components = <CFPaymentModes>[];
+  //     var paymentComponent =
+  //         CFPaymentComponentBuilder().setComponents(components).build();
 
-      var theme = CFThemeBuilder()
-          .setNavigationBarBackgroundColorColor("#F6C33C")
-          .setPrimaryFont("Menlo")
-          .setSecondaryFont("Futura")
-          .setPrimaryTextColor("#000000")
-          .setButtonBackgroundColor("#F6C33C")
-          .setBackgroundColor("#F6C33C")
-          .setNavigationBarTextColor("#000000")
-          .setSecondaryTextColor("#000000")
-          .setButtonTextColor("#000000")
-          .build();
+  //     var theme = CFThemeBuilder()
+  //         .setNavigationBarBackgroundColorColor("#F6C33C")
+  //         .setPrimaryFont("Menlo")
+  //         .setSecondaryFont("Futura")
+  //         .setPrimaryTextColor("#000000")
+  //         .setButtonBackgroundColor("#F6C33C")
+  //         .setBackgroundColor("#F6C33C")
+  //         .setNavigationBarTextColor("#000000")
+  //         .setSecondaryTextColor("#000000")
+  //         .setButtonTextColor("#000000")
+  //         .build();
 
-      var cfDropCheckoutPayment = CFDropCheckoutPaymentBuilder()
-          .setSession(session!)
-          .setPaymentComponent(paymentComponent)
-          .setTheme(theme)
-          .build();
+  //     var cfDropCheckoutPayment = CFDropCheckoutPaymentBuilder()
+  //         .setSession(session!)
+  //         .setPaymentComponent(paymentComponent)
+  //         .setTheme(theme)
+  //         .build();
 
-      cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
-    } on CFException catch (e) {
-      printError(info: e.message);
-    }
-  }
+  //     cfPaymentGatewayService.doPayment(cfDropCheckoutPayment);
+  //   } on CFException catch (e) {
+  //     printError(info: e.message);
+  //   }
+  // }
 
   Widget _buildProductQuantity(cart) {
     return GetX<CartController>(
