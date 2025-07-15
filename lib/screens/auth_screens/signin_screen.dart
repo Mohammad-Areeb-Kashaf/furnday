@@ -68,7 +68,6 @@ class _SignInScreenState extends State<SignInScreen> {
                               isSignIn: true,
                               onPressed: signIn,
                               signInWithGoogle: signInWithGoogle,
-                              signInWithFacebook: signInWithFacebook,
                             ),
                           ),
                         ),
@@ -198,46 +197,6 @@ class _SignInScreenState extends State<SignInScreen> {
           ? Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const MainScreen()))
           : null;
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  signInWithFacebook() async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        final AccessToken accessToken = result.accessToken!;
-
-        if (accessToken.token.isNotEmpty) {
-          final OAuthCredential credential =
-              FacebookAuthProvider.credential(result.accessToken!.token);
-          await _auth.signInWithCredential(credential);
-          context.mounted
-              ? Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()))
-              : null;
-          setState(() {
-            isLoading = false;
-          });
-        } else {
-          setState(() {
-            isLoading = false;
-          });
-        }
-      } else {
-        printInfo(info: result.status.toString());
-        printInfo(info: result.message.toString());
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } catch (e) {
-      printError(info: e.toString());
       setState(() {
         isLoading = false;
       });
