@@ -16,8 +16,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: Scaffold(
+    return  Scaffold(
         body: Stack(
           children: [
             Container(
@@ -195,7 +194,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             )
           ],
         ),
-      ),
     );
   }
 

@@ -23,8 +23,7 @@ class Product3dViewScreenState extends State<Product3dViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: GetX<ProductsController>(builder: (controller) {
+    return GetX<ProductsController>(builder: (controller) {
         final productIndex = controller.allProductsList.indexWhere(
           (product) => product.id == widget.productId,
         );
@@ -43,7 +42,6 @@ class Product3dViewScreenState extends State<Product3dViewScreen> {
             ),
           ),
         );
-      }),
-    );
+      });
   }
 }

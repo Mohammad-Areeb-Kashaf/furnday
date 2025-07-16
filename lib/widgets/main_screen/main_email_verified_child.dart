@@ -18,8 +18,7 @@ class _MainEmailVerifiedChildState extends State<MainEmailVerifiedChild> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: Scaffold(
+    return  Scaffold(
         drawer: Drawer(
           backgroundColor: kWhiteBackground,
           child: ListView(
@@ -138,7 +137,6 @@ class _MainEmailVerifiedChildState extends State<MainEmailVerifiedChild> {
         ),
         appBar: myAppBar(context),
         body: screenDeterminer(),
-      ),
     );
   }
 

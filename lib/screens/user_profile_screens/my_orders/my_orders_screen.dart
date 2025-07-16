@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:furnday/widgets/internet_checker.dart';
 import 'package:furnday/widgets/my_order/my_order_card.dart';
 
 class MyOrdersScreen extends StatelessWidget {
@@ -7,8 +6,7 @@ class MyOrdersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text(
             'My Orders',
@@ -21,7 +19,6 @@ class MyOrdersScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

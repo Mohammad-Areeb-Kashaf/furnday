@@ -14,8 +14,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: LoadingOverlay(
+    return  LoadingOverlay(
         isLoading: isLoading,
         child: Scaffold(
           body: Stack(
@@ -114,7 +113,6 @@ class _SignInScreenState extends State<SignInScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 
@@ -191,7 +189,6 @@ class _SignInScreenState extends State<SignInScreen> {
         isLoading = true;
       });
 
-      NetworkStatusService().checkInternet();
       printError(info: e.toString());
       context.mounted
           ? Navigator.pushReplacement(context,

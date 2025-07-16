@@ -483,8 +483,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(
             widget.isAddressNull
@@ -533,7 +532,7 @@ class _EditDeliveryAddressScreenState extends State<EditDeliveryAddressScreen> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

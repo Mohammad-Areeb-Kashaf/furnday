@@ -20,8 +20,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
       TrackOrderModel(title: "Delivered", subtitle: "Your order is delivered"),
     ];
 
-    return InternetChecker(
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: const Text(
             'My Order Detail',
@@ -380,7 +379,6 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
             ),
           ),
         ),
-      ),
     );
   }
 }

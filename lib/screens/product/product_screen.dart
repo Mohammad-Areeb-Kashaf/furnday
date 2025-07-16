@@ -30,8 +30,7 @@ class _ProductScreenState extends State<ProductScreen> {
       );
       product = controller.allProductsList[productIndex];
       cartProduct = product.toCartModel();
-      return InternetChecker(
-        child: LoadingOverlay(
+      return LoadingOverlay(
           isLoading: isLoading,
           child: Scaffold(
             floatingActionButton: CartItemCountBtn(
@@ -316,8 +315,7 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
             ),
           ),
-        ),
-      );
+        );
     });
   }
 

@@ -41,8 +41,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: LoadingOverlay(
+    return  LoadingOverlay(
         isLoading: isLoading,
         child: Obx(
           () {
@@ -323,8 +322,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
             );
           },
         ),
-      ),
-    );
+      );
   }
 
   void verifyPayment(String paymentOrderId) async {

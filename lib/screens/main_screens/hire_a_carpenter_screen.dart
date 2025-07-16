@@ -193,8 +193,7 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: AuthServices(
+    return AuthServices(
         isNotAuthenticatedChild: Scaffold(
           appBar: myAppBar(context),
           body: Center(
@@ -286,7 +285,6 @@ class _HireACarpenterScreenState extends State<HireACarpenterScreen> {
             ),
           ),
         ),
-      ),
     );
   }
 }

@@ -19,8 +19,7 @@ class _MainEmailNotVerifiedChildState extends State<MainEmailNotVerifiedChild> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: Scaffold(
+    return  Scaffold(
         body: Stack(
           children: [
             Container(
@@ -131,7 +130,6 @@ class _MainEmailNotVerifiedChildState extends State<MainEmailNotVerifiedChild> {
             ),
           ],
         ),
-      ),
     );
   }
 }

@@ -6,8 +6,7 @@ class MyAddressesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<UserAddressController>();
-    return InternetChecker(
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: const Text(
             'My Addresses',
@@ -30,7 +29,6 @@ class MyAddressesScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

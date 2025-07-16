@@ -13,8 +13,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetChecker(
-      child: AuthServices(
+    return AuthServices(
         isNotAuthenticatedChild: Scaffold(
           appBar: myAppBar(context, isNotAuthenticated: true),
           body: Center(
@@ -206,7 +205,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             : null;
                                       } catch (e) {
                                         printError(info: e.toString());
-                                        NetworkStatusService().checkInternet();
                                       }
                                     },
                                     child: const Text(
@@ -227,7 +225,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
